@@ -1,0 +1,52 @@
+
+
+:root {
+  /** Base colors */
+  --clr-dark-a0: #000000;
+  --clr-light-a0: #ffffff;
+
+  /** Theme primary colors */
+  --clr-primary-a0: #fa9819; /** Brand */
+  --clr-primary-a10: #db861a;
+  --clr-primary-a20: #bd741b;
+  --clr-primary-a30: #a0631a;
+  --clr-primary-a40: #845219;
+  --clr-primary-a50: #694217;
+  --clr-primary-a60: #4f3314;
+
+  /** Theme surface colors */
+  --clr-surface-a0: #f9f9f8; /** Main dashboard background */
+  --clr-surface-a10: #ebebea; /** Menu Bar / Card Background */
+  --clr-surface-a20: #dddddc;
+  --clr-surface-a30: #cfcfce;
+  --clr-surface-a40: #c1c1c1;
+  --clr-surface-a50: #b4b4b4;
+
+  /** Theme tonal surface colors */
+  --clr-surface-tonal-a0: #fcefe3;
+  --clr-surface-tonal-a10: #eee2d8;
+  --clr-surface-tonal-a20: #dfd5cc;
+  --clr-surface-tonal-a30: #d1c9c1;
+  --clr-surface-tonal-a40: #c3bcb6;
+  --clr-surface-tonal-a50: #b5b0ab;
+
+  /** Success colors */
+  --clr-success-a0: #00c97a; /** Support 1 */
+  --clr-success-a10: #17ffa4;
+  --clr-success-a20: #63ffc2;
+
+  /** Warning colors */
+  --clr-warning-a0: #ff6b6b; /** Support 2 */
+  --clr-warning-a10: #ffb7b7;
+  --clr-warning-a20: #ffffff;
+
+  /** Danger colors */
+  --clr-danger-a0: #6b9fff; /** Support 3 */
+  --clr-danger-a10: #b7d1ff;
+  --clr-danger-a20: #ffffff;
+
+  /** Info colors */
+  --clr-info-a0: #d6e93e; /** Support 4 */
+  --clr-info-a10: #e5f183;
+  --clr-info-a20: #f3f9c7;
+}

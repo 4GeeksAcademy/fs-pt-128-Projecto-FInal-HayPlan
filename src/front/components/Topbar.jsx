@@ -5,7 +5,7 @@ export const Topbar = () => {
     return (
         <div className="d-flex align-items-center justify-content-between px-3 py-2">
 
-            <div className="fw-bold">Pagina</div>
+            <div className="fw-bold px-3">Pagina</div>
 
             {/* Contenedor para botones */}
             <div className="d-flex justify-content-end gap-2">
