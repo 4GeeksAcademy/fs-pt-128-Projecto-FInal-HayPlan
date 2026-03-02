@@ -1,19 +1,143 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import String, Boolean
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import String, Boolean, Text, ForeignKey, Enum, DateTime, Integer, Float
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+import enum
+from datetime import datetime, timezone
+from typing import List
+from flask_bcrypt import generate_password_hash
 
 db = SQLAlchemy()
 
+class PlanStatus(enum.Enum):
+    PROPUESTA = "propuesta"
+    VOTACION = "votacion"
+    EN_CURSO = "en_curso"
+    CERRADO = "cerrado"
+    
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
-    password: Mapped[str] = mapped_column(nullable=False)
-    is_active: Mapped[bool] = mapped_column(Boolean(), nullable=False)
+    password_hash: Mapped[str] = mapped_column(nullable=False)
+    username: Mapped[str] = mapped_column(String(120), unique=True, nullable=True)
+    is_active: Mapped[bool] = mapped_column(Boolean(), default=True, nullable=False)
 
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password).decode('utf-8')
 
     def serialize(self):
         return {
             "id": self.id,
             "email": self.email,
+            "username": self.username,
             # do not serialize the password, its a security breach
+        }
+
+class Plan(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    title: Mapped[str] = mapped_column(String(120), nullable=False)
+    description: Mapped[str] = mapped_column(Text, default="")
+    group_id: Mapped[int] = mapped_column(ForeignKey("group.id"), nullable=False)
+    organizer_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
+    status: Mapped[PlanStatus] = mapped_column(Enum(PlanStatus), default=PlanStatus.PROPUESTA)
+    location: Mapped[str] = mapped_column(String(120), default="")
+    date: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+    group: Mapped["Group"] = relationship("Group", back_populates="plans")
+    organizer: Mapped["User"] = relationship("User", back_populates="plans_organizer")
+    votes: Mapped[List["Vote"]] = relationship("Vote", back_populates="plan", cascade="all, delete-orphan")
+    ratings: Mapped[List["PlanRating"]] = relationship("PlanRating", back_populates="plan", cascade="all, delete-orphan")
+
+    def serialize(self):
+        average_rating = None
+        if self.ratings:
+            average_rating = round(sum(rating.score for rating in self.ratings)/len(self.ratings), 1)
+        
+        return {
+            "id": self.id,
+            "title": self.title,
+            "description": self.description,
+            "group_id": self.group_id,
+            "organizer_id": self.organizer_id,
+            "organizer_username": self.organizer.username,
+            "status": self.status.value,
+            "location": self.location,
+            "date": self.date.isoformat(),
+            "created_at": self.created_at.isoformat(),
+            "rating": average_rating,
+            "rating_count": len(self.ratings)
+        }
+
+class Vote(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    plan_id: Mapped[int] = mapped_column(ForeignKey("plan.id"), nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
+    vote: Mapped[bool] = mapped_column(Boolean, nullable=False)
+
+    plan: Mapped["Plan"] = relationship("Plan", back_populates="votes")
+    voter: Mapped["User"] = relationship("User", back_populates="votes")
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "plan_id": self.plan_id,
+            "user_id": self.user_id,
+            "vote": self.vote
+        }
+    
+class PlanRating(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    plan_id: Mapped[int] = mapped_column(ForeignKey("plan.id"), nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
+    score: Mapped[int] = mapped_column(Integer, nullable=False)
+
+    plan: Mapped["Plan"] = relationship("Plan", back_populates="ratings")
+    user: Mapped["User"] = relationship("User", back_populates="ratings")
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "plan_id": self.plan_id,
+            "user_id": self.user_id,
+            "score": self.score
+        }
+    
+class PlanMemory(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    plan_id: Mapped[int] = mapped_column(ForeignKey("plan.id"), nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
+    comment: Mapped[str] = mapped_column(String(500), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
+
+    plan: Mapped["Plan"] = relationship("Plan", back_populates="memories")
+    user: Mapped["User"] = relationship("User", back_populates="memories")
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "plan_id": self.plan_id,
+            "user_id": self.user_id,
+            "username": self.user.username,
+            "comment": self.comment,
+            "created_at": self.created_at.isoformat()
+        }
+    
+class Expense(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    plan_id: Mapped[int] = mapped_column(ForeignKey("plan.id"), nullable=False)
+    paid_by_id: Mapped[int] = mapped_column(ForeignKey("user.id"), nullable=False)
+    description: Mapped[str] = mapped_column(String(500), nullable=False)
+    total_amount: Mapped[float] = mapped_column(Float, nullable=False)
+
+    plan: Mapped["Plan"] = relationship("Plan", back_populates="expenses")
+    paid_by: Mapped["User"] = relationship("User", back_populates="expenses")
+    
+    def serialize(self):
+        return {
+            "id": self.id,
+            "plan_id": self.plan_id,
+            "paid_by_id": self.user_id,
+            "paid_by": self.user.username,
+            "description": self.description,
+            "total_amount": self.total_amount
         }
