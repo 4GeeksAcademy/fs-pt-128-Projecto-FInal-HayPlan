@@ -25,9 +25,7 @@ export const DashboardBlockMedium = () => {
                     <div className="card border rounded-4">
                         <div className="card-body d-flex align-items-center gap-3 p-3">
                             {/* icono o imagen?  */}
-                            <div
-                                className="d-flex align-items-center justify-content-center rounded-3"
-                            >
+                            <div className="d-flex align-items-center justify-content-center rounded-3">
                                 <i class="bi bi-airplane"></i>
                             </div>
 
