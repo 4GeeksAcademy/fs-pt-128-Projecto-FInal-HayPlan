@@ -13,6 +13,15 @@ class PlanStatus(enum.Enum):
     VOTACION = "votacion"
     EN_CURSO = "en_curso"
     CERRADO = "cerrado"
+
+# PF
+# tabla auxiliar compuesta por PK-> user.id & PK -> group.id 
+# Relacion muchos a muchos
+group_members = db.Table(
+    "group_members",
+    db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
+    db.Column("group_id", db.Integer, db.ForeignKey("group.id"), primary_key=True)
+)
     
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -20,6 +29,12 @@ class User(db.Model):
     password_hash: Mapped[str] = mapped_column(nullable=False)
     username: Mapped[str] = mapped_column(String(120), unique=True, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean(), default=True, nullable=False)
+
+    #PF
+    admin_groups: Mapped[List["Group"]] = relationship("Group", back_populates="admin")
+    groups: Mapped[List["Group"]] = relationship("Group", secondary=group_members, back_populates="members")
+    plans_organizer: Mapped[List["Plan"]] = relationship("Plan", back_populates="organizer") #esta relacion nos permite completar estadisticas de un usuario relacionado a planes. 
+    # --PF
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password).decode('utf-8')
@@ -141,3 +156,25 @@ class Expense(db.Model):
             "description": self.description,
             "total_amount": self.total_amount
         }
+
+# PF
+
+class Group(db.Model):
+    id: Mapped[int] = mapped_column(primary_key=True)
+    name: Mapped[str] = mapped_column(String(120), nullable=False)
+    description: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    admin_id: Mapped[int]= mapped_column(ForeignKey("user.id"), nullable=False)
+
+    #relaciones
+    admin: Mapped["User"] = relationship("User", back_populates="admin_groups")
+    members: Mapped[List["User"]] = relationship("User", secondary=group_members, back_populates="groups")
+    plans: Mapped[List["Plan"]] = relationship("Plan", back_populates="group", cascade="all, delete-orphan")
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "admin_id": self.admin_id
+        }
+    # --PF
