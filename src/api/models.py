@@ -11,7 +11,8 @@ db = SQLAlchemy()
 class PlanStatus(enum.Enum):
     PROPUESTA = "propuesta"
     VOTACION = "votacion"
-    EN_CURSO = "en_curso"
+    CONFIRMADO = "confirmado"
+    ACTIVO = "activo"
     CERRADO = "cerrado"
     
 class User(db.Model):
