@@ -63,15 +63,30 @@ def signup():
 def get_my_plans():
     user_id = int(get_jwt_identity())
     user = db.session.get(User, int(user_id))
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+    
     my_groups_id = [groups.id for groups in user.groups]
     if not my_groups_id:
-        return jsonify({"error": "No se encontró ningún grupo asociado a tu cuenta"}), 400
+        return jsonify({"error": "No se encontró ningún grupo asociado a tu cuenta"}), 404
     plans = db.session.execute(select(Plan).where(Plan.group_id.in_(my_groups_id)).order_by(Plan.created_at.desc())).scalars.all()
     return jsonify([plan.serialize() for plan in plans]), 200
 
 @api.route('/groups/<int:group_id>/plans', methods=['GET'])
 @jwt_required()
 def get_group_plans(group_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+    
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+    
+    if group not in user.groups:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+    
     plans = db.session.execute(select(Plan).where(Plan.group_id == group_id).order_by(Plan.created_at.desc())).scalars().all()
     return jsonify([plan.serialize() for plan in plans]), 200
 
@@ -80,6 +95,9 @@ def get_group_plans(group_id):
 def create_plan(group_id):
     user_id = int(get_jwt_identity())
     user = db.session.get(User, int(user_id))
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+    
     data = request.get_json()
     title = data.get("title")
     description = data.get("description", "")
@@ -92,6 +110,9 @@ def create_plan(group_id):
     group = db.session.get(Group, group_id)
     if not group:
         return jsonify({"error": "Grupo no encontrado"}), 404
+    
+    if group not in user.groups:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
     
     plan = Plan(
         title = title,
@@ -108,6 +129,18 @@ def create_plan(group_id):
 @api.route('/groups/<int:group_id>/plans/<int:plan_id>', methods=['GET'])
 @jwt_required()
 def get_plan(group_id, plan_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+
+    if group not in user.groups:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+    
     plan = db.session.get(Plan, plan_id)
     if not plan or plan.group_id != group_id:
         return jsonify({"error": "Plan no encontrado"}), 404
@@ -116,9 +149,13 @@ def get_plan(group_id, plan_id):
 @api.route('/groups/<int:group_id>/plans/<int:plan_id>', methods=['PUT'])
 @jwt_required()
 def update_plan(group_id, plan_id):
+    user_id = get_jwt_identity()
     plan = db.session.get(Plan, plan_id)
     if not plan or plan.group_id != group_id:
         return jsonify({"error": "Plan no encontrado"}), 404
+    
+    if plan.organizer_id != user_id:
+        return jsonify({"error": "Solo el organizador puede actualizar este plan"}), 403
     
     data = request.get_json()
     for field in ["title", "description", "location", "date"]:
@@ -131,9 +168,13 @@ def update_plan(group_id, plan_id):
 @api.route('/groups/<int:group_id>/plans/<int:plan_id>/advance_status', methods=['POST'])
 @jwt_required()
 def advance_status(group_id, plan_id):
+    user_id = get_jwt_identity()
     plan = db.session.get(Plan, plan_id)
     if not plan or plan.group_id != group_id:
         return jsonify({"error": "Plan no encontrado"}), 404
+    
+    if plan.organizer_id != user_id:
+        return jsonify({"error": "Solo el organizador puede actualizar este plan"}), 403
     
     order = [
         PlanStatus.PROPUESTA,
