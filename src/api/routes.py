@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import re # Importamos la librería para expresiones regulares
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Group
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
@@ -54,3 +54,82 @@ def signup():
 
     return jsonify({"msg": "¡Registro exitoso! Ya puedes iniciar sesión."}), 201
 
+
+#PF
+
+# --------------------- RUTAS GRUPO ---------------------
+#Lista de todos los grupos. 
+@api.route("/groups", methods=["GET"])
+def get_groups():
+    groups = db.session.execute(db.select(Group)).scalars().all()
+    return jsonify([group.serialize() for group in groups]), 200
+
+#Grupo individual
+@api.route("/groups/<int:group_id>", methods=["GET"])
+def get_group(group_id):
+    group = db.session.get(Group, group_id)
+
+    if not group: 
+        return jsonify({"error": "Group no encontrado"}), 404
+
+    return jsonify(group.serialize()), 200
+
+#Crear grupo
+@api.route("/groups", methods=["POST"])
+def create_group():
+    data = request.get_json()
+
+    name = data.get("name")
+    description = data.get("description")
+    admin_id = data.get("admin_id")
+
+    if not name or not admin_id:
+        return jsonify({"error": "Nombre de grupo y ID son requeridos"}), 400
+
+    new_group = Group (
+        name = name,
+        description = description,
+        admin_id = admin_id,
+    )
+
+    db.session.add(new_group)
+    db.session.commit()
+
+    return jsonify(new_group.serialize()), 200
+
+#Actualizar/editar grupo
+@api.route("/groups/<int:group_id>", methods=["PUT"])
+def update_group(group_id):
+    group = db.session.get(Group, group_id)
+
+    if not group:
+        return jsonify({"error": "Group no encontrado"}), 404
+
+    data = request.get_json()
+    name = data.get("name")
+    description = data.get("description")
+
+    if name: 
+        group.name = name
+
+    if description:
+        group.description = description
+
+    db.session.commit()
+    return jsonify(group.serialize()), 200
+
+#Eliminar grupo
+@api.route("/groups/<int:group_id>", methods=["DELETE"])
+def delete_group(group_id):
+    group = db.session.get(Group, group_id)
+
+    if not group: 
+        return jsonify({"error": "Group no encontrado"}), 404
+
+    db.sesion.delete(group)
+    db.sesion.commit()
+
+    return jsonify({"msg": "Group eliminado"}), 200
+
+
+#-PF
