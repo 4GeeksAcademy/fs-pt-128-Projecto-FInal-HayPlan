@@ -4,25 +4,24 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 import enum
 from datetime import datetime, timezone
 from typing import List
-# Se agrega check_password_hash para poder validar el login
 from flask_bcrypt import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
-class PlanStatus(enum.Enum):
-    PROPUESTA = "propuesta"
-    VOTACION = "votacion"
-    EN_CURSO = "en_curso"
-    CERRADO = "cerrado"
+# class PlanStatus(enum.Enum):
+#     PROPUESTA = "propuesta"
+#     VOTACION = "votacion"
+#     EN_CURSO = "en_curso"
+#     CERRADO = "cerrado"
 
-# PF
-# tabla auxiliar compuesta por PK-> user.id & PK -> group.id 
-# Relacion muchos a muchos
-group_members = db.Table(
-    "group_members",
-    db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
-    db.Column("group_id", db.Integer, db.ForeignKey("group.id"), primary_key=True)
-)
+# # PF
+# # tabla auxiliar compuesta por PK-> user.id & PK -> group.id 
+# # Relacion muchos a muchos
+# group_members = db.Table(
+#     "group_members",
+#     db.Column("user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
+#     db.Column("group_id", db.Integer, db.ForeignKey("group.id"), primary_key=True)
+# )
     
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -31,17 +30,16 @@ class User(db.Model):
     username: Mapped[str] = mapped_column(String(120), unique=True, nullable=True)
     is_active: Mapped[bool] = mapped_column(Boolean(), default=True, nullable=False)
 
-    #PF
-    admin_groups: Mapped[List["Group"]] = relationship("Group", back_populates="admin")
-    groups: Mapped[List["Group"]] = relationship("Group", secondary=group_members, back_populates="members")
-    plans_organizer: Mapped[List["Plan"]] = relationship("Plan", back_populates="organizer") #esta relacion nos permite completar estadisticas de un usuario relacionado a planes. 
-    # --PF
+    # #PF
+    # admin_groups: Mapped[List["Group"]] = relationship("Group", back_populates="admin")
+    # groups: Mapped[List["Group"]] = relationship("Group", secondary=group_members, back_populates="members")
+    # plans_organizer: Mapped[List["Plan"]] = relationship("Plan", back_populates="organizer") #esta relacion nos permite completar estadisticas de un usuario relacionado a planes. 
+    # # --PF
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password).decode('utf-8')
 
-    def check_password(self, password):
-        # Se usa self.password_hash para que coincida con el nombre de tu columna arriba
+    def check_password(self, password):      
         return check_password_hash(self.password_hash, password)
 
     def serialize(self):
@@ -153,34 +151,34 @@ class User(db.Model):
 #     plan: Mapped["Plan"] = relationship("Plan", back_populates="expenses")
 #     paid_by: Mapped["User"] = relationship("User", back_populates="expenses")
     
-    def serialize(self):
-        return {
-            "id": self.id,
-            "plan_id": self.plan_id,
-            "paid_by_id": self.user_id,
-            "paid_by": self.user.username,
-            "description": self.description,
-            "total_amount": self.total_amount
-        }
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "plan_id": self.plan_id,
+#             "paid_by_id": self.user_id,
+#             "paid_by": self.user.username,
+#             "description": self.description,
+#             "total_amount": self.total_amount
+#         }
 
-# PF
+# # PF
 
-class Group(db.Model):
-    id: Mapped[int] = mapped_column(primary_key=True)
-    name: Mapped[str] = mapped_column(String(120), nullable=False)
-    description: Mapped[str] = mapped_column(Text, default="", nullable=False)
-    admin_id: Mapped[int]= mapped_column(ForeignKey("user.id"), nullable=False)
+# class Group(db.Model):
+#     id: Mapped[int] = mapped_column(primary_key=True)
+#     name: Mapped[str] = mapped_column(String(120), nullable=False)
+#     description: Mapped[str] = mapped_column(Text, default="", nullable=False)
+#     admin_id: Mapped[int]= mapped_column(ForeignKey("user.id"), nullable=False)
 
-    #relaciones
-    admin: Mapped["User"] = relationship("User", back_populates="admin_groups")
-    members: Mapped[List["User"]] = relationship("User", secondary=group_members, back_populates="groups")
-    plans: Mapped[List["Plan"]] = relationship("Plan", back_populates="group", cascade="all, delete-orphan")
+#     #relaciones
+#     admin: Mapped["User"] = relationship("User", back_populates="admin_groups")
+#     members: Mapped[List["User"]] = relationship("User", secondary=group_members, back_populates="groups")
+#     plans: Mapped[List["Plan"]] = relationship("Plan", back_populates="group", cascade="all, delete-orphan")
 
-    def serialize(self):
-        return{
-            "id": self.id,
-            "name": self.name,
-            "description": self.description,
-            "admin_id": self.admin_id
-        }
-    # --PF
+#     def serialize(self):
+#         return{
+#             "id": self.id,
+#             "name": self.name,
+#             "description": self.description,
+#             "admin_id": self.admin_id
+#         }
+#     # --PF

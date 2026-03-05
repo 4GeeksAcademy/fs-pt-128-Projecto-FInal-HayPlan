@@ -31,10 +31,8 @@ export const editProfile = async (userData) => {
         const response = await fetch(
             `${import.meta.env.VITE_BACKEND_URL}/api/editProfile`, 
             {
-                method: "PUT",
-                // CORRECCIÓN: Usamos 'userData' que es lo que recibe la función
-                // Este objeto ahora contiene { id: userId, username: clean }
-                body: JSON.stringify(userData), 
+                method: "PUT",                
+                body: JSON.stringify({ username: userData.username }), 
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${localStorage.getItem("token")}`,
@@ -82,8 +80,8 @@ export const verifyToken = async (token, dispatch) => {
         const user = await response.json();
         dispatch({ type: "auth_set_user", payload: user });
     } catch (error) {
-        console.error("Error verificando token:", error);
-        // En caso de error de servidor, es mejor no hacer nada o intentar más tarde
+        console.error("Error verificando token:", error);        
     }
 };
+
 

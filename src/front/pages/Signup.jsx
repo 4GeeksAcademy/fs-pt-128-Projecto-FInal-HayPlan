@@ -45,29 +45,31 @@ export const Signup = () => {
 
         setLoading(true);
 
-        const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/signup", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                email: user.email,
-                password: user.password
-            })
-        });
+        try {
+            const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: user.email,
+                    password: user.password
+                })
+            });
 
-        if (response.ok) {
-            setLoading(false);
-            setSuccessMessage("¡Usuario registrado con éxito! Redirigiendo al login...");
-            setTimeout(() => {
-                navigate("/login");
-            }, 2000);
-        } else {
-            setLoading(false);
-            const errorData = await response.json();
-            if (response.status === 400 || response.status === 409) {
-                setError("Este correo electrónico ya está registrado.");
+            const data = await response.json();
+
+            if (response.ok) {
+                setLoading(false);
+                setSuccessMessage("¡Usuario registrado con éxito! Redirigiendo al login...");
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
             } else {
-                setError("Error: " + (errorData.msg || "No se pudo registrar"));
+                setLoading(false);                
+                setError(data.error || "No se pudo registrar el usuario");
             }
+        } catch (err) {
+            setLoading(false);
+            setError("Error de conexión con el servidor");
         }
     };
 
@@ -93,7 +95,7 @@ export const Signup = () => {
                 )}
 
                 <form onSubmit={handleSubmit}>
-                    {/* EMAIL - Estilo Unificado */}
+                    {/* EMAIL */}
                     <div className="mb-3">
                         <label className="form-label small fw-bold text-secondary text-uppercase">Email</label>
                         <div className="input-group custom-input-group">
@@ -112,7 +114,7 @@ export const Signup = () => {
                         </div>
                     </div>
 
-                    {/* CONTRASEÑA - Estilo Unificado */}
+                    {/* CONTRASEÑA */}
                     <div className="mb-3">
                         <label className="form-label small fw-bold text-secondary text-uppercase">Contraseña</label>
                         <div className="input-group custom-input-group">
@@ -186,6 +188,7 @@ export const Signup = () => {
         </div>
     );
 };
+
 
 
 

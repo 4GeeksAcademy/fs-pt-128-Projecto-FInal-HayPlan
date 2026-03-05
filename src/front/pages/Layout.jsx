@@ -10,9 +10,12 @@ import { verifyToken } from "../services/backEndServices"
 export const Layout = () => {
 
     const { store, dispatch } = useGlobalReducer()
-    useEffect(() => {
-        verifyToken(store.token, dispatch)
-    }, [store.token])
+
+    useEffect(() => {        
+        if (store.token && !store.user) {
+            verifyToken(store.token, dispatch)
+        }
+    }, [store.token, store.user, dispatch]) 
 
     return (
         <ScrollToTop>

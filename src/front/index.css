@@ -5,7 +5,7 @@
     --auth-input-bg: #FAFAFA;
 }
 
-/* Contenedor con tarjeta centrada y fondo crema */
+/* Contenedor  */
 .signup-wrapper {
     min-height: 100vh;
     background-color: var(--auth-bg);
@@ -33,7 +33,7 @@
     border: 1px solid #dee2e6 !important;
 }
 
-/* Ajuste específico para inputs con botón de ojo */
+/* Botón de ojo */
 .signup-input-group-start {
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
@@ -92,7 +92,6 @@
     cursor: not-allowed;
 }
 
-/* Ajustes opcionales para la tarjeta del modal */
 .rounded-4 {
     border-radius: 1rem !important;
 }

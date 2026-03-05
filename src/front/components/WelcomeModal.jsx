@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { editProfile } from "../services/backEndServices";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import "../index.css"; // Importación del CSS global
+import "../index.css"; 
 
 export const WelcomeModal = ({ show, onClose, userId }) => {
     const [username, setUsername] = useState("");
@@ -40,12 +40,13 @@ export const WelcomeModal = ({ show, onClose, userId }) => {
         });
 
         onClose();
+        // Modificar, pdte dashboard.
         navigate("/");
     };
 
     const handleClose = () => {
         localStorage.removeItem("token");
-        dispatch({ type: "logout" });
+        dispatch({ type: "auth_logout" });
         onClose();
     };
 
