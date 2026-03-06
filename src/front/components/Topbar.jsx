@@ -14,8 +14,8 @@ export const Topbar = () => {
                 
                 {/* Toggle modo claro/obscuro */}
                 <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <button type="button" class="btn btn-outline-primary">L</button>
-                    <button type="button" class="btn btn-outline-primary">D</button>
+                    <button type="button" class="btn btn-outline-primary"><i class="bi bi-brightness-low"></i></button>
+                    <button type="button" class="btn btn-outline-primary"><i class="bi bi-brightness-low-fill"></i></button>
                 </div>
             </div>
 

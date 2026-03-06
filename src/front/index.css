@@ -1,52 +1,82 @@
-
-
 :root {
   /** Base colors */
   --clr-dark-a0: #000000;
   --clr-light-a0: #ffffff;
 
   /** Theme primary colors */
-  --clr-primary-a0: #fa9819; /** Brand */
-  --clr-primary-a10: #db861a;
-  --clr-primary-a20: #bd741b;
-  --clr-primary-a30: #a0631a;
-  --clr-primary-a40: #845219;
-  --clr-primary-a50: #694217;
-  --clr-primary-a60: #4f3314;
+  --clr-primary-a0: #fa9819;
+  --clr-primary-a10: #fea33c;
+  --clr-primary-a20: #ffaf56;
+  --clr-primary-a30: #ffba6f;
+  --clr-primary-a40: #ffc687;
+  --clr-primary-a50: #ffd19e;
 
   /** Theme surface colors */
-  --clr-surface-a0: #f9f9f8; /** Main dashboard background */
-  --clr-surface-a10: #ebebea; /** Menu Bar / Card Background */
-  --clr-surface-a20: #dddddc;
-  --clr-surface-a30: #cfcfce;
-  --clr-surface-a40: #c1c1c1;
-  --clr-surface-a50: #b4b4b4;
+  --clr-surface-a0: #282828;
+  --clr-surface-a10: #3c3c3c;
+  --clr-surface-a20: #525252;
+  --clr-surface-a30: #686868;
+  --clr-surface-a40: #808080;
+  --clr-surface-a50: #989898;
 
   /** Theme tonal surface colors */
-  --clr-surface-tonal-a0: #fcefe3;
-  --clr-surface-tonal-a10: #eee2d8;
-  --clr-surface-tonal-a20: #dfd5cc;
-  --clr-surface-tonal-a30: #d1c9c1;
-  --clr-surface-tonal-a40: #c3bcb6;
-  --clr-surface-tonal-a50: #b5b0ab;
+  --clr-surface-tonal-a0: #3c3229;
+  --clr-surface-tonal-a10: #4f463d;
+  --clr-surface-tonal-a20: #635a53;
+  --clr-surface-tonal-a30: #787069;
+  --clr-surface-tonal-a40: #8d8680;
+  --clr-surface-tonal-a50: #a39d98;
 
   /** Success colors */
-  --clr-success-a0: #00c97a; /** Support 1 */
-  --clr-success-a10: #17ffa4;
-  --clr-success-a20: #63ffc2;
+  --clr-success-a0: #22946e;
+  --clr-success-a10: #47d5a6;
+  --clr-success-a20: #9ae8ce;
 
   /** Warning colors */
-  --clr-warning-a0: #ff6b6b; /** Support 2 */
-  --clr-warning-a10: #ffb7b7;
-  --clr-warning-a20: #ffffff;
+  --clr-warning-a0: #a87a2a;
+  --clr-warning-a10: #d7ac61;
+  --clr-warning-a20: #ecd7b2;
 
   /** Danger colors */
-  --clr-danger-a0: #6b9fff; /** Support 3 */
-  --clr-danger-a10: #b7d1ff;
-  --clr-danger-a20: #ffffff;
+  --clr-danger-a0: #9c2121;
+  --clr-danger-a10: #d94a4a;
+  --clr-danger-a20: #eb9e9e;
 
   /** Info colors */
-  --clr-info-a0: #d6e93e; /** Support 4 */
-  --clr-info-a10: #e5f183;
-  --clr-info-a20: #f3f9c7;
+  --clr-info-a0: #21498a;
+  --clr-info-a10: #4077d1;
+  --clr-info-a20: #92b2e5;
 }
+
+body {
+  background: var(--clr-surface-a0);
+}
+
+* {
+  color: var(--clr-light-a0);
+}
+
+.navbar{
+  background-color: var(--clr-surface-a10);
+  border-right: 1px solid var(--clr-surface-a20)!important;
+}
+
+.navbar.fixed-bottom {
+  border-top: 1px solid var(--clr-surface-a20)!important;
+  /* height: 70px; */
+}
+
+.navbar.fixed-bottom .nav{
+  align-items: center;
+}
+
+.navbar.fixed-bottom .nav-link {
+  color: var(--clr-primary-a0) !important;
+}
+
+.navbar .nav-link i,
+.navbar.fixed-bottom .nav-link i {
+  color: var(--clr-primary-a30);
+}
+
+

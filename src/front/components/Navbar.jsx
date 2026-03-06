@@ -8,12 +8,12 @@ import iconLogo from "../assets/img/iconLogo.png";
 export const Navbar = () => {
 
 	return (
-		<nav className="navbar navbar-light bg-light">
+		<nav className="navbar">
 			{/* posicion vertical altura 100% */}
-			<div className="d-flex justify-content-between flex-column vh-100 px-3 py-0 ">
+			<div className="d-flex justify-content-between flex-column vh-100 px-3 py-0">
 
 				{/* Logo */}
-				<div className="">
+				<div>
 					<a className="navbar-brand m-0" href="#">
 						<img src={iconLogoColor} alt="Bootstrap" style={{ width: "150px" }} />
 					</a>
@@ -24,38 +24,42 @@ export const Navbar = () => {
 					<div className="fw-bold px-3 mb-2">Navegacion</div>
 					<Link
 						to="/"
-						className="nav-link text-dark d-flex align-items-center gap-2"
+						className="nav-link d-flex align-items-center gap-2"
 					>
-						<i class="bi bi-border-style fs-4"></i>
+						<i className="bi bi-border-style fs-4"></i>
 						<span>Inicio</span>
 					</Link>
+
 					<Link
 						to="/"
-						className="nav-link text-dark d-flex align-items-center gap-2"
+						className="nav-link d-flex align-items-center gap-2"
 					>
-						<img src={iconLogo} width="30" height="30" />
+						<img src={iconLogoColor} width="30" height="30" />
 						<span>Planes</span>
 
 					</Link>
+
 					<Link
 						to="/"
-						className="nav-link text-dark d-flex align-items-center gap-2"
+						className="nav-link d-flex align-items-center gap-2"
 					>
-						<i class="bi bi-people fs-4"></i>
+						<i className="bi bi-people fs-4"></i>
 						<span>Grupos</span>
 					</Link>
+
 					<Link
 						to="/"
-						className="nav-link text-dark d-flex align-items-center gap-2"
+						className="nav-link d-flex align-items-center gap-2"
 					>
 						<i className="bi bi-bar-chart fs-4"></i>
 						<span>Stats</span>
 					</Link>
+
 					<Link
 						to="/"
-						className="nav-link text-dark d-flex align-items-center gap-2"
+						className="nav-link d-flex align-items-center gap-2"
 					>
-						<i class="bi bi-search fs-5"></i>
+						<i className="bi bi-search fs-5"></i>
 						<span>Descubre</span>
 					</Link>
 				</div>
@@ -65,23 +69,23 @@ export const Navbar = () => {
 					<div className="fw-bold px-3 mb-2">Settings</div>
 					<Link 
 						to="/" 
-						className="nav-link text-dark d-flex align-items-center gap-2"
+						className="nav-link d-flex align-items-center gap-2"
 					>
-						<i class="bi bi-person-circle"></i>
+						<i className="bi bi-person-circle"></i>
 						<span>Perfil</span>
 					</Link>
 					<Link 
 						to="/" 
-						className="nav-link text-dark d-flex align-items-center gap-2"
+						className="nav-link d-flex align-items-center gap-2"
 					>
-						<i class="bi bi-info-circle"></i>
+						<i className="bi bi-info-circle"></i>
 						<span>Ayuda</span>
 					</Link>
 					<Link 
 						to="/" 
-						className="nav-link text-dark d-flex align-items-center gap-2"
+						className="nav-link d-flex align-items-center gap-2"
 					>
-						<i class="bi bi-star-half"></i>
+						<i className="bi bi-star-half"></i>
 						<span>Rate</span>
 					</Link>
 				</div>
