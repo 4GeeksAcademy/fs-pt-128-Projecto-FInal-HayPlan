@@ -70,7 +70,7 @@ def get_group(group_id):
     group = db.session.get(Group, group_id)
 
     if not group: 
-        return jsonify({"error": "Group no encontrado"}), 404
+        return jsonify({"error": "Grupo no encontrado"}), 404
 
     return jsonify(group.serialize()), 200
 
@@ -103,7 +103,7 @@ def update_group(group_id):
     group = db.session.get(Group, group_id)
 
     if not group:
-        return jsonify({"error": "Group no encontrado"}), 404
+        return jsonify({"error": "Grupo no encontrado"}), 404
 
     data = request.get_json()
     name = data.get("name")
@@ -124,12 +124,75 @@ def delete_group(group_id):
     group = db.session.get(Group, group_id)
 
     if not group: 
-        return jsonify({"error": "Group no encontrado"}), 404
+        return jsonify({"error": "Grupo no encontrado"}), 404
 
     db.sesion.delete(group)
     db.sesion.commit()
 
     return jsonify({"msg": "Group eliminado"}), 200
+
+#Lista de miembros del grupo
+@api.route("/groups/<int:group_id>/members", methods=["GET"])
+def get_group_members(group_id): 
+    group = db.session.get(Group, group_id)
+
+    if not group: 
+        return jsonify({"error": "Grupo no encontrado"}), 404
+    
+    members = [
+        {
+            "id": user.id,
+            "email": user.email,
+            "username": user.username
+        }
+
+        for user in group.members
+    ]
+    return jsonify(members), 200
+
+#Agregar usuarios a un grupo
+@api.route("/groups/<int:group_id>/members", methods=["POST"])
+def add_member_group(group_id):
+    group = db.session.get(group_id)
+
+    if not group: 
+        return jsonify({"error": "Grupo no encontrado"}), 404
+    
+    data = request.get_json()
+    user_id = data.get_json("user_id")
+    if not user_id: 
+        return jsonify({"error": "Ingresar ID del usuario"}), 404
+
+    user = db.session.get(User, user_id)
+    if not user: 
+        return jsonify({"error": "Usuario no existe"}), 404
+    
+    if user in group.members: 
+        return jsonify({"error": "Ya el usuario esta en el grupo!"}), 404
+    
+    group.members.append(user)
+    db.session.commit()
+
+    return jsonify({"msg": "Nuevo usuario agregado"}), 200
+
+#Eliminar un miembro del grupo
+@api.route("/groups/<int:group_id>/members/<int:user_id>", methods=["DELETE"])
+def remove_member_group(group_id, user_id):
+    group = db.session.get(Group, group_id)
+
+    if not group: 
+        return jsonify({"error": "Grupo no encontrado"}), 404
+
+    user = db.session.get(User, user_id)
+    if not user: 
+        return jsonify({"error": "Usuario no existe"}), 404
+    if user not in group.members: 
+        return jsonify({"error": "Usuario no es parte del grupo!"}), 400
+
+    group.members.remove(user)
+    db.session.commit()
+
+    return jsonify({"msg": "Usuario eliminado"}), 200
 
 
 #-PF
