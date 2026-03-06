@@ -1,0 +1,97 @@
+/* Estilos para Signup y Login */
+:root {
+    --auth-orange: #FF6B35;
+    --auth-bg: #FFF8F5;
+    --auth-input-bg: #FAFAFA;
+}
+
+/* Contenedor  */
+.signup-wrapper {
+    min-height: 100vh;
+    background-color: var(--auth-bg);
+}
+
+/* Card blanca con bordes redondeados */
+.signup-card {
+    background-color: white;
+    padding: 3rem;
+    border-radius: 2rem;
+}
+
+/* Título "Bienvenido" */
+.signup-title {
+    font-size: 2.5rem;
+    color: #2D2D2D;
+    width: 100%;
+}
+
+/* Estilo para los inputs de texto */
+.signup-input, .signup-input-group-start {
+    background-color: var(--auth-input-bg) !important;
+    border-radius: 0.8rem !important;
+    font-size: 1rem;
+    border: 1px solid #dee2e6 !important;
+}
+
+/* Botón de ojo */
+.signup-input-group-start {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-right: none !important;
+}
+
+/* El botón del "ojo" */
+.signup-input-group-end {
+    border-top-right-radius: 0.8rem !important;
+    border-bottom-right-radius: 0.8rem !important;
+    background-color: var(--auth-input-bg) !important;
+    border-left: none !important;
+}
+
+/* Botón principal Naranja */
+.signup-btn-orange {
+    background-color: var(--auth-orange) !important;
+    border-radius: 0.8rem !important;
+    padding: 0.8rem !important;
+    border: none !important;
+    transition: opacity 0.2s;
+}
+
+.signup-btn-orange:hover {
+    opacity: 0.9;
+}
+
+/* Estilo para las alertas */
+.auth-alert {
+    border-radius: 0.8rem;
+}
+
+
+/* Estilos para el WelcomeModal */
+.welcome-modal-backdrop {
+    z-index: 1050 !important;
+}
+
+.welcome-modal-container {
+    display: block !important;
+    z-index: 1055 !important;
+}
+
+.welcome-btn-orange {
+    background-color: #FF6B35 !important;
+    border: none !important;
+    transition: background-color 0.2s ease;
+}
+
+.welcome-btn-orange:hover {
+    background-color: #e55a2b !important;
+}
+
+.welcome-btn-orange:disabled {
+    background-color: #ff9d7a !important;
+    cursor: not-allowed;
+}
+
+.rounded-4 {
+    border-radius: 1rem !important;
+}
