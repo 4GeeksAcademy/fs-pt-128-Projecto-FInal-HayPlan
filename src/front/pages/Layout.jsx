@@ -14,18 +14,18 @@ export const Layout = () => {
             {/* Layout general para dashboard */}
             <div className="d-flex vh-100 overflow-hidden">
                 {/* Navbar - columna Izquierda */}
-                <div className="border-end bg-light d-none d-lg-block">
+                <div className=" bg-light d-none d-lg-block">
                     <Navbar />
                 </div>
 
                 {/* Dashboard - columna Central */}
                 <div className="flex-grow-1 d-flex flex-column">
                     {/* Barra de pagina */}
-                    <div className="border-bottom d-none d-lg-block">
+                    <div className="d-lg-block">
                         <Topbar />
                     </div>
                     {/* Navbar - columna Izquierda */}
-                    <div className="flex-grow-1 over-flow-auto p-3 pb-5 pb-lg-2">
+                    <div className="flex-grow-1 overflow-auto p-3 pb-5 pb-lg-2">
                         <Outlet />
                     </div>
                 </div>

@@ -9,15 +9,22 @@ export const Topbar = () => {
 
             {/* Contenedor para botones */}
             <div className="d-flex justify-content-end gap-2">
-                <button type="button" class="btn btn-outline-success">Que plan hay?</button>
-                <button className="btn btn-primary">Nuevo Plan</button>
+                <button type="button" className="btn btn-outline-success btn-sm">Que plan hay?</button>
+                <button className="btn btn-primary btn-sm">Nuevo Plan</button>
                 
                 {/* Toggle modo claro/obscuro */}
-                <div class="btn-group" role="group" aria-label="Basic outlined example">
-                    <button type="button" class="btn btn-outline-primary"><i class="bi bi-brightness-low"></i></button>
-                    <button type="button" class="btn btn-outline-primary"><i class="bi bi-brightness-low-fill"></i></button>
+                <div className="btn-group" role="group" aria-label="Basic outlined example">
+                    <button type="button" className="btn btn-outline-primary btn-sm">
+                        <i className="bi bi-brightness-low"></i>
+                    </button>
+                    <button type="button" className="btn btn-outline-primary btn-sm">
+                        <i className="bi bi-brightness-low-fill"></i>
+                    </button>
                 </div>
             </div>
+
+            
+
 
 
 
