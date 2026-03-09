@@ -10,8 +10,6 @@ from sqlalchemy import select
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from datetime import datetime, timezone
 
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
@@ -155,6 +153,10 @@ def create_group():
 
     if not name or not admin_id:
         return jsonify({"error": "Nombre de grupo y ID son requeridos"}), 400
+    
+    user_id = int(get_jwt_identity())
+    if not user_id:
+        return jsonify({"error": "Usuario no encontrado"}), 404
 
     new_group = Group (
         name = name,
@@ -168,7 +170,7 @@ def create_group():
     db.session.add(new_group)
     db.session.commit()
 
-    return jsonify(new_group.serialize()), 200
+    return jsonify(new_group.serialize()), 201
 
 #Actualizar/editar grupo
 @api.route("/groups/<int:group_id>", methods=["PUT"])
@@ -178,6 +180,10 @@ def update_group(group_id):
 
     if not group:
         return jsonify({"error": "Grupo no encontrado"}), 404
+    
+    user_id = int(get_jwt_identity())
+    if group.admin_id != user_id:
+        return jsonify({"error": "Solo el admin puede modificar el grupo"}), 403
 
     data = request.get_json()
     name = data.get("name")
@@ -200,6 +206,10 @@ def delete_group(group_id):
 
     if not group: 
         return jsonify({"error": "Grupo no encontrado"}), 404
+    
+    user_id = int(get_jwt_identity())
+    if group.admin_id != user_id:
+        return jsonify({"error": "Solo el admin puede modificar el grupo"}), 403
 
     db.session.delete(group)
     db.session.commit()
