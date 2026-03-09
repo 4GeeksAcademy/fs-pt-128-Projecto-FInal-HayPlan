@@ -7,6 +7,8 @@ from api.models import db, User, Group
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
@@ -76,12 +78,13 @@ def get_group(group_id):
 
 #Crear grupo
 @api.route("/groups", methods=["POST"])
+@jwt_required()
 def create_group():
     data = request.get_json()
 
     name = data.get("name")
     description = data.get("description")
-    admin_id = data.get("admin_id")
+    admin_id = int(get_jwt_identity())
 
     if not name or not admin_id:
         return jsonify({"error": "Nombre de grupo y ID son requeridos"}), 400
@@ -99,6 +102,7 @@ def create_group():
 
 #Actualizar/editar grupo
 @api.route("/groups/<int:group_id>", methods=["PUT"])
+@jwt_required()
 def update_group(group_id):
     group = db.session.get(Group, group_id)
 
@@ -120,19 +124,21 @@ def update_group(group_id):
 
 #Eliminar grupo
 @api.route("/groups/<int:group_id>", methods=["DELETE"])
+@jwt_required()
 def delete_group(group_id):
     group = db.session.get(Group, group_id)
 
     if not group: 
         return jsonify({"error": "Grupo no encontrado"}), 404
 
-    db.sesion.delete(group)
-    db.sesion.commit()
+    db.session.delete(group)
+    db.session.commit()
 
     return jsonify({"msg": "Group eliminado"}), 200
 
 #Lista de miembros del grupo
 @api.route("/groups/<int:group_id>/members", methods=["GET"])
+@jwt_required()
 def get_group_members(group_id): 
     group = db.session.get(Group, group_id)
 
@@ -152,14 +158,15 @@ def get_group_members(group_id):
 
 #Agregar usuarios a un grupo
 @api.route("/groups/<int:group_id>/members", methods=["POST"])
+@jwt_required()
 def add_member_group(group_id):
-    group = db.session.get(group_id)
+    group = db.session.get(Group, group_id)
 
     if not group: 
         return jsonify({"error": "Grupo no encontrado"}), 404
     
     data = request.get_json()
-    user_id = data.get_json("user_id")
+    user_id = data.get("user_id")
     if not user_id: 
         return jsonify({"error": "Ingresar ID del usuario"}), 404
 
@@ -177,6 +184,7 @@ def add_member_group(group_id):
 
 #Eliminar un miembro del grupo
 @api.route("/groups/<int:group_id>/members/<int:user_id>", methods=["DELETE"])
+@jwt_required()
 def remove_member_group(group_id, user_id):
     group = db.session.get(Group, group_id)
 
