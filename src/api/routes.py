@@ -3,10 +3,12 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import re  # Librería para expresiones regulares
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Group
+from api.models import db, User, Group, Plan, PlanStatus
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+from sqlalchemy import select
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from datetime import datetime, timezone
 
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
@@ -26,7 +28,6 @@ def handle_hello():
     return jsonify(response_body), 200
 
 # Ruta para el registro (Signup)
-
 @api.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
@@ -56,6 +57,72 @@ def signup():
 
     return jsonify({"msg": "¡Registro exitoso! Ya puedes iniciar sesión."}), 201
 
+# Ruta para el Login (inicio de sesión)
+@api.route('/login', methods=['POST'])
+def login():
+    # Verifico que el email y password estén creados
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+
+    # Verifico que el email y password existan en la petición
+    if not email or not password:
+        return jsonify({"error": "Email y contraseña son requeridos"}), 400
+
+    # Busco al usuario por su email
+    user = db.session.execute(db.select(User).where(
+        User.email == email)).scalar_one_or_none()
+
+    if user is None:
+        return jsonify({"error": "Email o contraseña invalido"}), 401
+
+    # Si el usuario existe y la contraseña es correcta (Uso el método check_password)
+    if user and user.check_password(password):
+        # Creamos el token de acceso
+        access_token = create_access_token(identity=str(user.id))
+        return jsonify({"msg": "Login correcto", "token": access_token, "user_id": user.serialize()}), 200
+
+    # Si algo falla, devolvemos un error por seguridad
+    else:
+        return jsonify({"error": "Correo o contraseña incorrectos. Por favor, intenta de nuevo"}), 401
+
+
+
+@api.route('/editProfile', methods=['PUT'])
+@jwt_required()
+def update_private():
+    user_id = get_jwt_identity()
+    user = db.session.get(User, int(user_id))
+
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    data = request.get_json()
+    username = data.get("username")
+
+    if not username:
+        return jsonify({"error": "username es required"}), 400
+    
+    existing = db.session.execute(
+        db.select(User).where(User.username == username, User.id != user.id)
+    ).scalar_one_or_none()
+
+    if existing: 
+        return jsonify ({"error": "El usuario ya existe"}), 400
+    
+    user.username = username
+
+    db.session.commit()
+    return jsonify (user.serialize()), 200
+
+@api.route('/get_user', methods=['GET'])
+@jwt_required()
+def get_user():
+    user_id = get_jwt_identity()
+    user = db.session.get(User, int(user_id))
+    if not user:
+        return jsonify({"msg": "User not found"}), 404
+    return jsonify(user.serialize()), 200
 
 #PF
 
@@ -203,4 +270,139 @@ def remove_member_group(group_id, user_id):
     return jsonify({"msg": "Usuario eliminado"}), 200
 
 
-#-PF
+# — Plan ——————————————————————————————————————————————————
+@api.route('/plans', methods=['GET'])
+@jwt_required()
+def get_my_plans():
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, int(user_id))
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+    
+    my_groups_id = [group.id for group in user.groups]
+    if not my_groups_id:
+        return jsonify({"error": "No se encontró ningún grupo asociado a tu cuenta"}), 404
+    plans = db.session.execute(select(Plan).where(Plan.group_id.in_(my_groups_id)).order_by(Plan.created_at.desc())).scalars.all()
+    return jsonify([plan.serialize() for plan in plans]), 200
+
+@api.route('/groups/<int:group_id>/plans', methods=['GET'])
+@jwt_required()
+def get_group_plans(group_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+    
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+    
+    if group not in user.groups:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+    
+    plans = db.session.execute(select(Plan).where(Plan.group_id == group_id).order_by(Plan.created_at.desc())).scalars().all()
+    return jsonify([plan.serialize() for plan in plans]), 200
+
+@api.route('/groups/<int:group_id>/plans', methods=['POST'])
+@jwt_required()
+def create_plan(group_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, int(user_id))
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+    
+    data = request.get_json()
+    title = data.get("title")
+    description = data.get("description", "")
+    location = data.get("location", "")
+    date = data.get("date")
+
+    if not data or not title or not date:
+        return jsonify({"error": "El título y fecha son obligatorios"}), 400
+    
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+    
+    if group not in user.groups:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+    
+    plan = Plan(
+        title = title,
+        description = description,
+        group_id = group.id,
+        organizer_id = user.id,
+        location = location,
+        date = date
+    )
+    db.session.add(plan)
+    db.session.commit()
+    return jsonify(plan.serialize()), 201
+
+@api.route('/groups/<int:group_id>/plans/<int:plan_id>', methods=['GET'])
+@jwt_required()
+def get_plan(group_id, plan_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+
+    if group not in user.groups:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+    
+    plan = db.session.get(Plan, plan_id)
+    if not plan or plan.group_id != group_id:
+        return jsonify({"error": "Plan no encontrado"}), 404
+    return jsonify(plan.serialize()), 200
+
+@api.route('/groups/<int:group_id>/plans/<int:plan_id>', methods=['PUT'])
+@jwt_required()
+def update_plan(group_id, plan_id):
+    user_id = int(get_jwt_identity())
+    plan = db.session.get(Plan, plan_id)
+    if not plan or plan.group_id != group_id:
+        return jsonify({"error": "Plan no encontrado"}), 404
+    
+    if plan.organizer_id != user_id:
+        return jsonify({"error": "Solo el organizador puede actualizar este plan"}), 403
+    
+    data = request.get_json()
+    for field in ["title", "description", "location", "date"]:
+        if field in data:
+            setattr(plan, field, data[field])
+
+    db.session.commit()
+    return jsonify(plan.serialize()), 200
+
+@api.route('/groups/<int:group_id>/plans/<int:plan_id>/advance_status', methods=['POST'])
+@jwt_required()
+def advance_status(group_id, plan_id):
+    user_id = int(get_jwt_identity())
+    plan = db.session.get(Plan, plan_id)
+    if not plan or plan.group_id != group_id:
+        return jsonify({"error": "Plan no encontrado"}), 404
+    
+    if plan.organizer_id != user_id:
+        return jsonify({"error": "Solo el organizador puede actualizar este plan"}), 403
+    
+    order = [
+        PlanStatus.PROPUESTA,
+        PlanStatus.VOTACION,
+        PlanStatus.CONFIRMADO,
+        PlanStatus.ACTIVO,
+        PlanStatus.CERRADO
+    ]
+
+    index = order.index(plan.status)
+    if index < len(order) - 1:
+        plan.status = order[index + 1]
+        if plan.status == PlanStatus.CERRADO:
+            plan.close_at = datetime.now(timezone.utc)
+        db.session.commit()
+
+    return jsonify(plan.serialize()), 200
+
