@@ -162,6 +162,9 @@ def create_group():
         admin_id = admin_id,
     )
 
+    admin = db.session.get(User, admin_id)
+    new_group.members.append(admin)
+
     db.session.add(new_group)
     db.session.commit()
 
@@ -282,7 +285,7 @@ def get_my_plans():
     my_groups_id = [group.id for group in user.groups]
     if not my_groups_id:
         return jsonify({"error": "No se encontró ningún grupo asociado a tu cuenta"}), 404
-    plans = db.session.execute(select(Plan).where(Plan.group_id.in_(my_groups_id)).order_by(Plan.created_at.desc())).scalars.all()
+    plans = db.session.execute(select(Plan).where(Plan.group_id.in_(my_groups_id)).order_by(Plan.created_at.desc())).scalars().all()
     return jsonify([plan.serialize() for plan in plans]), 200
 
 @api.route('/groups/<int:group_id>/plans', methods=['GET'])
