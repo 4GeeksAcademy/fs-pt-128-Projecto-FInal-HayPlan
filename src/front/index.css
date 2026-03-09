@@ -1,97 +1,186 @@
-/* Estilos para Signup y Login */
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap");
+
 :root {
-    --auth-orange: #FF6B35;
-    --auth-bg: #FFF8F5;
-    --auth-input-bg: #FAFAFA;
+  /** Base colors */
+  --clr-dark-a0: #000000;
+  --clr-light-a0: #ffffff;
+
+  /* Font colors */
+  --text-primary: #ededf5;
+  --text-muted: #c8c8d0;;
+
+  /* Font Decorative */
+  --accent: #c8e600;
+  --accent2: #ff6b6b;
+  --accent3: #00c97a;
+  --accent4: #4a8fff;
+
+  /** Theme primary colors */
+  --clr-primary-a0: #fa9819;
+  --clr-primary-a10: #fea33c;
+  --clr-primary-a20: #ffaf56;
+  --clr-primary-a30: #ffba6f;
+  --clr-primary-a40: #ffc687;
+  --clr-primary-a50: #ffd19e;
+
+  --clr-primary-a0-opacity: rgba(250, 152, 25, 0.2);
+  --clr-primary-a50-opacity: rgb(255, 209, 158, .5);
+
+  /** Theme surface colors */
+  --clr-surface-a0: #282828;
+  --clr-surface-a10: #3c3c3c;
+  --clr-surface-a20: #525252;
+  --clr-surface-a30: #686868;
+  --clr-surface-a40: #808080;
+  --clr-surface-a50: #989898;
+
+  /** Theme tonal surface colors */
+  --clr-surface-tonal-a0: #3c3229;
+  --clr-surface-tonal-a10: #4f463d;
+  --clr-surface-tonal-a20: #635a53;
+  --clr-surface-tonal-a30: #787069;
+  --clr-surface-tonal-a40: #8d8680;
+  --clr-surface-tonal-a50: #a39d98;
+
+  /** Success colors */
+  --clr-success-a0: #22946e;
+  --clr-success-a10: #47d5a6;
+  --clr-success-a20: #9ae8ce;
+
+  /** Warning colors */
+  --clr-warning-a0: #a87a2a;
+  --clr-warning-a10: #d7ac61;
+  --clr-warning-a20: #ecd7b2;
+
+  /** Danger colors */
+  --clr-danger-a0: #9c2121;
+  --clr-danger-a10: #d94a4a;
+  --clr-danger-a20: #eb9e9e;
+
+  /** Info colors */
+  --clr-info-a0: #21498a;
+  --clr-info-a10: #4077d1;
+  --clr-info-a20: #92b2e5;
 }
 
-/* Contenedor  */
-.signup-wrapper {
-    min-height: 100vh;
-    background-color: var(--auth-bg);
+/*-------------- GENERAL -------------- */
+
+body {
+    font-family: 'Syne', sans-serif;
+    background: var(--clr-surface-a0);
 }
 
-/* Card blanca con bordes redondeados */
-.signup-card {
-    background-color: white;
-    padding: 3rem;
-    border-radius: 2rem;
+h1, h2, h3, h4 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
 }
 
-/* Título "Bienvenido" */
-.signup-title {
-    font-size: 2.5rem;
-    color: #2D2D2D;
-    width: 100%;
+*, a {
+  color: var(--clr-light-a0);
 }
 
-/* Estilo para los inputs de texto */
-.signup-input, .signup-input-group-start {
-    background-color: var(--auth-input-bg) !important;
-    border-radius: 0.8rem !important;
-    font-size: 1rem;
-    border: 1px solid #dee2e6 !important;
+span {
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+/*-------------- GENERAL -------------- */
+
+/*-------------- DESKTOP NAVBAR -------------- */
+.sidebar {
+  background-color: var(--clr-surface-a10);
+  border-right: 1px solid var(--clr-surface-a20) !important;
 }
 
-/* Botón de ojo */
-.signup-input-group-start {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    border-right: none !important;
+.nav-link {
+  margin-bottom: 5px;
 }
 
-/* El botón del "ojo" */
-.signup-input-group-end {
-    border-top-right-radius: 0.8rem !important;
-    border-bottom-right-radius: 0.8rem !important;
-    background-color: var(--auth-input-bg) !important;
-    border-left: none !important;
+.btn.active {
+  border: none;
+  background-color: var(--clr-primary-a0-opacity);
 }
 
-/* Botón principal Naranja */
-.signup-btn-orange {
-    background-color: var(--auth-orange) !important;
-    border-radius: 0.8rem !important;
-    padding: 0.8rem !important;
-    border: none !important;
-    transition: opacity 0.2s;
+.nav-item-title {
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+/*-------------- DESKTOP NAVBAR -------------- */
+
+/*-------------- TABLET/MOBILE NAVBAR -------------- */
+.sidebar.fixed-bottom {
+  border-top: 1px solid var(--clr-surface-a20) !important;
 }
 
-.signup-btn-orange:hover {
-    opacity: 0.9;
+.sidebar.fixed-bottom .nav {
+  align-items: center;
+}
+/*-------------- TABLET/MOBILE NAVBAR -------------- */
+
+/*-------------- SMALL CARDS -------------- */
+.test {
+  border: 1px solid yellow;
 }
 
-/* Estilo para las alertas */
-.auth-alert {
-    border-radius: 0.8rem;
+.dashBoard-card-small {
+  /* border: 1px solid red; */
+  background-color: var(--clr-surface-a10);
+}
+
+.dashBoard-card-small h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+}
+
+.dashBoard-card-small p {
+  color: var(--text-muted);
+  /* letter-spacing: .05rem; */
+  font-weight: 600;
+
+}
+
+/*-------------- SMALL CARDS -------------- */
+
+/*-------------- MEDIUM CARD -------------- */
+
+.dashBoard-card-medium-container {
+  background-color: transparent;
+}
+
+.dashBoard-card-medium-item {
+  border: 1px solid var(--clr-primary-a50-opacity) !important;
+  background-color: var(--clr-surface-a10);
+}
+
+.dashBoard-card-small h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+}
+
+/*-------------- MEDIUM CARD -------------- */
+
+/*-------------- LARGE CARD -------------- */
+
+.dashBoard-card-large {
+  /* border: 1px solid red; */
+  background-color: var(--clr-surface-a10);
+  position: relative;
+  overflow: hidden;
+}
+
+.dashBoard-card-large-border {
+  position: absolute;
+  top: 1px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+  90deg,
+  var(--clr-primary-a10) 0%,
+  transparent 100%
+);
 }
 
 
-/* Estilos para el WelcomeModal */
-.welcome-modal-backdrop {
-    z-index: 1050 !important;
-}
-
-.welcome-modal-container {
-    display: block !important;
-    z-index: 1055 !important;
-}
-
-.welcome-btn-orange {
-    background-color: #FF6B35 !important;
-    border: none !important;
-    transition: background-color 0.2s ease;
-}
-
-.welcome-btn-orange:hover {
-    background-color: #e55a2b !important;
-}
-
-.welcome-btn-orange:disabled {
-    background-color: #ff9d7a !important;
-    cursor: not-allowed;
-}
-
-.rounded-4 {
-    border-radius: 1rem !important;
-}
+/*-------------- LARGE CARD -------------- */

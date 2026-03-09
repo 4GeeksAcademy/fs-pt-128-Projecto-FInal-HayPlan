@@ -7,6 +7,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_swagger import swagger
 from flask_jwt_extended import JWTManager
+from datetime import timedelta
 from api.utils import APIException, generate_sitemap
 from api.models import db
 from api.routes import api
@@ -22,6 +23,8 @@ app.url_map.strict_slashes = False
 
 # Busca la variable JWT_SECRET en el .env, si no la encuentra usa "super-secret" por defecto
 app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET", "super-secret")
+# Duración del token, modificar y añadir el refresh token
+app.config["JWT_ACCESS_TOKEN_EXPIRES"] = timedelta(days=30)
 jwt = JWTManager(app)
 
 # Database configuration
