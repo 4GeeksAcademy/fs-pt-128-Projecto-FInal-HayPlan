@@ -15,7 +15,8 @@ export const initialStore = () => {
     ],
     token: localStorage.getItem("token") || null,
     user: null,
-    showWelcomeModal: false,
+    showWelcomeModal: false,  
+    events: [] /
   };
 };
 
@@ -76,6 +77,13 @@ export default function storeReducer(store, action = {}) {
         token: null,
         user: null,
         showWelcomeModal: false,
+      };
+  
+    // Case para manejar los eventos (viene del backend)
+    case "set_events":
+      return {
+        ...store,
+        events: action.payload,
       };
 
     default:
