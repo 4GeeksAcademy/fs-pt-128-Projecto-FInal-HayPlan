@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import re  # Librería para expresiones regulares
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Group, Plan, PlanStatus
+from api.models import db, User, Group, Plan, PlanStatus, Vote
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from sqlalchemy import select
@@ -56,6 +56,7 @@ def signup():
     return jsonify({"msg": "¡Registro exitoso! Ya puedes iniciar sesión."}), 201
 
 # Ruta para el Login (inicio de sesión)
+
 @api.route('/login', methods=['POST'])
 def login():
     # Verifico que el email y password estén creados
@@ -121,6 +122,7 @@ def get_user():
     if not user:
         return jsonify({"msg": "User not found"}), 404
     return jsonify(user.serialize()), 200
+
 
 #PF
 
@@ -419,3 +421,87 @@ def advance_status(group_id, plan_id):
 
     return jsonify(plan.serialize()), 200
 
+
+
+
+# — Votes ——————————————————————————————————————————————————
+@api.route('/groups/<int:group_id>/plans/<int:plan_id>/vote', methods=['POST'])
+@jwt_required()
+def vote_plan(group_id, plan_id):
+    user_id = get_jwt_identity()
+    user = db.session.get(User, int(user_id))
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+    
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+    
+    if group not in user.groups:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+    
+    plan = db.session.get(Plan, plan_id)
+    if not plan:
+        return jsonify({"error": "Plan no encontrado"}), 404
+
+    if plan.group_id != group_id:
+        return jsonify({"error": "El plan no pertenece al grupo"}), 400
+    
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "JSON inválido"}), 400
+    
+    if "vote" not in data:
+        return jsonify({"error": "El voto es obligatorio"}), 400
+    
+    vote = data["vote"]
+    if not isinstance(vote, bool):
+        return jsonify({"error": "El voto debe ser true o false"}), 400
+    
+    existing = db.session.execute(select(Vote).where(
+        Vote.plan_id == plan_id,
+        Vote.user_id == user.id
+    )).scalar_one_or_none()
+    if existing:
+        existing.vote = vote
+    else:
+        db.session.add(Vote(
+            plan_id = plan_id,
+            user_id = user.id,
+            vote = vote
+        ))
+    db.session.commit()
+    return jsonify({"msg": "Voto registrado"}), 200
+
+@api.route('/groups/<int:group_id>/plans/<int:plan_id>/votes', methods=['GET'])
+@jwt_required()
+def get_votes(group_id, plan_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+
+    if group not in user.groups:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+    
+    plan = db.session.get(Plan, plan_id)
+    if not plan:
+        return jsonify({"error": "Plan no encontrado"}), 404
+
+    if plan.group_id != group_id:
+        return jsonify({"error": "El plan no pertenece al grupo"}), 400
+    
+    votes = db.session.execute(select(Vote).where(Vote.plan_id == plan_id)).scalars().all()
+    summary = {
+        "si": sum(1 for vote in votes if vote.vote is True),
+        "no": sum(1 for vote in votes if vote.vote is False),
+        "total": len(votes)
+    }
+    return jsonify({
+        "votes": [vote.serialize() for vote in votes],
+        "summary": summary
+    }), 200
