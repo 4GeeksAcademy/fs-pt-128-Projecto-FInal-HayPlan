@@ -106,6 +106,7 @@ class Vote(db.Model):
             "id": self.id,
             "plan_id": self.plan_id,
             "user_id": self.user_id,
+            "username": self.voter.username,
             "vote": self.vote
         }
     
