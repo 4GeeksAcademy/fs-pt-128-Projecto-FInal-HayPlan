@@ -1,11 +1,12 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-import re # Importamos la librería para expresiones regulares
+import re  # Librería para expresiones regulares
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Group
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
@@ -25,7 +26,6 @@ def handle_hello():
     return jsonify(response_body), 200
 
 # Ruta para el registro (Signup)
-
 
 @api.route('/signup', methods=['POST'])
 def signup():

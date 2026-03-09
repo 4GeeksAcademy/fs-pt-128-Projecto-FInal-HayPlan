@@ -4,7 +4,8 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 import enum
 from datetime import datetime, timezone
 from typing import List
-from flask_bcrypt import generate_password_hash
+from flask_bcrypt import generate_password_hash, check_password_hash
+import secrets
 
 db = SQLAlchemy()
 
@@ -39,6 +40,9 @@ class User(db.Model):
     def set_password(self, password):
         self.password_hash = generate_password_hash(password).decode('utf-8')
 
+    def check_password(self, password):      
+        return check_password_hash(self.password_hash, password)
+
     def serialize(self):
         return {
             "id": self.id,
@@ -46,6 +50,7 @@ class User(db.Model):
             "username": self.username,
             # do not serialize the password, its a security breach
         }
+
 
 class Plan(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -61,6 +66,9 @@ class Plan(db.Model):
     group: Mapped["Group"] = relationship("Group", back_populates="plans")
     organizer: Mapped["User"] = relationship("User", back_populates="plans_organizer")
     votes: Mapped[List["Vote"]] = relationship("Vote", back_populates="plan", cascade="all, delete-orphan")
+    memories: Mapped[List["PlanMemory"]] = relationship("PlanMemory", back_populates="plan", cascade="all, delete-orphan")
+    # Falta en Plan:
+    expenses: Mapped[List["Expense"]] = relationship("Expense", back_populates="plan", cascade="all, delete-orphan")
     ratings: Mapped[List["PlanRating"]] = relationship("PlanRating", back_populates="plan", cascade="all, delete-orphan")
 
     def serialize(self):
@@ -90,7 +98,7 @@ class Vote(db.Model):
     vote: Mapped[bool] = mapped_column(Boolean, nullable=False)
 
     plan: Mapped["Plan"] = relationship("Plan", back_populates="votes")
-    voter: Mapped["User"] = relationship("User", back_populates="votes")
+    voter: Mapped["User"] = relationship("User")
 
     def serialize(self):
         return {
@@ -107,7 +115,7 @@ class PlanRating(db.Model):
     score: Mapped[int] = mapped_column(Integer, nullable=False)
 
     plan: Mapped["Plan"] = relationship("Plan", back_populates="ratings")
-    user: Mapped["User"] = relationship("User", back_populates="ratings")
+    user: Mapped["User"] = relationship("User")
 
     def serialize(self):
         return{
@@ -125,7 +133,7 @@ class PlanMemory(db.Model):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     plan: Mapped["Plan"] = relationship("Plan", back_populates="memories")
-    user: Mapped["User"] = relationship("User", back_populates="memories")
+    user: Mapped["User"] = relationship("User")
 
     def serialize(self):
         return {
@@ -145,24 +153,32 @@ class Expense(db.Model):
     total_amount: Mapped[float] = mapped_column(Float, nullable=False)
 
     plan: Mapped["Plan"] = relationship("Plan", back_populates="expenses")
-    paid_by: Mapped["User"] = relationship("User", back_populates="expenses")
+    paid_by: Mapped["User"] = relationship("User")
     
     def serialize(self):
         return {
             "id": self.id,
             "plan_id": self.plan_id,
-            "paid_by_id": self.user_id,
-            "paid_by": self.user.username,
+            "paid_by_id": self.paid_by_id,
+            "paid_by": self.paid_by.username,
             "description": self.description,
             "total_amount": self.total_amount
         }
 
 # PF
 
+def generate_invite_code():
+    code = secrets.token_hex(4).upper()
+
+    while Group.query.filter_by(invite_code = code).first():
+        code = secrets.token_hex(4).upper()
+    return code
+
 class Group(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     name: Mapped[str] = mapped_column(String(120), nullable=False)
     description: Mapped[str] = mapped_column(Text, default="", nullable=False)
+    invite_code: Mapped[str] = mapped_column(String(8), unique=True, nullable=False, default=lambda: generate_invite_code())
     admin_id: Mapped[int]= mapped_column(ForeignKey("user.id"), nullable=False)
 
     #relaciones
@@ -175,6 +191,7 @@ class Group(db.Model):
             "id": self.id,
             "name": self.name,
             "description": self.description,
+            "invite_code": self.invite_code,
             "admin_id": self.admin_id
         }
     # --PF
