@@ -5,7 +5,7 @@ import { DashboardBlockLarge } from "../components/DashboardBlockLarge.jsx"
 import { DashboardBlockMedium } from "../components/DashboardBlockMedium.jsx"
 import { HallOfFame } from "../components/HallOfFame.jsx"
 
-export const Grupos = () => {
+export const Planes = () => {
 
 	//Testing modes: "loading" | "empty" | "normal" | "stress"
 	const [testMode] = useState("stress")
