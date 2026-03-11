@@ -7,6 +7,7 @@ export const Signup = () => {
     const navigate = useNavigate();
 
     const [user, setUser] = useState({
+        username: "",
         email: "",
         password: "",
         confirmPassword: ""
@@ -30,8 +31,9 @@ export const Signup = () => {
         setError("");
         setSuccessMessage("");
 
-        if (!user.email.trim() || !user.password.trim() || !user.confirmPassword.trim()) {
-            setError("Email y contraseña son requeridos");
+        // valida también el username
+        if (!user.username.trim() || !user.email.trim() || !user.password.trim() || !user.confirmPassword.trim()) {
+            setError("Todos los campos son requeridos");
             return;
         }
         if (user.password.length < 6) {
@@ -50,6 +52,7 @@ export const Signup = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
+                    username: user.username, // Enviamos el username al backend
                     email: user.email,
                     password: user.password
                 })
@@ -59,7 +62,7 @@ export const Signup = () => {
 
             if (response.ok) {
                 setLoading(false);
-                setSuccessMessage("¡Usuario registrado con éxito! Redirigiendo al login...");
+                setSuccessMessage("¡Perfil creado! Prepárate para el plan. Redirigiendo al login...");
                 setTimeout(() => {
                     navigate("/login");
                 }, 2000);
@@ -80,21 +83,40 @@ export const Signup = () => {
                 <h1 className="fw-bold mb-1 signup-title text-center">
                     Bienvenido <br />👋
                 </h1>
-                <p className="text-secondary mb-3 text-center">Crea una cuenta para empezar</p>
-
+                <h5 className="text-secondary mb-3 text-center">Regístrate y que empiece el plan.</h5>
+                {/* mensaje error */}
                 {error && (
-                    <div className="alert alert-danger py-2 shadow-sm" role="alert">
-                        <small>{error}</small>
+                    <div className="alert alert-danger" role="alert">
+                        <small className="fw-bold">{error}</small>
                     </div>
                 )}
-
+                {/* mensaje redireccionando al login */}
                 {successMessage && (
                     <div className="alert alert-success py-2 shadow-sm" role="alert">
-                        <small>{successMessage}</small>
+                        <small className="fw-bold">{successMessage}</small>
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit}>
+                    {/* USERNAME  */}
+                    <div className="mb-3">
+                        <label className="form-label small fw-bold text-secondary text-uppercase">Escribe tu mejor @</label>
+                        <div className="input-group custom-input-group">
+                            <span className="input-group-text bg-light border-light-subtle border-end-0 signup-input-group-start ps-3">
+                                <i className="fa-solid fa-user text-secondary"></i>
+                            </span>
+                            <input
+                                type="text"
+                                placeholder="Ej: TuAliasFavorito"
+                                className="form-control form-control-lg border-light-subtle border-start-0 signup-input-group-end"
+                                name="username"
+                                value={user.username}
+                                onChange={handleChange}
+                                required
+                            />
+                        </div>
+                    </div>
+
                     {/* EMAIL */}
                     <div className="mb-3">
                         <label className="form-label small fw-bold text-secondary text-uppercase">Email</label>
@@ -104,7 +126,7 @@ export const Signup = () => {
                             </span>
                             <input
                                 type="email"
-                                placeholder="correo@email.com"
+                                placeholder="hayplan@email.com"
                                 className="form-control form-control-lg border-light-subtle border-start-0 signup-input-group-end"
                                 name="email"
                                 value={user.email}

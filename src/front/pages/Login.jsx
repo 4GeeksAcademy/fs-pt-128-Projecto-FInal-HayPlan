@@ -56,13 +56,11 @@ export const Login = () => {
 
     return (
         <div className="container-fluid d-flex align-items-center justify-content-center signup-wrapper">
-
             <div className="col-12 col-md-6 col-lg-4 shadow-sm signup-card">
-
                 <h1 className="fw-bold mb-1 signup-title text-center">
                     Bienvenido <br />👋
                 </h1>
-                <p className="text-secondary mb-4 text-center"> Inicia sesión para ver tus planes </p>
+                <h5 className="text-secondary mb-4 text-center"> Tus planes te esperan. ¡Pasa!</h5>
 
                 {error && <div className="alert alert-danger py-2 small">{error}</div>}
 
