@@ -33,23 +33,32 @@ def signup():
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
+    #Obtenemos el username del body
+    username = data.get('username')
 
-    if not email or not password:
-        return jsonify({"error": "Email y contraseña son requeridos"}), 400
+    # Valida que tenga username
+    if not email or not password or not username:
+        return jsonify({"error": "Email, contraseña y nombre de usuario son requeridos"}), 400
 
     # Validación de formato de email (Regex)
     email_regex = r'^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     if not re.match(email_regex, email):
         return jsonify({"error": "El formato del correo electrónico no es válido"}), 400
 
-    # Verificamos si el usuario ya existe
-    existing_user = db.session.execute(db.select(User).where(
+    # Verificamos si el email ya existe
+    existing_user_email = db.session.execute(db.select(User).where(
         User.email == email)).scalar_one_or_none()
-    if existing_user:
+    if existing_user_email:
         return jsonify({"error": "¡Ups! Parece que ya tienes una cuenta con nosotros. Intenta iniciar sesión."}), 400
 
-     # Si todo esta Ok, se crea el usuario
-    new_user = User(email=email, is_active=True)
+    # Verifica si el username ya existe para evitar errores de duplicidad
+    existing_username = db.session.execute(db.select(User).where(
+        User.username == username)).scalar_one_or_none()
+    if existing_username:
+        return jsonify({"error": "¡Vaya! Parece que ese nombre ya tiene dueño. 😅 Intenta con uno diferente o añade algún toque personal."}), 400
+
+     # Si todo esta Ok, se crea el usuario incluyendo el username
+    new_user = User(email=email, username=username, is_active=True)
     new_user.set_password(password)
 
     db.session.add(new_user)
