@@ -6,14 +6,10 @@ import { DashboardBlockLarge } from "../components/DashboardBlockLarge.jsx"
 import { DashboardBlockMedium } from "../components/DashboardBlockMedium.jsx"
 import { HallOfFame } from "../components/HallOfFame.jsx"
 
-
-
 export const Home = () => {
 
 	return (
 		<>
-			{/* <div className="col-12"> */}
-			{/* <div className="col-12 col-md-6 col-lg-3 border rounded-4 shadow-sm"> */}
 			<DashboardBlockSmall />
 			<DashboardBlockLarge />
 			<div className="row">
@@ -24,8 +20,6 @@ export const Home = () => {
 					<HallOfFame />
 				</div>
 			</div>
-			{/* </div> */}
-			{/* </div> */}
 		</>
 	);
 }; 

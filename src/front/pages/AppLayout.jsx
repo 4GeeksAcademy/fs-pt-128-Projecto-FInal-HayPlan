@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom/dist"
+import { Outlet } from "react-router-dom"
 import ScrollToTop from "../components/ScrollToTop"
 import { Topbar } from "../components/Topbar"
 import { Navbar } from "../components/Navbar"
@@ -10,7 +10,7 @@ import { verifyToken } from "../services/backEndServices"
 
 
 // Base component that maintains the navbar and footer throughout the page and the scroll to top functionality.
-export const Layout = () => {
+export const AppLayout = () => {
     const { store, dispatch } = useGlobalReducer()
 
     useEffect(() => {        
@@ -24,7 +24,6 @@ export const Layout = () => {
 
             {/* Layout general para dashboard */}
             <div className="d-flex vh-100 overflow-hidden">
-                
                 {/* Navbar - columna Izquierda */}
                 <div className=" bg-light d-none d-lg-block">
                     <Navbar />
@@ -32,17 +31,14 @@ export const Layout = () => {
 
                 {/* Dashboard - columna Central */}
                 <div className="flex-grow-1 d-flex flex-column">
-
                     {/* Barra de pagina */}
                     <div className="d-lg-block">
                         <Topbar />
                     </div>
-
                     {/* Navbar - columna Izquierda */}
                     <div className="flex-grow-1 overflow-auto p-3 pb-5 pb-lg-2">
                         <Outlet />
                     </div>
-
                 </div>
             </div>
 

@@ -16,7 +16,7 @@ export const initialStore = () => {
     token: localStorage.getItem("token") || null,
     user: null,
     showWelcomeModal: false,  
-    events: [] /
+    events: [] 
   };
 };
 
