@@ -16,6 +16,7 @@ import { AppLayout } from "./pages/AppLayout";
 import { LandingPage } from "./pages/LandingPage";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
+import { Dashboard } from "./pages/Dashboard";
 import { Descubre } from "./pages/Descubre";
 
 import { Home } from "./pages/Home"
@@ -32,9 +33,10 @@ export const router = createBrowserRouter(
 
       {/* Rutas Privadas */}
       <Route path="/app" element={<AppLayout />} errorElement={<h1>Not found!</h1>} >
-        <Route index element={<Home />} /> {/* CAMBIA A DASHBOARD.jsx */}
+        <Route index element={<Dashboard />} /> {/* CAMBIA A DASHBOARD.jsx */}
         {/* <Route path="/single/:theId" element={<Single />} />  Dynamic route for single items */}
         {/* <Route path="demo" element={<Demo />} /> */}
+        {/* <Route path="dashboard" element={<Dashboard/>} /> */}
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="descubre" element={<Descubre />} />
