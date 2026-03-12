@@ -82,6 +82,7 @@ class Plan(db.Model):
             "title": self.title,
             "description": self.description,
             "group_id": self.group_id,
+            "group_name": self.group.name,
             "organizer_id": self.organizer_id,
             "organizer_username": self.organizer.username,
             "status": self.status.value,

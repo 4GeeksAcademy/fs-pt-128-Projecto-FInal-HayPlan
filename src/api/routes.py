@@ -129,9 +129,14 @@ def get_user():
 # --------------------- RUTAS GRUPO ---------------------
 #Lista de todos los grupos. 
 @api.route("/groups", methods=["GET"])
+@jwt_required()
 def get_groups():
-    groups = db.session.execute(db.select(Group)).scalars().all()
-    return jsonify([group.serialize() for group in groups]), 200
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, int(user_id))
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+    
+    return jsonify([group.serialize() for group in user.groups]), 200
 
 #Grupo individual
 @api.route("/groups/<int:group_id>", methods=["GET"])

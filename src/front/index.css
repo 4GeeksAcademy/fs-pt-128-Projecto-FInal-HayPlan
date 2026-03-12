@@ -184,3 +184,12 @@ span {
 
 
 /*-------------- LARGE CARD -------------- */
+
+
+
+/* ----------- Dashboard Discover ---------- */
+.discover-image {
+  min-height: 350px;
+  max-height: 350px;
+  filter: brightness(0.8)
+}

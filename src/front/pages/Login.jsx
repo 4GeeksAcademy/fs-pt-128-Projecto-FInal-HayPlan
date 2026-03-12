@@ -52,7 +52,7 @@ export const Login = () => {
                 }
                 // Modificar, pdte dashboard.
                 setLoading(false);
-                navigate("/"); 
+                navigate("/dashboard"); 
 
             } else {
                 setLoading(false);                
