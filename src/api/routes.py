@@ -1,7 +1,9 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-import re  # Librería para expresiones regulares
+import re  # Para expresiones regulares
+import os  # Para leer la API KEY del .env
+import requests  # Para peticiones a Ticketmaster
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Group, Plan, PlanStatus, Vote
 from api.utils import generate_sitemap, APIException
@@ -85,7 +87,7 @@ def login():
     else:
         return jsonify({"error": "Correo o contraseña incorrectos. Por favor, intenta de nuevo"}), 401
 
-
+# Ruta para el Username
 
 @api.route('/editProfile', methods=['PUT'])
 @jwt_required()
@@ -510,3 +512,29 @@ def get_votes(group_id, plan_id):
         "votes": [vote.serialize() for vote in votes],
         "summary": summary
     }), 200
+
+    # Ruta para obtener eventos de Ticketmaster. ------------------------------------
+
+@api.route('/ticketmaster-events', methods=['GET'])
+def get_ticketmaster_events():
+    api_key = os.getenv("TICKETMASTER_API_KEY")
+    
+    if not api_key:
+        return jsonify({"error": "API Key no configurada"}), 500
+
+    # CAPTURA la ciudad que viene del Frontend
+    city = request.args.get('city')
+    
+    url = f"https://app.ticketmaster.com/discovery/v2/events.json?apikey={api_key}"
+    
+    if city:
+        url += f"&city={city}"
+
+    try:
+        response = requests.get(url)
+        response.raise_for_status() 
+        data = response.json()        
+        return jsonify(data), 200
+
+    except requests.exceptions.RequestException as e:
+        return jsonify({"error": "Error al conectar con Ticketmaster", "details": str(e)}), 502
