@@ -181,79 +181,101 @@ span {
   transparent 100%
 );
 }
+
+
 /*-------------- LARGE CARD -------------- */
 
-/*--------------  ESTILOS CARD Y DESCUBRE -------------- */
 
-/* .bg-main-dark {
-  background-color: var(--clr-surface-a0);
-  color: var(--text-primary);
-} */
+/* --- ESTILOS PARA DESCUBRE--- */
+.bg-page-custom {
+    background-color: #FFFCF9;
+}
 
-/* Estilos para Descubre */
+.header-descubre {
+    background: linear-gradient(180deg, #FF9A44 0%, #FF7A45 100%);
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.search-container-pill {
+    border-radius: 25px;
+}
+
 .search-input-custom {
-  background-color: var(--clr-surface-a50) !important;
-  border-radius: 12px;
-  font-size: 1.1rem;
-  color: var(--text-primary) !important;
+    border-radius: 20px;
+    font-size: 1.1rem;
+    box-shadow: none !important;
 }
 
-.category-card {
-  height: 180px;
-  background-size: cover;
-  background-position: center;
-  border-radius: 18px;
-  display: flex;
-  align-items: flex-end;
-  padding: 20px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 3px solid transparent;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+.btn-search-dark {
+    background-color: #1A1A2E;
+    border-radius: 20px;
+    transition: all 0.3s ease;
 }
 
-.category-card:hover {
-  transform: translateY(-5px);
-  border-color: var(--clr-primary-a0-opacity);
+.btn-search-dark:hover {
+    background-color: #000000;
+    color: white;
 }
 
-/* Estilos para EventCard*/
+.empty-state-circle {
+    background-color: rgba(255, 122, 69, 0.1);
+    display: inline-block;
+    padding: 2rem;
+    border-radius: 50%;
+}
+
+.empty-state-icon {
+    color: #FFB38E;
+    transform: rotate(-15deg);
+}
+
+/* --- ESTILOS PARA EVENTCARD--- */
 .event-card-pill {
-  background-color: var(--clr-surface-a10) !important;
-  border-radius: 15px;
-  overflow: hidden;
+    border-radius: 25px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+/* Movimiento al pasar el mouse */
+.event-card-pill:hover {
+    transform: translateY(-5px);
+    /* Sombra cuando se mueve */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;  
 }
 
 .event-img-container {
-  height: 180px;
-  overflow: hidden;
+    height: 220px;
+    overflow: hidden;
+    position: relative;
 }
 
-.event-card-body {
-  background-color: var(--clr-light-a0) !important;
-  color: var(--clr-surface-a0) !important;
+.badge-tm {
+    background-color: #FFEFE6;
+    color: #FF7A45;
+    font-size: 0.75rem;
+    font-weight: 700;
 }
 
-.ticket-badge {
-  background-color: var(--clr-primary-a0-opacity) !important;
-  color: var(--clr-primary-a10) !important;
-  font-size: 0.7rem;
-  font-weight: bold;
+.event-title-text {
+    font-size: 1.25rem;
+    line-height: 1.2;
+    font-weight: 900;
+    color: #1a1a1a;
+    min-height: 3rem;
 }
 
-.btn-buy-tickets {
-  background-color: var(--clr-primary-a0) !important;
-  border-radius: 10px;
-  color: white !important;
+.icon-fixed-width {
+    width: 20px;
+    text-align: center;
 }
 
-.location-icon {
-  color: var(--clr-primary-a10);
-  width: 16px;
+.btn-orange-action {
+    background-color: #FF7A45;
+    border-radius: 15px;
+    border: none;
+    transition: background-color 0.2s;
 }
 
-.city-highlight {
-  color: var(--clr-primary-a10);
-  font-size: 1.2em;
+.btn-orange-action:hover {
+    background-color: #e66a39;
 }
-

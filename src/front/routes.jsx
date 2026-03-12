@@ -12,7 +12,6 @@ import { Demo } from "./pages/Demo";
 import { Signup } from "./pages/Signup";
 import { Login } from "./pages/Login";
 import { Descubre } from "./pages/Descubre";
-import { DescubreResultados } from "./pages/DescubreResultados";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -32,7 +31,6 @@ export const router = createBrowserRouter(
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/descubre" element={<Descubre/>} />
-        <Route path="/descubre-resultados/:city" element={<DescubreResultados/>} />
       </Route>
     )
 );
