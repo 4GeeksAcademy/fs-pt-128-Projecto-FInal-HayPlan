@@ -262,6 +262,13 @@ span {
 }
 
 
+
+/* ----------- Dashboard Discover ---------- */
+.discover-image {
+  min-height: 350px;
+  max-height: 350px;
+  filter: brightness(0.8)
+}
 /* --- ESTILOS PARA DESCUBRE--- */
 .bg-page-custom {
     background-color: #FFFCF9;
