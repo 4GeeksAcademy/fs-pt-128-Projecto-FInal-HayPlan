@@ -261,3 +261,97 @@ span {
     border-radius: 0 12px 12px 0;
 }
 
+
+/* --- ESTILOS PARA DESCUBRE--- */
+.bg-page-custom {
+    background-color: #FFFCF9;
+}
+
+.header-descubre {
+    background: linear-gradient(180deg, #FF9A44 0%, #FF7A45 100%);
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+.search-container-pill {
+    border-radius: 25px;
+}
+
+.search-input-custom {
+    border-radius: 20px;
+    font-size: 1.1rem;
+    box-shadow: none !important;
+}
+
+.btn-search-dark {
+    background-color: #1A1A2E;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-search-dark:hover {
+    background-color: #000000;
+    color: white;
+}
+
+.empty-state-circle {
+    background-color: rgba(255, 122, 69, 0.1);
+    display: inline-block;
+    padding: 2rem;
+    border-radius: 50%;
+}
+
+.empty-state-icon {
+    color: #FFB38E;
+    transform: rotate(-15deg);
+}
+
+/* --- ESTILOS PARA EVENTCARD--- */
+.event-card-pill {
+    border-radius: 25px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+/* Movimiento al pasar el mouse */
+.event-card-pill:hover {
+    transform: translateY(-5px);
+    /* Sombra cuando se mueve */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;  
+}
+
+.event-img-container {
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+}
+
+.badge-tm {
+    background-color: #FFEFE6;
+    color: #FF7A45;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.event-title-text {
+    font-size: 1.25rem;
+    line-height: 1.2;
+    font-weight: 900;
+    color: #1a1a1a;
+    min-height: 3rem;
+}
+
+.icon-fixed-width {
+    width: 20px;
+    text-align: center;
+}
+
+.btn-orange-action {
+    background-color: #FF7A45;
+    border-radius: 15px;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.btn-orange-action:hover {
+    background-color: #e66a39;
+}

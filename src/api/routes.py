@@ -545,17 +545,20 @@ def get_votes(group_id, plan_id):
 
 @api.route('/ticketmaster-events', methods=['GET'])
 def get_ticketmaster_events():
-    # API KEY desde las variables de entorno del backend
     api_key = os.getenv("TICKETMASTER_API_KEY")
 
     if not api_key:
-        return jsonify({"error": "API Key no configurada en el servidor"}), 500
+        return jsonify({"error": "API Key no configurada"}), 500
 
-    # URL de Ticketmaster para eventos
+    # CAPTURA la ciudad que viene del Frontend
+    city = request.args.get('city')
+    
     url = f"https://app.ticketmaster.com/discovery/v2/events.json?apikey={api_key}"
+    
+    if city:
+        url += f"&city={city}"
 
     try:
-        # Realizamos la petición externa a Ticketmaster
         response = requests.get(url)
         response.raise_for_status()
 

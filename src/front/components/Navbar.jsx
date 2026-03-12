@@ -45,7 +45,7 @@ export const Navbar = () => {
 							<span clasName="nav-item">Stats</span>
 						</Link>
 
-						<Link to="/" className="btn d-flex align-items-center gap-2">
+						<Link to="/Descubre" className="btn d-flex align-items-center gap-2">
 							<i className="bi bi-search"></i>
 							<span clasName="nav-item">Descubre</span>
 						</Link>
