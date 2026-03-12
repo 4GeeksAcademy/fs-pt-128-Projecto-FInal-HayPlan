@@ -185,6 +185,82 @@ span {
 
 /*-------------- LARGE CARD -------------- */
 
+/*------------------ESTILOS PARA EL SIGNUP Y LOGIN ----------------------*/
+/* Formulario */
+.signup-wrapper .signup-card {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Sombra muy suave */
+}
+
+/* Títulos y textos */
+.signup-wrapper .signup-card h1 {
+    font-family: 'Syne', sans-serif;
+    color: #212529;
+    font-weight: 800;
+}
+
+.signup-wrapper .signup-card p, 
+.signup-wrapper .signup-card label {
+    color: #6c757d; 
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+/* --- ESTILO DE LOS INPUTS (Bordes y Colores) --- */
+
+.signup-wrapper .input-group {
+    margin-bottom: 1rem;
+}
+
+/* El fondo de los iconos y del texto */
+.signup-wrapper .form-control,
+.signup-wrapper .input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    color: #495057;
+    padding: 0.75rem 1rem;
+}
+
+/* Cuando el usuario hace clic dentro del cuadro para escribir */
+.signup-wrapper .form-control:focus {
+    background-color: #ffffff;
+    border-color: #FF6B35; 
+    box-shadow: none;
+    color: #212529;
+}
+
+/* --- BOTÓN REGISTRARSE --- */
+
+.signup-wrapper .signup-btn-orange {
+    background-color: #FF6B35;
+    border: none;
+    color: #ffffff;
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    padding: 0.8rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+    transition: transform 0.2s ease;
+}
+
+.signup-wrapper .signup-btn-orange:hover {
+    background-color: #e85a2a;
+    transform: translateY(-1px); /* Efecto de que se eleva */
+}
+
+/* --- REDONDEADOS DE LOS BORDES --- */
+
+.signup-wrapper .signup-input-group-start {
+    border-radius: 12px 0 0 12px;
+}
+
+.signup-wrapper .signup-input-group-end {
+    border-radius: 0 12px 12px 0;
+}
+
 
 /* --- ESTILOS PARA DESCUBRE--- */
 .bg-page-custom {
