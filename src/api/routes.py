@@ -508,7 +508,7 @@ def get_votes(group_id, plan_id):
         "summary": summary
     }), 200
 
-    # Ruta para obtener eventos de Ticketmaster. ------------------------------------
+    # Ruta para obtener eventos de API
 
 @api.route('/ticketmaster-events', methods=['GET'])
 def get_ticketmaster_events():
@@ -524,12 +524,10 @@ def get_ticketmaster_events():
     try:
         # Realizamos la petición externa a Ticketmaster
         response = requests.get(url)
-        response.raise_for_status() 
-        
-        data = response.json()        
+        response.raise_for_status()        
+        data = response.json()
         
         return jsonify(data), 200
 
-    except requests.exceptions.RequestException as e:
-        # Manejo de errores de conexión o de la API externa
+    except requests.exceptions.RequestException as e:      
         return jsonify({"error": "Error al conectar con Ticketmaster", "details": str(e)}), 502
