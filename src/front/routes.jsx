@@ -34,7 +34,7 @@ export const router = createBrowserRouter(
       <Route path="/app" element={<AppLayout />} errorElement={<h1>Not found!</h1>} >
         <Route index element={<Home />} /> {/* CAMBIA A DASHBOARD.jsx */}
         {/* <Route path="/single/:theId" element={<Single />} />  Dynamic route for single items */}
-        <Route path="demo" element={<Demo />} />
+        {/* <Route path="demo" element={<Demo />} /> */}
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="descubre" element={<Descubre />} />
