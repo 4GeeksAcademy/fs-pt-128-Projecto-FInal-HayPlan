@@ -7,7 +7,7 @@ export const EventCard = ({ name, image, date, time, venue, url }) => {
             month: "short",
             year: "numeric",
         }) 
-        : "Fecha TBD";
+        : "Fecha TBD"; // "To Be Determined" (por determinar)
 
     const formattedTime = time ? time.substring(0, 5) : "Hora TBD";
 

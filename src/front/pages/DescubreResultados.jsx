@@ -33,7 +33,7 @@ export const DescubreResultados = () => {
                         <h2 className="mb-0 fw-bold">
                             Resultados en: <span className="city-highlight">{city}</span>
                         </h2>
-                        {/* Muestra el contador  */}
+                        {/* Muestra resultados  */}
                         {!loading && totalEvents > 0 && (
                             <span className="badge rounded-pill ms-3 ticket-badge">
                                 {totalEvents} eventos encontrados
