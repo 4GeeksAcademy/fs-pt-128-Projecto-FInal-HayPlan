@@ -7,7 +7,7 @@
 
   /* Font colors */
   --text-primary: #ededf5;
-  --text-muted: #c8c8d0;;
+  --text-muted: #c8c8d0;
 
   /* Font Decorative */
   --accent: #c8e600;
@@ -24,7 +24,7 @@
   --clr-primary-a50: #ffd19e;
 
   --clr-primary-a0-opacity: rgba(250, 152, 25, 0.2);
-  --clr-primary-a50-opacity: rgb(255, 209, 158, .5);
+  --clr-primary-a50-opacity: rgb(255, 209, 158, 0.5);
 
   /** Theme surface colors */
   --clr-surface-a0: #282828;
@@ -66,16 +66,20 @@
 /*-------------- GENERAL -------------- */
 
 body {
-    font-family: 'Syne', sans-serif;
-    background: var(--clr-surface-a0);
+  font-family: "Syne", sans-serif;
+  background: var(--clr-surface-a0);
 }
 
-h1, h2, h3, h4 {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Syne", sans-serif;
+  font-weight: 800;
 }
 
-*, a {
+*,
+a {
   color: var(--clr-light-a0);
 }
 
@@ -129,7 +133,7 @@ span {
 }
 
 .dashBoard-card-small h2 {
-  font-family: 'Syne', sans-serif;
+  font-family: "Syne", sans-serif;
   font-weight: 800;
 }
 
@@ -137,7 +141,6 @@ span {
   color: var(--text-muted);
   /* letter-spacing: .05rem; */
   font-weight: 600;
-
 }
 
 /*-------------- SMALL CARDS -------------- */
@@ -154,7 +157,7 @@ span {
 }
 
 .dashBoard-card-small h2 {
-  font-family: 'Syne', sans-serif;
+  font-family: "Syne", sans-serif;
   font-weight: 800;
 }
 
@@ -176,189 +179,203 @@ span {
   right: 0;
   height: 3px;
   background: linear-gradient(
-  90deg,
-  var(--clr-primary-a10) 0%,
-  transparent 100%
-);
+    90deg,
+    var(--clr-primary-a10) 0%,
+    transparent 100%
+  );
 }
-
 
 /*-------------- LARGE CARD -------------- */
 
 /*------------------ESTILOS PARA EL SIGNUP Y LOGIN ----------------------*/
 /* Formulario */
 .signup-wrapper .signup-card {
-    background-color: #ffffff;
-    padding: 2.5rem;
-    border-radius: 1.5rem;
-    border: 1px solid #f0f0f0;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Sombra muy suave */
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Sombra muy suave */
 }
 
 /* Títulos y textos */
 .signup-wrapper .signup-card h1 {
-    font-family: 'Syne', sans-serif;
-    color: #212529;
-    font-weight: 800;
+  font-family: "Syne", sans-serif;
+  color: #212529;
+  font-weight: 800;
 }
 
-.signup-wrapper .signup-card p, 
+.signup-wrapper .signup-card p,
 .signup-wrapper .signup-card label {
-    color: #6c757d; 
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
+  color: #6c757d;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
 }
 
 /* --- ESTILO DE LOS INPUTS (Bordes y Colores) --- */
 
 .signup-wrapper .input-group {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 /* El fondo de los iconos y del texto */
 .signup-wrapper .form-control,
 .signup-wrapper .input-group-text {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    color: #495057;
-    padding: 0.75rem 1rem;
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  color: #495057;
+  padding: 0.75rem 1rem;
 }
 
 /* Cuando el usuario hace clic dentro del cuadro para escribir */
 .signup-wrapper .form-control:focus {
-    background-color: #ffffff;
-    border-color: #FF6B35; 
-    box-shadow: none;
-    color: #212529;
+  background-color: #ffffff;
+  border-color: #ff6b35;
+  box-shadow: none;
+  color: #212529;
 }
 
 /* --- BOTÓN REGISTRARSE --- */
 
 .signup-wrapper .signup-btn-orange {
-    background-color: #FF6B35;
-    border: none;
-    color: #ffffff;
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
-    padding: 0.8rem;
-    border-radius: 12px;
-    margin-top: 1rem;
-    transition: transform 0.2s ease;
+  background-color: #ff6b35;
+  border: none;
+  color: #ffffff;
+  font-family: "Syne", sans-serif;
+  font-weight: 700;
+  padding: 0.8rem;
+  border-radius: 12px;
+  margin-top: 1rem;
+  transition: transform 0.2s ease;
 }
 
 .signup-wrapper .signup-btn-orange:hover {
-    background-color: #e85a2a;
-    transform: translateY(-1px); /* Efecto de que se eleva */
+  background-color: #e85a2a;
+  transform: translateY(-1px); /* Efecto de que se eleva */
 }
 
 /* --- REDONDEADOS DE LOS BORDES --- */
 
 .signup-wrapper .signup-input-group-start {
-    border-radius: 12px 0 0 12px;
+  border-radius: 12px 0 0 12px;
 }
 
 .signup-wrapper .signup-input-group-end {
-    border-radius: 0 12px 12px 0;
+  border-radius: 0 12px 12px 0;
 }
-
-
 
 /* ----------- Dashboard Discover ---------- */
 .discover-image {
   min-height: 350px;
   max-height: 350px;
-  filter: brightness(0.8)
+  filter: brightness(0.8);
 }
 /* --- ESTILOS PARA DESCUBRE--- */
 .bg-page-custom {
-    background-color: #FFFCF9;
+  background-color: #fffcf9;
 }
 
 .header-descubre {
-    background: linear-gradient(180deg, #FF9A44 0%, #FF7A45 100%);
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
+  background: linear-gradient(180deg, #ff9a44 0%, #ff7a45 100%);
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
 }
 
 .search-container-pill {
-    border-radius: 25px;
+  border-radius: 25px;
 }
 
 .search-input-custom {
-    border-radius: 20px;
-    font-size: 1.1rem;
-    box-shadow: none !important;
+  border-radius: 20px;
+  font-size: 1.1rem;
+  box-shadow: none !important;
 }
 
 .btn-search-dark {
-    background-color: #1A1A2E;
-    border-radius: 20px;
-    transition: all 0.3s ease;
+  background-color: #1a1a2e;
+  border-radius: 20px;
+  transition: all 0.3s ease;
 }
 
 .btn-search-dark:hover {
-    background-color: #000000;
-    color: white;
+  background-color: #000000;
+  color: white;
 }
 
 .empty-state-circle {
-    background-color: rgba(255, 122, 69, 0.1);
-    display: inline-block;
-    padding: 2rem;
-    border-radius: 50%;
+  background-color: rgba(255, 122, 69, 0.1);
+  display: inline-block;
+  padding: 2rem;
+  border-radius: 50%;
 }
 
 .empty-state-icon {
-    color: #FFB38E;
-    transform: rotate(-15deg);
+  color: #ffb38e;
+  transform: rotate(-15deg);
 }
 
 /* --- ESTILOS PARA EVENTCARD--- */
 .event-card-pill {
-    border-radius: 25px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+  border-radius: 25px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
 }
 /* Movimiento al pasar el mouse */
 .event-card-pill:hover {
-    transform: translateY(-5px);
-    /* Sombra cuando se mueve */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;  
+  transform: translateY(-5px);
+  /* Sombra cuando se mueve */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
 }
 
 .event-img-container {
-    height: 220px;
-    overflow: hidden;
-    position: relative;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
 }
 
 .badge-tm {
-    background-color: #FFEFE6;
-    color: #FF7A45;
-    font-size: 0.75rem;
-    font-weight: 700;
+  background-color: #ffefe6;
+  color: #ff7a45;
+  font-size: 0.75rem;
+  font-weight: 700;
 }
 
 .event-title-text {
-    font-size: 1.25rem;
-    line-height: 1.2;
-    font-weight: 900;
-    color: #1a1a1a;
-    min-height: 3rem;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-weight: 900;
+  color: #1a1a1a;
+  min-height: 3rem;
 }
 
 .icon-fixed-width {
-    width: 20px;
-    text-align: center;
+  width: 20px;
+  text-align: center;
 }
 
 .btn-orange-action {
-    background-color: #FF7A45;
-    border-radius: 15px;
-    border: none;
-    transition: background-color 0.2s;
+  background-color: #ff7a45;
+  border-radius: 15px;
+  border: none;
+  transition: background-color 0.2s;
 }
 
 .btn-orange-action:hover {
-    background-color: #e66a39;
+  background-color: #e66a39;
 }
+
+/* --- ESTILO DE HERO SECTION --- */
+.hero-box {
+  /* background: #1c1c1c; */
+  position: relative;
+}
+
+.hero-logo {
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  /* width: 220px; */
+  opacity: 0.08;
+  pointer-events: none;
+  user-select: none;
+}
+/* --- ESTILO DE HERO SECTION --- */
