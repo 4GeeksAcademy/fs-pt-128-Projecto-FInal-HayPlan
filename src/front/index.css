@@ -270,98 +270,74 @@ span {
   filter: brightness(0.8);
 }
 /* --- ESTILOS PARA DESCUBRE--- */
-.bg-page-custom {
-  background-color: #fffcf9;
-}
-
-.header-descubre {
-  background: linear-gradient(180deg, #ff9a44 0%, #ff7a45 100%);
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
-}
-
-.search-container-pill {
-  border-radius: 25px;
-}
-
+/* Estilos para Descubre */
 .search-input-custom {
-  border-radius: 20px;
+  background-color: var(--clr-surface-a50) !important;
+  border-radius: 12px;
   font-size: 1.1rem;
-  box-shadow: none !important;
+  color: var(--text-primary) !important;
 }
 
-.btn-search-dark {
-  background-color: #1a1a2e;
-  border-radius: 20px;
+.category-card {
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 18px;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  cursor: pointer;
   transition: all 0.3s ease;
+  border: 3px solid transparent;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-.btn-search-dark:hover {
-  background-color: #000000;
-  color: white;
-}
-
-.empty-state-circle {
-  background-color: rgba(255, 122, 69, 0.1);
-  display: inline-block;
-  padding: 2rem;
-  border-radius: 50%;
-}
-
-.empty-state-icon {
-  color: #ffb38e;
-  transform: rotate(-15deg);
-}
-
-/* --- ESTILOS PARA EVENTCARD--- */
-.event-card-pill {
-  border-radius: 25px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-/* Movimiento al pasar el mouse */
-.event-card-pill:hover {
+.category-card:hover {
   transform: translateY(-5px);
-  /* Sombra cuando se mueve */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15) !important;
+  border-color: var(--clr-primary-a0-opacity);
+}
+
+/* Estilos para EventCard*/
+.event-card-pill {
+  background-color: var(--clr-surface-a10) !important;
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .event-img-container {
-  height: 220px;
+  height: 180px;
   overflow: hidden;
-  position: relative;
 }
 
-.badge-tm {
-  background-color: #ffefe6;
-  color: #ff7a45;
-  font-size: 0.75rem;
-  font-weight: 700;
+.event-card-body {
+  background-color: var(--clr-light-a0) !important;
+  color: var(--clr-surface-a0) !important;
 }
 
-.event-title-text {
-  font-size: 1.25rem;
-  line-height: 1.2;
-  font-weight: 900;
-  color: #1a1a1a;
-  min-height: 3rem;
+.ticket-badge {
+  background-color: var(--clr-primary-a0-opacity) !important;
+  color: var(--clr-primary-a10) !important;
+  font-size: 0.7rem;
+  font-weight: bold;
 }
 
-.icon-fixed-width {
-  width: 20px;
-  text-align: center;
+.btn-buy-tickets {
+  background-color: var(--clr-primary-a0) !important;
+  border-radius: 10px;
+  color: white !important;
 }
 
-.btn-orange-action {
-  background-color: #ff7a45;
-  border-radius: 15px;
-  border: none;
-  transition: background-color 0.2s;
+.location-icon {
+  color: var(--clr-primary-a10);
+  width: 16px;
 }
 
-.btn-orange-action:hover {
-  background-color: #e66a39;
+.city-highlight {
+  color: var(--clr-primary-a10);
+  font-size: 1.2em;
 }
+
+
 
 /* --- ESTILO DE HERO SECTION --- */
 .hero-box {
