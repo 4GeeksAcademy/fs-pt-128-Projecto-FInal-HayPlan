@@ -28,8 +28,8 @@ group_members = db.Table(
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
-    password_hash: Mapped[str] = mapped_column(nullable=False)
-    username: Mapped[str] = mapped_column(String(120), unique=True, nullable=True)
+    password_hash: Mapped[str] = mapped_column(nullable=False)  
+    username: Mapped[str] = mapped_column(String(120), unique=True, nullable=False) 
     is_active: Mapped[bool] = mapped_column(Boolean(), default=True, nullable=False)
 
     #PF
@@ -82,6 +82,7 @@ class Plan(db.Model):
             "title": self.title,
             "description": self.description,
             "group_id": self.group_id,
+            "group_name": self.group.name,
             "organizer_id": self.organizer_id,
             "organizer_username": self.organizer.username,
             "status": self.status.value,
