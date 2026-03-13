@@ -84,4 +84,41 @@ export const verifyToken = async (token, dispatch) => {
     }
 };
 
+export const getUser = async () => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/get_user`, {
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const data = await response.json()
+    if(!response.ok) {
+        return false;
+    }
+    return data;
+}
 
+export const getAllPlans = async () => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/plans`, {
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const data = await response.json()
+    if(!response.ok) {
+        return false;
+    }
+    return data;
+}
+
+export const getAllGroups = async () => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups`, {
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
