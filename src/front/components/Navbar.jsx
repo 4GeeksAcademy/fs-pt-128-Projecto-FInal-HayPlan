@@ -1,9 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import iconLogoColor from "../assets/img/iconLogo-Color.png";
 import iconLogo from "../assets/img/iconLogo.png";
-
-
-
 
 export const Navbar = () => {
 
@@ -25,30 +22,30 @@ export const Navbar = () => {
 					<div className="fw-bold px-2">
 						<span className="nav-item-title">Navegacion</span>
 
-						<Link to="/" className="btn active d-flex align-items-center gap-2 py-1">
+						<NavLink to="/app" className="btn d-flex align-items-center gap-2 py-1">
 							<i className="bi bi-border-style"></i>
 							<span clasName="nav-item">Inicio</span>
-						</Link>
+						</NavLink>
 
-						<Link to="/" className="btn d-flex align-items-center gap-2">
+						<NavLink to="/app/planes" className="btn d-flex align-items-center gap-2">
 							<img src={iconLogoColor} width="18" height="18" />
 							<span clasName="nav-item">Planes</span>
-						</Link>
+						</NavLink>
 
-						<Link to="/" className="btn d-flex align-items-center gap-2">
+						<NavLink to="/app/grupos" className="btn d-flex align-items-center gap-2">
 							<i className="bi bi-people"></i>
 							<span clasName="nav-item">Grupos</span>
-						</Link>
+						</NavLink>
 
-						<Link to="/" className="btn d-flex align-items-center gap-2">
+						<NavLink to="/app/stats" className="btn d-flex align-items-center gap-2">
 							<i className="bi bi-bar-chart"></i>
 							<span clasName="nav-item">Stats</span>
-						</Link>
+						</NavLink>
 
-						<Link to="/Descubre" className="btn d-flex align-items-center gap-2">
+						<NavLink to="/descubre" className="btn d-flex align-items-center gap-2">
 							<i className="bi bi-search"></i>
 							<span clasName="nav-item">Descubre</span>
-						</Link>
+						</NavLink>
 					</div>
 				</div>
 
@@ -57,17 +54,17 @@ export const Navbar = () => {
 					<div className="fw-bold px-2">
 						<span className="nav-item-title">Settings</span>
 
-						<Link to="/" className="btn d-flex align-items-center gap-2">
+						<Link to="/app/perfil" className="btn d-flex align-items-center gap-2">
 							<i className="bi bi-person-circle"></i>
 							<span clasName="nav-item">Perfil</span>
 						</Link>
 
-						<Link to="/" className="btn d-flex align-items-center gap-2">
+						<Link to="/app/ayuda" className="btn d-flex align-items-center gap-2">
 							<i className="bi bi-info-circle"></i>
 							<span clasName="nav-item">Ayuda</span>
 						</Link>
 
-						<Link to="/" className="btn d-flex align-items-center gap-2">
+						<Link to="/app/rateUs" className="btn d-flex align-items-center gap-2">
 							<i className="bi bi-star-half"></i>
 							<span clasName="nav-item">Rate</span>
 						</Link>
