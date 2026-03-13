@@ -620,22 +620,22 @@ def add_memory(group_id, plan_id):
     plan = db.session.get(Plan, plan_id)
     if not plan or plan.group_id != group_id:
         return jsonify({"error": "Plan no encontrado"}), 404
-
+    
     data = request.get_json()
     if not data:
         return jsonify({"error": "JSON inválido"}), 400
-
+    
     comment = data.get("comment")
     if not comment or not comment.strip():
         return jsonify({"error": "El comentario es obligatorio"}), 400
-
+    
     if len(comment) > 500:
         return jsonify({"error": "Comentario demasiado largo"}), 400
-
+    
     memory = PlanMemory(
-        plan_id=plan_id,
-        user_id=user.id,
-        comment=comment
+        plan_id = plan_id,
+        user_id = user.id,
+        comment = comment
     )
     db.session.add(memory)
     db.session.commit()
