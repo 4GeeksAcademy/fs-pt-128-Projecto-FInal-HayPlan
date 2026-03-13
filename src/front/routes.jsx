@@ -20,6 +20,7 @@ import { Dashboard } from "./pages/Dashboard";
 import { Descubre } from "./pages/Descubre";
 
 import { Home } from "./pages/Home"
+import { DescubreResultados } from "./pages/DescubreResultados";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +41,8 @@ export const router = createBrowserRouter(
         <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
         <Route path="descubre" element={<Descubre />} />
+        <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
+
         {/* <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>} > */}
 
         </Route>
