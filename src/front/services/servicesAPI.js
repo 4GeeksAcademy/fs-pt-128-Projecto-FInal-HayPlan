@@ -1,25 +1,38 @@
-// Usamos la URL de tu Backend (Flask) que ya tienes en el .env
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
-export const getEvents = async (dispatch) => {
+export const getEvents = async (dispatch, city) => {
     try {
-        // LLAMADA A AL BACKEND.
-        const response = await fetch(`${BACKEND_URL}/api/ticketmaster-events`);
+        const response = await fetch(`${BACKEND_URL}/api/ticketmaster-events?city=${city}`);
         
-        if(!response.ok) {
-            console.error("Error al cargar eventos desde el backend:", response.status);
-            return;        
-        }
+        if(!response.ok) return;        
 
-        const data = await response.json();        
+        const data = await response.json();
         
-        const events = data._embedded ? data._embedded.events : [];
+        // Extrae la lista en bruto de la API
+        const rawEvents = data._embedded ? data._embedded.events : [];
         
+        // IMPRIME EN LA CONSOLA **** BORRAR ******
+        console.log("Lista de eventos encontrados (rawEvents):", rawEvents);
+
+        // Aplicamos el filtro con Map para evitar repetidos por nombre
+        const uniqueEventsMap = new Map();
+        
+        rawEvents.forEach(event => {
+            const eventName = event.name.toLowerCase().trim();
+            if (!uniqueEventsMap.has(eventName)) {
+                uniqueEventsMap.set(eventName, event);
+            }
+        });
+
+        // 3. Envia al store la lista ya filtrada
         dispatch({
             type: "set_events", 
-            payload: events 
+            payload: Array.from(uniqueEventsMap.values()) 
         });
+
     } catch (error) {
-        console.error("Error de red al obtener eventos:", error);
+        console.error("Error de red:", error);
     }
 }
+
+

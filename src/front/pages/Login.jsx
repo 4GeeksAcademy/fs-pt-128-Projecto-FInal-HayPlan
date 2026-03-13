@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { WelcomeModal } from "../components/WelcomeModal";
 
 export const Login = () => {
     const { store, dispatch } = useGlobalReducer();
@@ -11,8 +10,7 @@ export const Login = () => {
     const [showPassword, setshowPassword] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-    const [userId, setUserId] = useState(null); 
+    
 
     const handleChange = (e) => {
         setUser({ ...user, [e.target.name]: e.target.value });
@@ -34,28 +32,20 @@ export const Login = () => {
 
             if (response.ok) {
                 localStorage.setItem("token", data.token);
-                
-                const userData = data.user_id;
-                
-                setUserId(userData.id);
+
+                const userData = data.user_id;              
 
                 dispatch({
                     type: "login",
                     payload: { token: data.token, user: userData }
                 });
 
-                // Si no tiene username, abrimos el modal y detenemos la navegación               
-                if (!userData.username) {
-                    setShowWelcomeModal(true);
-                    setLoading(false);
-                    return;
-                }
                 // Modificar, pdte dashboard.
                 setLoading(false);
-                navigate("/"); 
+                navigate("/app");
 
             } else {
-                setLoading(false);                
+                setLoading(false);
                 setError(data.error || "Email o contraseña incorrectos");
             }
         } catch (err) {
@@ -66,27 +56,14 @@ export const Login = () => {
 
     return (
         <div className="container-fluid d-flex align-items-center justify-content-center signup-wrapper">
-            {showWelcomeModal && (
-                <WelcomeModal
-                    show={showWelcomeModal}
-                    userId={userId} // <-- Pasamos el ID al modal
-                    onClose={() => {
-                        setShowWelcomeModal(false);
-                        // Modificar, pdte dashboard.
-                        navigate("/");
-                    }}
-                />
-            )}
-
             <div className="col-12 col-md-6 col-lg-4 shadow-sm signup-card">
-
                 <h1 className="fw-bold mb-1 signup-title text-center">
                     Bienvenido <br />👋
                 </h1>
-                <p className="text-secondary mb-4 text-center"> Inicia sesión para ver tus planes </p>
-                
+                <h5 className="text-secondary mb-4 text-center"> Tus planes te esperan. ¡Pasa!</h5>
+
                 {error && <div className="alert alert-danger py-2 small">{error}</div>}
-                
+
                 <form onSubmit={handleSubmit}>
                     {/* EMAIL  */}
                     <div className="mb-3">
@@ -97,7 +74,7 @@ export const Login = () => {
                             </span>
                             <input
                                 type="email"
-                                placeholder="correo@email.com"
+                                placeholder="hayplan@email.com"
                                 name="email"
                                 className="form-control form-control-lg border-light-subtle signup-input-group-end"
                                 value={user.email}
@@ -116,14 +93,14 @@ export const Login = () => {
                             <input
                                 type={showPassword ? "text" : "password"}
                                 placeholder="********"
-                                name="password" 
+                                name="password"
                                 className="form-control form-control-lg border-light-subtle border-end-0"
                                 value={user.password}
                                 onChange={handleChange}
                                 required />
-                            <button 
-                                type="button" 
-                                className="btn border-light-subtle bg-light signup-input-group-end pe-3" 
+                            <button
+                                type="button"
+                                className="btn border-light-subtle bg-light signup-input-group-end pe-3"
                                 onClick={() => setshowPassword(!showPassword)}
                             >
                                 <i className={showPassword ? "fa-solid fa-eye-slash text-secondary" : "fa-solid fa-eye text-secondary"} />
@@ -131,9 +108,9 @@ export const Login = () => {
                         </div>
                     </div>
 
-                    <button 
-                        type="submit" 
-                        className="btn btn-lg w-100 fw-bold text-white signup-btn-orange" 
+                    <button
+                        type="submit"
+                        className="btn btn-lg w-100 fw-bold text-white signup-btn-orange"
                         disabled={loading}
                     >
                         {loading ? "Entrando..." : "Iniciar Sesión"}
@@ -141,7 +118,7 @@ export const Login = () => {
 
                     <div className="text-center mt-3">
                         <span className="text-secondary">¿No tienes cuenta? </span>
-                        <Link to="/signup" className="text-decoration-none fw-bold" style={{color: "#FF6B35"}}>
+                        <Link to="/signup" className="text-decoration-none fw-bold" style={{ color: "#FF6B35" }}>
                             Regístrate
                         </Link>
                     </div>
@@ -150,6 +127,7 @@ export const Login = () => {
         </div>
     );
 };
+
 
 
 
