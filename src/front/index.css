@@ -355,3 +355,76 @@ span {
   user-select: none;
 }
 /* --- ESTILO DE HERO SECTION --- */
+/* --- ESTILOS PARA FORMULARIOS GRUPOS Y PLANES (creación) --- */
+
+.form-container-custom {
+  max-width: 700px;
+  /* Eliminamos margin-top si usas vh-100 en el componente para evitar scroll */
+  color: var(--clr-light-a0);
+}
+
+.form-card-dark {
+  background-color: var(--clr-surface-a10);
+  border: 1px solid var(--clr-surface-a20);
+  position: relative;
+}
+
+.form-label-custom {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.form-input-dark {
+  background-color: var(--clr-surface-a0) !important;
+  color: var(--clr-light-a0) !important;
+  border: 1px solid var(--clr-surface-a30) !important;
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  box-shadow: none !important;
+}
+
+/* --- SOLUCIÓN PARA EL PLACEHOLDER --- */
+.form-input-dark::placeholder {
+  color: var(--text-muted) !important; /* Usamos tu variable de texto tenue */
+  opacity: 0.7; /* Le da el toque clásico de placeholder */
+}
+
+/* Para navegadores antiguos o específicos */
+.form-input-dark:-ms-input-placeholder { color: var(--text-muted) !important; }
+.form-input-dark::-ms-input-placeholder { color: var(--text-muted) !important; }
+
+/* --- ESTILO PARA EL SELECT (Placeholder de la primera opción) --- */
+select.form-input-dark:invalid,
+select.form-input-dark option[value=""] {
+  color: var(--text-muted) !important;
+}
+
+.form-input-dark:focus {
+  border-color: var(--clr-primary-a0) !important;
+}
+
+/* Botón principal de acción */
+.btn-submit-custom {
+  background-color: var(--clr-primary-a0) !important;
+  color: var(--clr-dark-a0) !important;
+  border-radius: 50px;
+  padding: 0.6rem 2.5rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+.btn-submit-custom:hover {
+  background-color: var(--clr-primary-a10) !important;
+  transform: translateY(-1px);
+}
+
+/* Iconos de fecha/hora */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
