@@ -30,7 +30,7 @@ export const Navbar = () => {
 							<span clasName="nav-item">Inicio</span>
 						</Link>
 
-						<Link to="/" className="btn d-flex align-items-center gap-2">
+						<Link to="/app/plans" className="btn d-flex align-items-center gap-2">
 							<img src={iconLogoColor} width="18" height="18" />
 							<span clasName="nav-item">Planes</span>
 						</Link>
@@ -45,7 +45,7 @@ export const Navbar = () => {
 							<span clasName="nav-item">Stats</span>
 						</Link>
 
-						<Link to="/Descubre" className="btn d-flex align-items-center gap-2">
+						<Link to="/app/descubre" className="btn d-flex align-items-center gap-2">
 							<i className="bi bi-search"></i>
 							<span clasName="nav-item">Descubre</span>
 						</Link>
