@@ -19,8 +19,9 @@ import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { Descubre } from "./pages/Descubre";
 
-import { Home } from "./pages/Home"
+import { Grupos } from "./pages/Grupos"
 import { DescubreResultados } from "./pages/DescubreResultados";
+import { Planes } from "./pages/Planes";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +41,8 @@ export const router = createBrowserRouter(
         {/* <Route path="dashboard" element={<Dashboard/>} /> */}
         {/* <Route path="signup" element={<Signup />} />
         <Route path="login" element={<Login />} /> */}
+        <Route path="planes" element={<Planes />} />
+        <Route path="grupos" element={<Grupos />} />
         <Route path="descubre" element={<Descubre />} />
         <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
 

@@ -6,11 +6,12 @@ import { DashboardBlockLarge } from "../components/DashboardBlockLarge.jsx"
 import { DashboardBlockMedium } from "../components/DashboardBlockMedium.jsx"
 import { HallOfFame } from "../components/HallOfFame.jsx"
 
-export const Home = () => {
+export const Grupos = () => {
 
 	return (
 		<>
-			<DashboardBlockSmall />
+			<p>Pagina de TODOS los grupos - agregar btn crear grupo & unirse con codigo.</p>
+			<p>Agregar nueva vista modular de grupos</p>
 			<DashboardBlockLarge />
 			<div className="row">
 				<div className="col-12 col-md-6 mb-3 mb-lg-0">
