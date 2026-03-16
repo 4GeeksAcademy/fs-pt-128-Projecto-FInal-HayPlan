@@ -3,11 +3,10 @@ import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import iconLogoColor from "../assets/img/iconLogo-Color.png";
 
-
 export const HallOfFame = () => {
 
     return (
-        <div className="card rounded-4 dashBoard-card-medium-container">
+        <div className="card border-0 rounded-4 dashBoard-card-medium-container">
             <div className="card-body p-2 p-md-3 px-md-1">
 
                 {/* Header */}
@@ -36,7 +35,6 @@ export const HallOfFame = () => {
                                     <span className="badge rounded-pill border px-4">Creador del Plan</span>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -55,7 +53,6 @@ export const HallOfFame = () => {
                                     <span className="badge rounded-pill border px-4">Creador del Plan</span>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -74,14 +71,8 @@ export const HallOfFame = () => {
                                     <span className="badge rounded-pill border px-4">Creador del Plan</span>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
-                    
-
-                    
-
                 </div>
             </div>
         </div>

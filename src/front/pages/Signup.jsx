@@ -46,7 +46,6 @@ export const Signup = () => {
         }
 
         setLoading(true);
-
         try {
             const response = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/signup", {
                 method: "POST",

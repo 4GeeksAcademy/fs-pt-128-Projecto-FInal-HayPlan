@@ -19,8 +19,9 @@ import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { Descubre } from "./pages/Descubre";
 
-import { Home } from "./pages/Home"
+import { Group } from "./pages/Group"
 import { DescubreResultados } from "./pages/DescubreResultados";
+import { Planes } from "./pages/Planes";
 import { Plans } from "./pages/Plans";
 import { Groups } from "./pages/Groups";
 
@@ -36,20 +37,14 @@ export const router = createBrowserRouter(
 
       {/* Rutas Privadas */}
       <Route path="/app" element={<AppLayout />} errorElement={<h1>Not found!</h1>} >
-        <Route index element={<Dashboard />} /> {/* CAMBIA A DASHBOARD.jsx */}
-        {/* <Route path="/single/:theId" element={<Single />} />  Dynamic route for single items */}
-        {/* <Route path="demo" element={<Demo />} /> */}
-        {/* <Route path="dashboard" element={<Dashboard/>} /> */}
-        <Route path="signup" element={<Signup />} />
-        <Route path="login" element={<Login />} />
+        <Route index element={<Dashboard />} />
+        <Route path="planes" element={<Planes />} />
+        <Route path="groups" element={<Groups />} />
+        <Route path="groups/<int:grupo_id>" element={<Group />} />
         <Route path="descubre" element={<Descubre />} />
         <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
         <Route path="plans" element={<Plans />} />
-        <Route path="groups" element={<Groups />} />
-
-        {/* <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>} > */}
-
-        </Route>
-      </>
-      )
-      );
+      </Route>
+    </>
+  )
+);

@@ -227,15 +227,14 @@ export const Planes = () => {
 	
 	return (
 		<>
+		<p>Pagina que muestra TODOS los planes - Crear tabulacion</p>
 			<DashboardBlockSmall 
 				totalPlans={totalPlans}
 				pendingPlans={pendingPlans}
 				activePlans={activePlans}
 				averageRating={averageRating}
 			/>
-			<DashboardBlockLarge 
-				featuredPlan={featuredPlan} 
-			/>
+			
 			<div className="row">
 				<div className="col-12 col-md-6 mb-3 mb-lg-0">
 					<DashboardBlockMedium 
