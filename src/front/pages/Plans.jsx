@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react"
 import { getAllPlans, getUser } from "../services/backEndServices"
 import { PlansCard } from "../components/PlansCard"
+import { useNavigate } from "react-router-dom"
 
 export const Plans = () => {
+
+    const navigate = useNavigate()
+
     const [loadingPage, setLoadingPage] = useState(true)
     const [user, setUser] = useState(null)
     const [allPlans, setAllPlans] = useState([])
@@ -40,8 +44,6 @@ export const Plans = () => {
         if (response) {
             setUser(response)
             console.log(response);
-
-            setLoadingPage(false)
         }
         else {
             localStorage.removeItem("token")
@@ -62,6 +64,7 @@ export const Plans = () => {
     useEffect(() => {
         if (user) {
             getInfo()
+            setLoadingPage(false)
         }
     }, [user])
 
@@ -89,28 +92,28 @@ export const Plans = () => {
                     </nav>
                     <div className="tab-content" id="nav-tabContent">
                         <div className="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab" tabIndex="0">
-                            {allPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {allPlans.length < 1 ? "No hay planes que mostrar" : allPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
                         </div>
                         <div className="tab-pane fade" id="nav-next" role="tabpanel" aria-labelledby="nav-next-tab" tabIndex="0">
-                            {nextPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {nextPlans.length < 1 ? "No hay planes que mostrar" : nextPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
                         </div>
                         <div className="tab-pane fade" id="nav-my" role="tabpanel" aria-labelledby="nav-my-tab" tabIndex="0">
-                            {myPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {myPlans.length < 1 ? "No hay planes que mostrar" : myPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
                         </div>
                         <div className="tab-pane fade" id="nav-proposal" role="tabpanel" aria-labelledby="nav-proposal-tab" tabIndex="0">
-                            {proposalPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {proposalPlans.length < 1 ? "No hay planes que mostrar" : proposalPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
                         </div>
                         <div className="tab-pane fade" id="nav-vote" role="tabpanel" aria-labelledby="nav-vote-tab" tabIndex="0">
-                            {votePlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {votePlans.length < 1 ? "No hay planes que mostrar" : votePlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
                         </div>
                         <div className="tab-pane fade" id="nav-confirmed" role="tabpanel" aria-labelledby="nav-confirmed-tab" tabIndex="0">
-                            {confirmedPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {confirmedPlans.length < 1 ? "No hay planes que mostrar" : confirmedPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
                         </div>
                         <div className="tab-pane fade" id="nav-active" role="tabpanel" aria-labelledby="nav-active-tab" tabIndex="0">
-                            {activePlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {activePlans.length < 1 ? "No hay planes que mostrar" : activePlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
                         </div>
                         <div className="tab-pane fade" id="nav-closed" role="tabpanel" aria-labelledby="nav-closed-tab" tabIndex="0">
-                            {closedPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {closedPlans.length < 1 ? "No hay planes que mostrar" : closedPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
                         </div>
 
                     </div>

@@ -22,6 +22,7 @@ import { Descubre } from "./pages/Descubre";
 import { Home } from "./pages/Home"
 import { DescubreResultados } from "./pages/DescubreResultados";
 import { Plans } from "./pages/Plans";
+import { Groups } from "./pages/Groups";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +45,7 @@ export const router = createBrowserRouter(
         <Route path="descubre" element={<Descubre />} />
         <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
         <Route path="plans" element={<Plans />} />
+        <Route path="groups" element={<Groups />} />
 
         {/* <Route path="/" element={<Layout />} errorElement={<h1>Not found!</h1>} > */}
 
