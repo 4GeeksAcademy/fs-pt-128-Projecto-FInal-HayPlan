@@ -122,3 +122,29 @@ export const getAllGroups = async () => {
     }
     return data;
 }
+
+export const getGroupPlans = async (groupId) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans`, {
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
+
+export const getGroupMembers = async (groupId) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/members`, {
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}

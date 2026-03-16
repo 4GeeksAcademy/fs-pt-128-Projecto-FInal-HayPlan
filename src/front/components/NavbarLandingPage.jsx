@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import iconLogoColor from "../assets/img/iconLogo-Color.png";
 
 
@@ -16,8 +17,8 @@ export const NavbarLanding = () => (
             </ul>
             <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" data-landmark-index="1">
                 <input type="search" className="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search" />
-            </form> <div className="text-end"> <button type="button" className="btn btn-outline-light me-2">Login</button>
-                <button type="button" className="btn btn-warning">Sign-up</button>
+            </form> <div className="text-end"> <Link to="/login" type="button" className="btn btn-outline-light me-2">Login</Link>
+                <Link to="/signup" type="button" className="btn btn-warning">Sign-up</Link>
             </div>
         </div>
         </div>
