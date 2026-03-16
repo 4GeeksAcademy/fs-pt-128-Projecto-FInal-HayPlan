@@ -10,18 +10,18 @@ export const appNav = [
       {
         label: "Planes",
         icon: "bi-journal-check",
-        path: "/app/planes",
+        path: "/app/plans",
       },
       {
         label: "Mis grupos",
         icon: "bi-people",
-        path: "/app/grupos",
+        path: "/app/groups",
       },
-      {
-        label: "Stats",
-        icon: "bi-bar-chart",
-        path: "/app/stats",
-      },
+      // {
+      //   label: "Stats",
+      //   icon: "bi-bar-chart",
+      //   path: "/app/stats",
+      // },
       {
         label: "Descubre",
         icon: "bi-search",
