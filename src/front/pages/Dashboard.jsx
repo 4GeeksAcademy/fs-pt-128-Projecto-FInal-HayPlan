@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { getAllGroups, getAllPlans, getUser } from "../services/backEndServices"
 import concertImg1 from "../assets/img/discover/discover_concert_1.jpg"
 import concertImg2 from "../assets/img/discover/discover_concert_2.jpg"
@@ -104,9 +104,11 @@ export const Dashboard = () => {
     }
   }, [])
 
-  useEffect(()=> {
-    getInfo()
-  }, [])
+  useEffect(() => {
+        if (user) {
+            getInfo()
+        }
+    }, [user])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -174,7 +176,7 @@ export const Dashboard = () => {
                             </div>
 
                             <div className="d-flex flex-column align-items-end gap-2">
-                              <span className="badge rounded-pill bg-success">
+                              <span className={`badge rounded-pill ${plan.status === "votacion" ? "bg-warning" : "bg-success"}`}>
                                 {plan.status}
                               </span>
                               <button className="btn btn-sm btn-outline-light rounded-pill px-3">
@@ -216,9 +218,9 @@ export const Dashboard = () => {
                     Encuentra eventos, sitios y propuestas para tu próximo plan con amigos.
                   </p>
                   <div>
-                    <button className="btn btn-warning rounded-pill px-4 py-2 fw-bold">
+                    <Link to="/app/descubre" className="btn btn-warning rounded-pill px-4 py-2 fw-bold">
                       Explorar eventos
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
