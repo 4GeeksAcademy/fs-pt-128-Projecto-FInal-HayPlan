@@ -51,10 +51,9 @@ export const CreateGroup = () => {
                 </div>
             ) : (
                 <div className="container form-container-custom" style={{ maxWidth: "500px" }}>
-                    {/* Header con flecha de retorno igual a CreatePlan */}
                     <div className="d-flex align-items-center mb-1">
-                        <button 
-                            onClick={() => navigate(-1)} 
+                        <button
+                            onClick={() => navigate(-1)}
                             className="btn btn-link text-white p-0 me-3"
                             style={{ textDecoration: 'none' }}
                         >
@@ -65,9 +64,7 @@ export const CreateGroup = () => {
                     <p className="text-secondary mb-4 small ms-5">Reúne a tus amigos en un solo lugar</p>
 
                     <form onSubmit={handleSubmit} className="form-card-dark p-4 rounded-4 shadow-lg border-0">
-                        {/* El borde decorativo naranja */}
                         <div className="dashBoard-card-large-border"></div>
-
                         <h6 className="text-white fw-bold mb-4">Información del grupo</h6>
 
                         <div className="mb-3">

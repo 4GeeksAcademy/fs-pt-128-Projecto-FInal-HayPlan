@@ -33,8 +33,7 @@ export const CreatePlan = () => {
 
     const getInfo = async () => {
         try {
-            const responseGroups = await getAllGroups();
-            // Validamos que sea un array antes de setearlo
+            const responseGroups = await getAllGroups();            
             setGroups(Array.isArray(responseGroups) ? responseGroups : []);
         } catch (error) {
             console.error("Error cargando grupos", error);

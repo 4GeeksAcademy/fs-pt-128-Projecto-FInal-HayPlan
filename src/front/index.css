@@ -355,11 +355,11 @@ span {
   user-select: none;
 }
 /* --- ESTILO DE HERO SECTION --- */
+
 /* --- ESTILOS PARA FORMULARIOS GRUPOS Y PLANES (creación) --- */
 
 .form-container-custom {
-  max-width: 700px;
-  /* Eliminamos margin-top si usas vh-100 en el componente para evitar scroll */
+  max-width: 700px;  
   color: var(--clr-light-a0);
 }
 
@@ -386,17 +386,17 @@ span {
   box-shadow: none !important;
 }
 
-/* --- SOLUCIÓN PARA EL PLACEHOLDER --- */
+/* --- PARA EL PLACEHOLDER --- */
 .form-input-dark::placeholder {
-  color: var(--text-muted) !important; /* Usamos tu variable de texto tenue */
-  opacity: 0.7; /* Le da el toque clásico de placeholder */
+  color: var(--text-muted) !important; 
+  opacity: 0.7; 
 }
 
 /* Para navegadores antiguos o específicos */
 .form-input-dark:-ms-input-placeholder { color: var(--text-muted) !important; }
 .form-input-dark::-ms-input-placeholder { color: var(--text-muted) !important; }
 
-/* --- ESTILO PARA EL SELECT (Placeholder de la primera opción) --- */
+/* --- ESTILO PARA EL SELECT --- */
 select.form-input-dark:invalid,
 select.form-input-dark option[value=""] {
   color: var(--text-muted) !important;
@@ -406,7 +406,7 @@ select.form-input-dark option[value=""] {
   border-color: var(--clr-primary-a0) !important;
 }
 
-/* Botón principal de acción */
+/* Botón principal de acción (Crear plan) */
 .btn-submit-custom {
   background-color: var(--clr-primary-a0) !important;
   color: var(--clr-dark-a0) !important;
