@@ -11,7 +11,7 @@ export const StatsRow = ({memberCount, createdAt}) => {
     }
 
     return (
-        <div className="row g-2 mt-2 px-2">
+        <div className="row g-2 mt-2 mb-2 px-2">
             {/* Members */}
             <div className="col-6 m-0">
                 <div className="card rounded-4 shadow-sm dashBoard-card-small">
@@ -32,7 +32,7 @@ export const StatsRow = ({memberCount, createdAt}) => {
             {/* Created date */}
             <div className="col-6 m-0">
                 <div className="card rounded-4 shadow-sm dashBoard-card-small">
-                    <div className="card-body py-3 px-3">
+                    <div className="card-body py-3 ps-3 pe-0">
                         <p className="small text-uppercase fw-bold mb-0 mt-1">
                             Desde
                         </p>

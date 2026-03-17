@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { getGroupMembers, getGroupPlans } from "../services/backEndServices"
+import { Link } from "react-router-dom"
 
 export const GroupsCard = ({ group }) => {
 
@@ -101,9 +102,9 @@ export const GroupsCard = ({ group }) => {
                     </div>
 
                     {/* BUTTON */}
-                    <a href="#" className="btn btn-outline-warning rounded-pill w-100">
+                    <Link to="${group.id}" className="btn btn-outline-warning rounded-pill w-100">
                         Ver grupo
-                    </a>
+                    </Link>
 
                 </div>
             </div>

@@ -1,9 +1,11 @@
 
 import { useParams } from "react-router-dom";
-import { GroupInfoCard } from "../components/detalle_de_grupo/GroupInfoCard.jsx";
-import { MemberListCard } from "../components/detalle_de_grupo/MemberListCard.jsx";
-import { StatsRow } from "../components/StatsRow.jsx";
+import { GroupInfoCard } from "../components/detalle-de-grupo/GroupInfoCard.jsx";
+import { MemberListCard } from "../components/detalle-de-grupo/MemberListCard.jsx";
+import { StatsRow } from "../components/detalle-de-grupo/StatsRow.jsx";
 import { DashboardBlockMedium } from "../components/DashboardBlockMedium.jsx"
+import { PlanHistory } from "../components/detalle-de-grupo/PlanHistory.jsx";
+import { HallOfFame } from "../components/HallOfFame.jsx";
 
 export const Group = () => {
 	// Pagina de GRUPO INDIVIDUAL - agregar btn crear grupo & unirse con codigo
@@ -26,12 +28,18 @@ export const Group = () => {
 		{ id: 4, username: "Luis", email: "luis@email.com" }
 	];
 
+	const mockPlans = [
+    { id: 1, title: "Game Night", organizer_username: "Pedro" },
+    { id: 2, title: "Viaje a Barcelona", organizer_username: "Cris" },
+    { id: 3, title: "Nuevo Bar", organizer_username: "Ana" }
+];
+
 	return (
 		<>
 			<div className="row">
 
 				{/* Detalles del grupo */}
-				<div className="col-12 col-md-6 mb-3 mb-lg-0">
+				<div className="col-12 col-md-6 mb-3 mb-lg-0 px-1">
 					<GroupInfoCard
 						group={mockGroup}
 						memberCount={mockMembers.length}
@@ -40,10 +48,11 @@ export const Group = () => {
 						memberCount={mockMembers.length}
 						createdAt={mockGroup.created_at}
 					/>
+					
 				</div>
 
 				{/* miembros del grupo */}
-				<div className="col-12 col-md-6 mb-3 mb-lg-0">
+				<div className="col-12 col-md-6 mb-3 mb-lg-0 px-1">
 					<div className="card border-0 rounded-4 dashBoard-card-medium-container">
 						<MemberListCard
 							members={mockMembers}
@@ -51,14 +60,18 @@ export const Group = () => {
 					</div>
 				</div>
 			</div>
+			
+			<HallOfFame 
+						plans={mockPlans}
+			/>
 
-			{/* Historial? de planes del grupo */}
+			{/* Aceptacion de invitados */}
 			{/* falta por serializar */}
-			<div className="row">
+			{/* <div className="row">
 				<div className="col-12">
 					<DashboardBlockMedium />
 				</div>
-			</div>
+			</div> */}
 		</>
 	);
 }; 

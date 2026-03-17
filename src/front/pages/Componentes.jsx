@@ -246,7 +246,7 @@ export const Componentes = () => {
 
                 <div className="col-12 col-md-6">
                     <HallOfFame 
-                        hallOfFamePlans={hallOfFamePlans}
+                        plans={hallOfFamePlans}
                     />
                 </div>
             </div>

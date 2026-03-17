@@ -1,12 +1,12 @@
 export const MemberListCard = ({ members }) => {
-    const avatarColors = [
+    const accentColors = [
         "var(--accent)",
         "var(--accent2)",
         "var(--accent3)"
     ];
 
     return (
-        <div className="card-body px-2 py-0 p-md-3 px-md-1">
+        <div className="card-body px-2 py-0 p-md-3 px-md-2">
 
             {/* Header */}
             <div className="d-flex justify-content-between align-items-center mb-3">
@@ -33,7 +33,7 @@ export const MemberListCard = ({ members }) => {
                                         width: "50px",
                                         height: "50px",
                                         letterSpacing: "1px",
-                                        color: avatarColors[index % avatarColors.length]
+                                        color: accentColors[index % accentColors.length]
                                     }}
                                 >
                                     {member.username.slice(0, 2).toUpperCase()}
