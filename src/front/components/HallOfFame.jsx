@@ -1,18 +1,22 @@
-import React, { useEffect } from "react"
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
-import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
-import iconLogoColor from "../assets/img/iconLogo-Color.png";
+import { Link } from "react-router-dom";
 
 export const HallOfFame = ({ plan, position }) => {
+    const accentColors = [
+        "var(--clr-primary-a0)",
+        "var(--accent)",
+        "var(--accent3)"
+    ];
 
     return (
         <div className="card border rounded-4 dashBoard-card-medium-item">
             <div className="card-body d-flex align-items-center gap-3 p-3">
-                <div className="d-flex align-items-center justify-content-center rounded-3">
-                    <span className="h2 fw-bold m-0" style={{ color: "var(--clr-primary-a0)" }}>
-                        <span className="h5 m-0" style={{ color: "var(--clr-primary-a0)" }}>#</span>{position}
-                    </span>
-                </div>
+                {/* Rank Position */}
+                                    <div className="d-flex align-items-center justify-content-center rounded-3">
+                                        <span className="h2 fw-bold m-0" style={{ color: accentColors[position-1] }}>
+                                            <span className="h5 m-0" style={{ color: accentColors[position-1] }}>#</span>{position}
+                                        </span>
+                                    </div>
+
                 {/* info del plan */}
                 <div className="flex-grow-1">
                     <div className="fw-bold">{plan.title}</div>

@@ -154,8 +154,6 @@ def get_groups():
     return jsonify([group.serialize() for group in user.groups]), 200
 
 # Grupo individual
-
-
 @api.route("/groups/<int:group_id>", methods=["GET"])
 @jwt_required()
 def get_group(group_id):
@@ -174,8 +172,6 @@ def get_group(group_id):
     return jsonify(group.serialize()), 200
 
 # Crear grupo
-
-
 @api.route("/groups", methods=["POST"])
 @jwt_required()
 def create_group():
@@ -207,8 +203,6 @@ def create_group():
     return jsonify(new_group.serialize()), 201
 
 # Actualizar/editar grupo
-
-
 @api.route("/groups/<int:group_id>", methods=["PUT"])
 @jwt_required()
 def update_group(group_id):
@@ -235,8 +229,6 @@ def update_group(group_id):
     return jsonify(group.serialize()), 200
 
 # Eliminar grupo
-
-
 @api.route("/groups/<int:group_id>", methods=["DELETE"])
 @jwt_required()
 def delete_group(group_id):
@@ -255,8 +247,6 @@ def delete_group(group_id):
     return jsonify({"msg": "Group eliminado"}), 200
 
 # Lista de miembros del grupo
-
-
 @api.route("/groups/<int:group_id>/members", methods=["GET"])
 @jwt_required()
 def get_group_members(group_id):
@@ -277,8 +267,6 @@ def get_group_members(group_id):
     return jsonify(members), 200
 
 # Agregar usuarios a un grupo
-
-
 @api.route("/groups/<int:group_id>/members", methods=["POST"])
 @jwt_required()
 def add_member_group(group_id):
@@ -305,8 +293,6 @@ def add_member_group(group_id):
     return jsonify({"msg": "Nuevo usuario agregado"}), 200
 
 # Eliminar un miembro del grupo
-
-
 @api.route("/groups/<int:group_id>/members/<int:user_id>", methods=["DELETE"])
 @jwt_required()
 def remove_member_group(group_id, user_id):

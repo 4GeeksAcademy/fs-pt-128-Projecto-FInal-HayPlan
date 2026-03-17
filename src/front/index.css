@@ -87,6 +87,10 @@ span {
   font-size: 14px;
   letter-spacing: 1px;
 }
+
+.member-divider{
+  border-bottom: 1px solid var(--clr-primary-a50-opacity);
+}
 /*-------------- GENERAL -------------- */
 
 /*-------------- DESKTOP NAVBAR -------------- */
