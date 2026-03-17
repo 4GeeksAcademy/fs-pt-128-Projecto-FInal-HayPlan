@@ -101,7 +101,7 @@ export const GroupsCard = ({ group }) => {
                     </div>
 
                     {/* BUTTON */}
-                    <a href="#" className="btn btn-warning rounded-pill w-100 fw-medium">
+                    <a href="#" className="btn btn-outline-warning rounded-pill w-100">
                         Ver grupo
                     </a>
 

@@ -79,7 +79,7 @@ export const Groups = () => {
                             </button>
                         </div>
                     ) : (
-                        <div className="row">
+                        <div className="row px-md-3">
                             {groups.map(group => 
                                 <GroupsCard key={group.id} group={group} />)}
                         </div>
