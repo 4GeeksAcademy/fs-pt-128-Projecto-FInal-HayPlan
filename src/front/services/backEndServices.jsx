@@ -174,3 +174,47 @@ export const getTopPlans = async (groupId) => {
     }
     return data;
 }
+export const createGroup = async (groupData) => {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/groups`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
+            },
+            body: JSON.stringify(groupData)
+        });
+        
+        const data = await response.json();
+        
+        if (!response.ok) {
+            return false;
+        }
+        return data;
+    } catch (error) {
+        console.error("Error creating group:", error);
+        return false;
+    }
+};
+
+
+export const createPlan = async (groupId, planData) => {
+    const token = localStorage.getItem("token");
+    try {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(planData)
+        });
+        if (response.ok) {
+            return await response.json();
+        }
+        return null;
+    } catch (error) {
+        console.error("Error creating plan:", error);
+        return null;
+    }
+};
