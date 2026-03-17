@@ -3,8 +3,6 @@ import { useParams } from "react-router-dom";
 import { GroupInfoCard } from "../components/detalle-de-grupo/GroupInfoCard.jsx";
 import { MemberListCard } from "../components/detalle-de-grupo/MemberListCard.jsx";
 import { StatsRow } from "../components/detalle-de-grupo/StatsRow.jsx";
-import { DashboardBlockMedium } from "../components/DashboardBlockMedium.jsx"
-import { PlanHistory } from "../components/detalle-de-grupo/PlanHistory.jsx";
 import { HallOfFame } from "../components/HallOfFame.jsx";
 
 export const Group = () => {
@@ -60,7 +58,7 @@ export const Group = () => {
 					</div>
 				</div>
 			</div>
-			
+
 			<HallOfFame 
 						plans={mockPlans}
 			/>
