@@ -60,17 +60,7 @@ export const Groups = () => {
                     <div className="card-body px-2 py-0 p-md-3 px-md-1">
 
                         {/* Header */}
-                        <div className="d-flex justify-content-between align-items-center mb-3">
-                            <span className="text-uppercase small fw-semibold">
-                                Mis Grupos
-                            </span>
-                            {/* <button className="btn btn-sm rounded-pill px-3 text-light border">
-                            Nuevo grupo
-                        </button> */}
-                        </div>
-
-
-                        <div className="container mt-4">
+                        <div className="container">
                             <div className="d-flex justify-content-between align-items-center mb-4">
                                 <h2 className="text-white">Mis grupos</h2>
                                 {groups.length > 0 && (

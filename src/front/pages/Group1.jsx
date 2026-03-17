@@ -5,7 +5,7 @@ import { MemberListCard } from "../components/detalle-de-grupo/MemberListCard.js
 import { StatsRow } from "../components/detalle-de-grupo/StatsRow.jsx";
 import { HallOfFame } from "../components/HallOfFame.jsx";
 
-export const Group = () => {
+export const Group1 = () => {
 	// Pagina de GRUPO INDIVIDUAL - agregar btn crear grupo & unirse con codigo
 
 	const { groupId } = useParams()

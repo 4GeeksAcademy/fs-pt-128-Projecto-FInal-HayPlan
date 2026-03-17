@@ -19,7 +19,7 @@ import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { Descubre } from "./pages/Descubre";
 
-import { Group } from "./pages/Group"
+import { Group1 } from "./pages/Group1"
 import { DescubreResultados } from "./pages/DescubreResultados";
 import { Planes } from "./pages/Planes";
 import { Plans } from "./pages/Plans";
@@ -44,8 +44,8 @@ export const router = createBrowserRouter(
         <Route path="plans" element={<Plans />} />
         <Route path="planes" element={<Planes />} />
         <Route path="groups" element={<Groups />} />
-        <Route path="groups/:groupId" element={<Group />} /> 
-        <Route path="group" element={<Group />} /> 
+        <Route path="groups/:groupId" element={<Group1 />} /> 
+        <Route path="group1" element={<Group1 />} /> 
         <Route path="descubre" element={<Descubre />} />
         <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
         <Route path="componentes" element={<Componentes />} />
