@@ -24,6 +24,7 @@ import { DescubreResultados } from "./pages/DescubreResultados";
 import { Planes } from "./pages/Planes";
 import { Plans } from "./pages/Plans";
 import { Groups } from "./pages/Groups";
+import { Componentes } from "./pages/Componentes";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -38,12 +39,14 @@ export const router = createBrowserRouter(
       {/* Rutas Privadas */}
       <Route path="/app" element={<AppLayout />} errorElement={<h1>Not found!</h1>} >
         <Route index element={<Dashboard />} />
+        <Route path="plans" element={<Plans />} />
         <Route path="planes" element={<Planes />} />
         <Route path="groups" element={<Groups />} />
-        <Route path="groups/<int:grupo_id>" element={<Group />} />
+        <Route path="groups/:groupId" element={<Group />} /> 
+        <Route path="group" element={<Group />} /> 
         <Route path="descubre" element={<Descubre />} />
         <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
-        <Route path="plans" element={<Plans />} />
+        <Route path="componentes" element={<Componentes />} />
       </Route>
     </>
   )

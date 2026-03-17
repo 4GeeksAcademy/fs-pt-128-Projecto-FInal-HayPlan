@@ -227,7 +227,7 @@ export const Planes = () => {
 	
 	return (
 		<>
-		<p>Pagina que muestra TODOS los planes - Crear tabulacion</p>
+		<p>Pagina que muestra Detalle de plan</p>
 			<DashboardBlockSmall 
 				totalPlans={totalPlans}
 				pendingPlans={pendingPlans}
