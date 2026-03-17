@@ -55,8 +55,20 @@ export const Groups = () => {
                     </div>
                 </div>
             ) : (
-                <div className="container">
-                    <h2>Mis grupos</h2>
+
+                <div className="card border-0 rounded-4 dashBoard-card-medium-container">
+                    <div className="card-body px-2 py-0 p-md-3 px-md-1">
+
+                    {/* Header */}
+                    <div className="d-flex justify-content-between align-items-center mb-3">
+                        <span className="text-uppercase small fw-semibold">
+                            Mis Grupos
+                        </span>
+                        {/* <button className="btn btn-sm rounded-pill px-3 text-light border">
+                            Nuevo grupo
+                        </button> */}
+                    </div>
+
                     {groups.length === 0 ? (
                         <div className="empty-state">
                             <h2>Aún no tienes grupos</h2>
@@ -67,10 +79,12 @@ export const Groups = () => {
                             </button>
                         </div>
                     ) : (
-                        <div className="row ms-5">
-                            {groups.map(group => <GroupsCard key={group.id} group={group} />)}
+                        <div className="row">
+                            {groups.map(group => 
+                                <GroupsCard key={group.id} group={group} />)}
                         </div>
                     )}
+                    </div>
                 </div>
             )}
         </>
