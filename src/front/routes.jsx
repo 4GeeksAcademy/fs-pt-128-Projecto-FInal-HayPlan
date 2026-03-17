@@ -47,6 +47,7 @@ export const router = createBrowserRouter(
         <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
         <Route path="plans" element={<Plans />} />
         <Route path="plans/create-plan" element={<CreatePlan />} />
+        <Route path="groups/:groupId/create-plan" element={<CreatePlan />} />
         <Route path="groups/create-group" element={<CreateGroup />} />
 
       </Route>

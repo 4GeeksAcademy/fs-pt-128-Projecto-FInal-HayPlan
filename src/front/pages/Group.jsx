@@ -68,7 +68,15 @@ export const Group = () => {
 				<div>
 					<div className="d-flex justify-content-between">
 						<h1 className="mb-3">{groupInfo.name?.toUpperCase()}</h1>
-						<button className="btn badge rounded-pill text-bg-secondary px-2 my-3 me-2">Configuración</button>
+						<div className="me-2">
+							<button className="btn rounded-pill text-bg-secondary px-4 my-3 me-2">Configuración</button>
+							<button
+								className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm"
+								onClick={() => navigate("create-plan")}
+							>
+								+ Crear plan
+							</button>
+						</div>
 					</div>
 					<DashboardBlockSmall plans={groupPlans} />
 					<h5 className="mt-4 text-uppercase small fw-semibold">Próximo plan</h5>
@@ -101,11 +109,11 @@ export const Group = () => {
                         							Ver todos
                     							</button> */}
 									<div className="d-flex flex-column gap-2 px-md-2 mt-3">
-										{topPlans.map((plan, index) => <HallOfFame key={plan.id} plan={plan} position={index + 1}/>)}
+										{topPlans.map((plan, index) => <HallOfFame key={plan.id} plan={plan} position={index + 1} />)}
 									</div>
 								</div>
 							</div>
-							
+
 						</div>
 					</div>
 				</div>
