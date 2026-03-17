@@ -28,7 +28,7 @@ export const GroupInfoCard = ({ group, memberCount }) => {
                                     🤝
                                 </div>
                                 <div className="w-100">
-                                    <p className="fw-bold fs-2 text-uppercase mb-0">{group.name}</p>
+                                    <p className="fw-bold fs-2 text-uppercase mb-0">{group?.name}</p>
                                     {/* <div className="d-flex gap-3 small text-muted mt-1">
                                         <span className="badge rounded-pill d-inline-flex align-items-center lh-1 border px-4">
                                             {`${memberCount.length} miembros`}
@@ -45,7 +45,7 @@ export const GroupInfoCard = ({ group, memberCount }) => {
                             <div className="">
                                 <p className="small text-uppercase fw-bold mb-0">Codigo de Invitacion</p>
                                 <div className="d-flex gap-5 align-items-center">
-                                    <span className="fw-bold fs-2" style={{ color: "var(--accent4)" }}>{group.invite_code}</span>
+                                    <span className="fw-bold fs-2" style={{ color: "var(--accent4)" }}>{group?.invite_code}</span>
                                     <button className="btn btn-outline-secondary btn-sm rounded-pill px-3">Copiar</button>
                                 </div>
                             </div>

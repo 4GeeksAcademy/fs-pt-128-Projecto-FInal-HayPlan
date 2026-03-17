@@ -69,7 +69,10 @@ export const Group = () => {
 					<div className="d-flex justify-content-between">
 						<h1 className="mb-3">{groupInfo.name?.toUpperCase()}</h1>
 						<div className="me-2">
-							<button className="btn rounded-pill text-bg-secondary px-4 my-3 me-2">Configuración</button>
+							<button 
+								className="btn rounded-pill text-bg-secondary px-4 my-3 me-2"
+								onClick={() => navigate(`/app/groups/details/${groupInfo.id}`)}	
+							>Ver mas detalles</button>
 							<button
 								className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm"
 								onClick={() => navigate("create-plan")}

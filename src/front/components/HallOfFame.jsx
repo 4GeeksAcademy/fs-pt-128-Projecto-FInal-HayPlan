@@ -8,14 +8,15 @@ export const HallOfFame = ({ plan, position }) => {
     ];
 
     return (
+
         <div className="card border rounded-4 dashBoard-card-medium-item">
             <div className="card-body d-flex align-items-center gap-3 p-3">
                 {/* Rank Position */}
-                                    <div className="d-flex align-items-center justify-content-center rounded-3">
-                                        <span className="h2 fw-bold m-0" style={{ color: accentColors[position-1] }}>
-                                            <span className="h5 m-0" style={{ color: accentColors[position-1] }}>#</span>{position}
-                                        </span>
-                                    </div>
+                <div className="d-flex align-items-center justify-content-center rounded-3">
+                    <span className="h2 fw-bold m-0" style={{ color: accentColors[position - 1] }}>
+                        <span className="h5 m-0" style={{ color: accentColors[position - 1] }}>#</span>{position}
+                    </span>
+                </div>
 
                 {/* info del plan */}
                 <div className="flex-grow-1">

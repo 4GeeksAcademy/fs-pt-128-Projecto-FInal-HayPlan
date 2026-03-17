@@ -68,7 +68,7 @@ export const Groups = () => {
                                         className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm"
                                         onClick={() => navigate("/app/groups/create-group")}
                                     >
-                                        + Nuevo Grupo
+                                        Nuevo Grupo
                                     </button>
                                 )}
                             </div>
@@ -82,7 +82,7 @@ export const Groups = () => {
                                         className="btn btn-warning btn-lg rounded-pill px-5 fw-bold mt-3 shadow-sm"
                                         onClick={() => navigate("/app/groups/create-group")}
                                     >
-                                        + Crear grupo
+                                        Crear grupo
                                     </button>
                                 </div>
                             ) : (
