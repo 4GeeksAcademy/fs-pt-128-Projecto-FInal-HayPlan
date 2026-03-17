@@ -77,7 +77,17 @@ export const Plans = () => {
                     </div>
                 </div>
             ) : (
-                <div className="container">
+                <div className="container">                    
+                    <div className="d-flex justify-content-between align-items-center mt-4 mb-3">
+                        <h2 className="text-white m-0">Planes</h2>
+                        <button 
+                            className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm"
+                            onClick={() => navigate("create-plan")}
+                        >
+                            + Crear plan
+                        </button>
+                    </div>
+
                     <nav>
                         <div className="nav nav-tabs" id="nav-tab" role="tablist">
                             <button className="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">Todos</button>
