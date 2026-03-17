@@ -29,6 +29,7 @@ def handle_hello():
 
 # Ruta para el registro (Signup)
 
+
 @api.route('/signup', methods=['POST'])
 def signup():
     data = request.get_json()
@@ -69,13 +70,14 @@ def signup():
 
 # Ruta para el Login (inicio de sesión)
 
+
 @api.route('/login', methods=['POST'])
 def login():
     # Verifica que el email y password estén creados
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
-    
+
     if not email or not password:
         return jsonify({"error": "Email y contraseña son requeridos"}), 400
 
@@ -148,7 +150,7 @@ def get_groups():
     user = db.session.get(User, int(user_id))
     if not user:
         return jsonify({"error": "Usuario no encontrado"}), 404
-    
+
     return jsonify([group.serialize() for group in user.groups]), 200
 
 # Grupo individual
@@ -547,9 +549,9 @@ def get_ticketmaster_events():
 
     # CAPTURA la ciudad que viene del Frontend
     city = request.args.get('city')
-    
+
     url = f"https://app.ticketmaster.com/discovery/v2/events.json?apikey={api_key}"
-    
+
     if city:
         url += f"&city={city}"
 

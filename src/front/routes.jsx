@@ -25,6 +25,8 @@ import { Planes } from "./pages/Planes";
 import { Plans } from "./pages/Plans";
 import { Groups } from "./pages/Groups";
 import { Componentes } from "./pages/Componentes";
+import { CreatePlan } from "./pages/CreatePlan";
+import { CreateGroup } from "./pages/CreateGroup";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,6 +49,10 @@ export const router = createBrowserRouter(
         <Route path="descubre" element={<Descubre />} />
         <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
         <Route path="componentes" element={<Componentes />} />
+        <Route path="plans" element={<Plans />} />
+        <Route path="plans/create-plan" element={<CreatePlan />} />
+        <Route path="groups/create-group" element={<CreateGroup />} />
+
       </Route>
     </>
   )
