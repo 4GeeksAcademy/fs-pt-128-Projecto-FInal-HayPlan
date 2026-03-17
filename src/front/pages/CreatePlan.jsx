@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
 import { getAllGroups, getUser, createPlan } from "../services/backEndServices";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const CreatePlan = () => {
+
+    const { groupId } = useParams();
+
     const navigate = useNavigate();
     const [loadingPage, setLoadingPage] = useState(true);
     const [user, setUser] = useState(null);
@@ -11,7 +14,7 @@ export const CreatePlan = () => {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
-        group_id: "",
+        group_id: groupId || "",
         location: "",
         date: "",
         time: ""
@@ -91,7 +94,7 @@ export const CreatePlan = () => {
                     </div>
                 </div>
             ) : (
-                <div className="container form-container-custom" style={{ maxWidth: "500px" }}>
+                <div className="container form-container-custom" style={{ maxWidth: "1200px" }}>
                     <div className="d-flex align-items-center mb-1 text-white">
                         <button onClick={() => navigate(-1)} className="btn btn-link text-white p-0 me-3 border-0 shadow-none" style={{ textDecoration: 'none' }}>
                             <span style={{ fontSize: '1.5rem' }}>←</span>
@@ -100,7 +103,7 @@ export const CreatePlan = () => {
                     </div>
                     <p className="text-secondary mb-4 small ms-5">Crea una propuesta para tu grupo</p>
 
-                    <form onSubmit={handleSubmit} className="form-card-dark p-4 rounded-4 shadow-lg border-0">
+                    <form onSubmit={handleSubmit} className="form-card-dark dashBoard-card-large p-4 rounded-4 shadow-lg border-0 px-5">
                         <div className="dashBoard-card-large-border"></div>
                         <h6 className="text-white fw-bold mb-4">Detalles del plan</h6>
 
@@ -133,12 +136,12 @@ export const CreatePlan = () => {
                             <input name="location" type="text" className="form-control form-input-dark" placeholder="Ej: Casa de Manu..." value={formData.location} onChange={handleChange} />
                         </div>
 
-                        <div className="row">
-                            <div className="col-6 mb-3">
+                        <div className="row d-flex justify-content-around">
+                            <div className="col-6 col-xl-4 mb-3">
                                 <label className="form-label-custom">Fecha</label>
                                 <input name="date" type="date" className="form-control form-input-dark" value={formData.date} onChange={handleChange} required />
                             </div>
-                            <div className="col-6 mb-3">
+                            <div className="col-6 col-xl-4 mb-3">
                                 <label className="form-label-custom">Hora</label>
                                 <input name="time" type="time" className="form-control form-input-dark" value={formData.time} onChange={handleChange} />
                             </div>

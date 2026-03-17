@@ -59,9 +59,9 @@ export const Group1 = () => {
 				</div>
 			</div>
 
-			<HallOfFame 
+			{/* <HallOfFame 
 						plans={mockPlans}
-			/>
+			/> */}
 
 			{/* Aceptacion de invitados */}
 			{/* falta por serializar */}

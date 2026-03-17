@@ -27,6 +27,7 @@ import { Groups } from "./pages/Groups";
 import { Componentes } from "./pages/Componentes";
 import { CreatePlan } from "./pages/CreatePlan";
 import { CreateGroup } from "./pages/CreateGroup";
+import { Group } from "./pages/Group";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,13 +45,15 @@ export const router = createBrowserRouter(
         <Route path="plans" element={<Plans />} />
         <Route path="planes" element={<Planes />} />
         <Route path="groups" element={<Groups />} />
-        <Route path="groups/:groupId" element={<Group1 />} /> 
+        <Route path="groups/:group_id" element={<Group />} />
+        {/* <Route path="groups/:groupId" element={<Group1 />} />  */}
         <Route path="group1" element={<Group1 />} /> 
         <Route path="descubre" element={<Descubre />} />
         <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
         <Route path="componentes" element={<Componentes />} />
         <Route path="plans" element={<Plans />} />
         <Route path="plans/create-plan" element={<CreatePlan />} />
+        <Route path="groups/:groupId/create-plan" element={<CreatePlan />} />
         <Route path="groups/create-group" element={<CreateGroup />} />
 
       </Route>
