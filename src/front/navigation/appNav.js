@@ -25,7 +25,7 @@ export const appNav = [
       {
         label: "Detalle de Grupo",
         icon: "bi-bar-chart",
-        path: "/app/group",
+        path: "/app/group1",
       },
       {
         label: "Descubre",

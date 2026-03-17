@@ -149,6 +149,31 @@ export const getGroupMembers = async (groupId) => {
     return data;
 }
 
+export const getGroup = async (groupId) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}`, {
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
+
+export const getTopPlans = async (groupId) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans/top`, {
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
 export const createGroup = async (groupData) => {
     try {
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/groups`, {
