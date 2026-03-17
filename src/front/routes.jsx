@@ -40,7 +40,7 @@ export const router = createBrowserRouter(
         <Route index element={<Dashboard />} />
         <Route path="planes" element={<Planes />} />
         <Route path="groups" element={<Groups />} />
-        <Route path="groups/<int:grupo_id>" element={<Group />} />
+        <Route path="groups/:group_id" element={<Group />} />
         <Route path="descubre" element={<Descubre />} />
         <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
         <Route path="plans" element={<Plans />} />

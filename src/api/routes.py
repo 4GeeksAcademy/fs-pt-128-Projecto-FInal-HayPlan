@@ -5,7 +5,7 @@ import re  # Para expresiones regulares
 import os  # Para leer la API KEY del .env
 import requests  # Para peticiones a Ticketmaster
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Group, Plan, PlanStatus, Vote
+from api.models import db, User, Group, Plan, PlanStatus, Vote, PlanRating
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from sqlalchemy import select
@@ -28,6 +28,7 @@ def handle_hello():
     return jsonify(response_body), 200
 
 # Ruta para el registro (Signup)
+
 
 @api.route('/signup', methods=['POST'])
 def signup():
@@ -69,13 +70,14 @@ def signup():
 
 # Ruta para el Login (inicio de sesión)
 
+
 @api.route('/login', methods=['POST'])
 def login():
     # Verifica que el email y password estén creados
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
-    
+
     if not email or not password:
         return jsonify({"error": "Email y contraseña son requeridos"}), 400
 
@@ -148,18 +150,26 @@ def get_groups():
     user = db.session.get(User, int(user_id))
     if not user:
         return jsonify({"error": "Usuario no encontrado"}), 404
-    
+
     return jsonify([group.serialize() for group in user.groups]), 200
 
 # Grupo individual
 
 
 @api.route("/groups/<int:group_id>", methods=["GET"])
+@jwt_required()
 def get_group(group_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
     group = db.session.get(Group, group_id)
 
     if not group:
         return jsonify({"error": "Grupo no encontrado"}), 404
+    if user not in group.members:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
 
     return jsonify(group.serialize()), 200
 
@@ -461,7 +471,33 @@ def advance_status(group_id, plan_id):
     return jsonify(plan.serialize()), 200
 
 
+@api.route("/groups/<int:group_id>/plans/top", methods=["GET"])
+@jwt_required()
+def get_top_plans(group_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+
+    if user not in group.members:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+
+    plans = db.session.execute(
+        select(Plan).where(Plan.group_id == group_id)).scalars().all()
+
+    rating_plans = [plan for plan in plans if plan.ratings]
+
+    rating_plans.sort(key=lambda plan: sum(rating.score for rating in plan.ratings) / len(plan.ratings), reverse=True)
+
+    return jsonify([plan.serialize() for plan in rating_plans]), 200
+
 # — Votes ——————————————————————————————————————————————————
+
+
 @api.route('/groups/<int:group_id>/plans/<int:plan_id>/vote', methods=['POST'])
 @jwt_required()
 def vote_plan(group_id, plan_id):
@@ -545,7 +581,60 @@ def get_votes(group_id, plan_id):
         "summary": summary
     }), 200
 
-    # Ruta para obtener eventos de Ticketmaster. ------------------------------------
+# — Rating ——————————————————————————————————————————————————
+
+
+@api.route("/groups/<int:group_id>/plans/<int:plan_id>/rating", methods=["POST"])
+@jwt_required()
+def rate_plan(group_id, plan_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+
+    if user not in group.members:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+
+    plan = db.session.get(Plan, plan_id)
+    if not plan or plan.group_id != group_id:
+        return jsonify({"error": "Plan no encontrado"}), 404
+
+    if plan.status != PlanStatus.CERRADO:
+        return jsonify({"error": "Solo puedes valorar planes cerrados"}), 400
+
+    data = request.get_json()
+    score = data.get("score")
+
+    if score is None:
+        return jsonify({"error": "La puntuación es obligatoria"}), 400
+    if not isinstance(score, int) or score < 1 or score > 5:
+        return jsonify({"error": "La puntuación debe ser un número entre 1 y 5"}), 400
+
+    existing = db.session.execute(
+        select(PlanRating).where(
+            PlanRating.plan_id == plan_id,
+            PlanRating.user_id == user_id
+        )
+    ).scalar_one_or_none()
+
+    if existing:
+        existing.score = score
+    else:
+        db.session.add(PlanRating(
+            plan_id=plan_id,
+            user_id=user_id,
+            score=score
+        ))
+
+    db.session.commit()
+    return jsonify({"msg": "Valoración registrada"}), 200
+
+
+# Ruta para obtener eventos de Ticketmaster. ------------------------------------
 
 
 @api.route('/ticketmaster-events', methods=['GET'])
@@ -557,9 +646,9 @@ def get_ticketmaster_events():
 
     # CAPTURA la ciudad que viene del Frontend
     city = request.args.get('city')
-    
+
     url = f"https://app.ticketmaster.com/discovery/v2/events.json?apikey={api_key}"
-    
+
     if city:
         url += f"&city={city}"
 
