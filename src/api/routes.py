@@ -537,9 +537,7 @@ def get_votes(group_id, plan_id):
         "summary": summary
     }), 200
 
-    # Ruta para obtener eventos de Ticketmaster. ------------------------------------
-
-
+# Ruta para obtener eventos de Ticketmaster. ------------------------------------
 @api.route('/ticketmaster-events', methods=['GET'])
 def get_ticketmaster_events():
     api_key = os.getenv("TICKETMASTER_API_KEY")
