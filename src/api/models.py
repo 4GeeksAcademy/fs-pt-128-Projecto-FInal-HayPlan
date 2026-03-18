@@ -195,6 +195,7 @@ class Group(db.Model):
             "name": self.name,
             "description": self.description,
             "invite_code": self.invite_code,
-            "admin_id": self.admin_id
+            "admin_id": self.admin_id,
+            "admin_username": self.admin.username
         }
     # --PF

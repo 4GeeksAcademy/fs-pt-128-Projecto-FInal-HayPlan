@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getAllGroups, getUser } from "../services/backEndServices"
 import { GroupsCard } from "../components/GroupsCard"
 import { useNavigate } from "react-router-dom"
+import { JoinGroupModal } from "../components/JoinGroupModal"
 
 export const Groups = () => {
 
@@ -10,6 +11,7 @@ export const Groups = () => {
     const [loadingPage, setLoadingPage] = useState(true)
     const [user, setUser] = useState(null)
     const [groups, setGroups] = useState([])
+    const [showJoin, setShowJoin] = useState(false);
 
     const checkToken = async () => {
         const response = await getUser()
@@ -63,6 +65,11 @@ export const Groups = () => {
                         <div className="container">
                             <div className="d-flex justify-content-between align-items-center mb-4">
                                 <h2 className="text-white">Mis grupos</h2>
+                                <div className="d-flex gap-3">
+                                <button className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm" 
+                                onClick={() => setShowJoin(true)}
+                                >Unirse con código</button>
+                                {showJoin && <JoinGroupModal onClose={() => setShowJoin(false)} />}
                                 {groups.length > 0 && (
                                     <button
                                         className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm"
@@ -71,6 +78,7 @@ export const Groups = () => {
                                         Nuevo Grupo
                                     </button>
                                 )}
+                                </div>
                             </div>
 
                             {groups.length === 0 ? (
