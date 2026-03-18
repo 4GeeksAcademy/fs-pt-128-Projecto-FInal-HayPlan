@@ -54,7 +54,7 @@ export const PendingInvitesCard = () => {
                             </p>
 
                             <p className="small mb-0">
-                                Cuando alguien solicite unirse al grupo, aparecerá aquí.
+                                Invitaciones pendientes... 
                             </p>
                         </div>
                     ) : (
