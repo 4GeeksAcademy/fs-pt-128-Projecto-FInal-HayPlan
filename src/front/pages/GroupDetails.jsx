@@ -79,6 +79,9 @@ export const GroupDetails = () => {
 				</div>
 			) : (
 				<>
+					<button onClick={() => navigate(-1)} className="btn btn-link text-white p-0 me-3 border-0 shadow-none" style={{ textDecoration: 'none' }}>
+						<span style={{ fontSize: '1.5rem' }}>←</span>
+					</button>
 					<div className="row">
 
 						<div className="col-12 col-md-6 mb-3 mb-lg-0 px-1">
