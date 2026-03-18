@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { getAllGroups, getAllPlans, getUser } from "../services/backEndServices"
 import concertImg1 from "../assets/img/discover/discover_concert_1.jpg"
 import concertImg2 from "../assets/img/discover/discover_concert_2.jpg"
@@ -12,6 +12,7 @@ import natureImg1 from "../assets/img/discover/discover_nature_1.jpg"
 import natureImg2 from "../assets/img/discover/discover_nature_2.jpg"
 import sportsImg1 from "../assets/img/discover/discover_sports_1.jpg"
 import sportsImg2 from "../assets/img/discover/discover_sports_2.jpg"
+import { planDateFormatLarge } from "../functions/planDateFormatLarge"
 
 export const Dashboard = () => {
 
@@ -58,24 +59,6 @@ export const Dashboard = () => {
     setGroups(responseGroups)
   }
 
-  const planDateFormat = (dateString) => {
-    const date = new Date(dateString)
-    let formatDate = date.toLocaleDateString("es-ES", {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      hour: "2-digit",
-      minute: "2-digit"
-    })
-    let formatDateSplit = formatDate.replace(",", "")
-    let formatDatePoint = formatDateSplit.replace(",", " ·")
-    let formatDateUpper = formatDatePoint
-      .split(" ")
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ")
-    return formatDateUpper
-  }
-
   const closeDateFormat = (dateString) => {
     const date = new Date(dateString)
     const now = new Date()
@@ -104,9 +87,11 @@ export const Dashboard = () => {
     }
   }, [])
 
-  useEffect(()=> {
-    getInfo()
-  }, [])
+  useEffect(() => {
+        if (user) {
+            getInfo()
+        }
+    }, [user])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -168,13 +153,13 @@ export const Dashboard = () => {
                               <h5 className="mb-1">{plan.title}</h5>
                               <p className="mb-1 text-secondary">{plan.groupName}</p>
                               <small className="text-secondary">
-                                {planDateFormat(plan.date)}
+                                {planDateFormatLarge(plan.date)}
                                 {plan.location ? ` · ${plan.location}` : ""}
                               </small>
                             </div>
 
                             <div className="d-flex flex-column align-items-end gap-2">
-                              <span className="badge rounded-pill bg-success">
+                              <span className={`badge rounded-pill ${plan.status === "votacion" ? "bg-warning" : "bg-success"}`}>
                                 {plan.status}
                               </span>
                               <button className="btn btn-sm btn-outline-light rounded-pill px-3">
@@ -216,9 +201,9 @@ export const Dashboard = () => {
                     Encuentra eventos, sitios y propuestas para tu próximo plan con amigos.
                   </p>
                   <div>
-                    <button className="btn btn-warning rounded-pill px-4 py-2 fw-bold">
+                    <Link to="/app/descubre" className="btn btn-warning rounded-pill px-4 py-2 fw-bold">
                       Explorar eventos
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
