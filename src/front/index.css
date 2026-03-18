@@ -321,7 +321,7 @@ span {
 .ticket-badge {
   background-color: var(--clr-primary-a0-opacity) !important;
   color: var(--clr-primary-a10) !important;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: bold;
 }
 

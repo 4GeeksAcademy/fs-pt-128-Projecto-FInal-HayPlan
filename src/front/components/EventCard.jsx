@@ -1,17 +1,17 @@
 import React from "react";
 
 export const EventCard = ({ name, image, date, time, venue, city, url }) => {
-    // Formatear la fecha
+    // Formatea la fecha
     const formattedDate = date
         ? new Date(date.replace(/-/g, '/')).toLocaleDateString("es-ES", {
             day: "numeric",
             month: "short",
             year: "numeric",
         })
-        : "Fecha TBD";
+        : "Por confirmar";
 
     // Formatea la hora
-    const formattedTime = time ? time.substring(0, 5) : "Hora TBD";
+    const formattedTime = time ? time.substring(0, 5) : "Por confirmar";
 
     return (
         <div className="card h-100 border-0 event-card-pill w-100">

@@ -37,7 +37,7 @@ export const Descubre = () => {
     };
 
     return (
-        <div className="vh-100 bg-main-dark d-flex align-items-center overflow-hidden">
+        <div className="vh-95 bg-main-dark d-flex align-items-center overflow-hidden">
             <div className="container py-3">
                 <h1 className="display-5 fw-bold mb-4 text-center">Explora planes</h1>
 
@@ -47,8 +47,8 @@ export const Descubre = () => {
                         <div className="position-relative d-flex align-items-center">
                             <input
                                 type="text"
-                                className="form-control border-0 py-2 ps-4 search-input-custom"
-                                placeholder="Escribe tu ciudad y luego selecciona la categoría"
+                                className="form-control border-4 py-2 ps-4 mb-4 search-input-custom"
+                                placeholder="Escribe tu ciudad"
                                 value={city}
                                 onChange={handleCityChange}
                                 onKeyDown={(e) => e.key === 'Enter' && validateAndSearch()}
@@ -57,7 +57,7 @@ export const Descubre = () => {
                                 onClick={() => validateAndSearch()}
                                 className="btn position-absolute end-0 me-2 text-secondary border-0"
                             >
-                                <i className="fas fa-search"></i>
+                                <i className="fas fa-search mb-4" style={{color:"#282828"}}></i>
                             </button>
                         </div>
                     </div>
