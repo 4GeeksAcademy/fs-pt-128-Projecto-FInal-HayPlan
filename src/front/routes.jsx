@@ -19,7 +19,6 @@ import { Login } from "./pages/Login";
 import { Dashboard } from "./pages/Dashboard";
 import { Descubre } from "./pages/Descubre";
 
-import { Group1 } from "./pages/Group1"
 import { DescubreResultados } from "./pages/DescubreResultados";
 import { Planes } from "./pages/Planes";
 import { Plans } from "./pages/Plans";
@@ -28,6 +27,7 @@ import { Componentes } from "./pages/Componentes";
 import { CreatePlan } from "./pages/CreatePlan";
 import { CreateGroup } from "./pages/CreateGroup";
 import { Group } from "./pages/Group";
+import { GroupDetails } from "./pages/GroupDetails";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -47,7 +47,7 @@ export const router = createBrowserRouter(
         <Route path="groups" element={<Groups />} />
         <Route path="groups/:group_id" element={<Group />} />
         {/* <Route path="groups/:groupId" element={<Group1 />} />  */}
-        <Route path="group1" element={<Group1 />} /> 
+        <Route path="groups/details/:group_id" element={<GroupDetails />} /> 
         <Route path="descubre" element={<Descubre />} />
         <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
         <Route path="componentes" element={<Componentes />} />

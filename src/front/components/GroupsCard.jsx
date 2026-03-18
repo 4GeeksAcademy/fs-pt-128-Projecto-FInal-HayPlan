@@ -102,7 +102,7 @@ export const GroupsCard = ({ group }) => {
                     </div>
 
                     {/* BUTTON */}
-                    <Link to="${group.id}" className="btn btn-outline-warning rounded-pill w-100">
+                    <Link to={`${group.id}`} className="btn btn-outline-warning rounded-pill w-100">
                         Ver grupo
                     </Link>
 

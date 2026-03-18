@@ -77,32 +77,41 @@ export const Plans = () => {
                     </div>
                 </div>
             ) : (
-                <div className="container">                    
-                    <div className="d-flex justify-content-between align-items-center mt-4 mb-3">
+                <div className="container">
+                    <div className="d-flex flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mt-4 mb-4">
                         <h2 className="text-white m-0">Planes</h2>
-                        <button 
-                            className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm"
+                        <button
+                            className="btn btn-warning rounded-pill px-4 py-2 fw-semibold shadow-sm"
                             onClick={() => navigate("create-plan")}
                         >
-                            + Crear plan
+                            Crear plan
                         </button>
                     </div>
 
-                    <nav>
-                        <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button className="nav-link active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">Todos</button>
-                            <button className="nav-link" id="nav-next-tab" data-bs-toggle="tab" data-bs-target="#nav-next" type="button" role="tab" aria-controls="nav-next" aria-selected="false">Proximos</button>
-                            <button className="nav-link" id="nav-my-tab" data-bs-toggle="tab" data-bs-target="#nav-my" type="button" role="tab" aria-controls="nav-my" aria-selected="false">Mis Planes</button>
-                            <button className="nav-link" id="nav-proposal-tab" data-bs-toggle="tab" data-bs-target="#nav-proposal" type="button" role="tab" aria-controls="nav-proposal" aria-selected="false">Propuestos</button>
-                            <button className="nav-link" id="nav-vote-tab" data-bs-toggle="tab" data-bs-target="#nav-vote" type="button" role="tab" aria-controls="nav-vote" aria-selected="false">En Votación</button>
-                            <button className="nav-link" id="nav-confirmed-tab" data-bs-toggle="tab" data-bs-target="#nav-confirmed" type="button" role="tab" aria-controls="nav-confirmed" aria-selected="false">Confirmados</button>
-                            <button className="nav-link" id="nav-active-tab" data-bs-toggle="tab" data-bs-target="#nav-active" type="button" role="tab" aria-controls="nav-active" aria-selected="false">Activos</button>
-                            <button className="nav-link" id="nav-closed-tab" data-bs-toggle="tab" data-bs-target="#nav-closed" type="button" role="tab" aria-controls="nav-closed" aria-selected="false">Cerrados</button>
+                    <nav className="mb-4">
+                        <div className="nav nav-pills gap-2 flex-wrap overflow-auto pb-2 justify-content-center" id="nav-tab" role="tablist">
+                            <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3 active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">Todos</button>
+                            <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-next-tab" data-bs-toggle="tab" data-bs-target="#nav-next" type="button" role="tab" aria-controls="nav-next" aria-selected="false">Proximos</button>
+                            <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-my-tab" data-bs-toggle="tab" data-bs-target="#nav-my" type="button" role="tab" aria-controls="nav-my" aria-selected="false">Mis Planes</button>
+                            <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-proposal-tab" data-bs-toggle="tab" data-bs-target="#nav-proposal" type="button" role="tab" aria-controls="nav-proposal" aria-selected="false">Propuestos</button>
+                            <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-vote-tab" data-bs-toggle="tab" data-bs-target="#nav-vote" type="button" role="tab" aria-controls="nav-vote" aria-selected="false">En Votación</button>
+                            <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-confirmed-tab" data-bs-toggle="tab" data-bs-target="#nav-confirmed" type="button" role="tab" aria-controls="nav-confirmed" aria-selected="false">Confirmados</button>
+                            <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-active-tab" data-bs-toggle="tab" data-bs-target="#nav-active" type="button" role="tab" aria-controls="nav-active" aria-selected="false">Activos</button>
+                            <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-closed-tab" data-bs-toggle="tab" data-bs-target="#nav-closed" type="button" role="tab" aria-controls="nav-closed" aria-selected="false">Cerrados</button>
                         </div>
                     </nav>
-                    <div className="tab-content" id="nav-tabContent">
+                    <div className="tab-content " id="nav-tabContent">
                         <div className="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab" tabIndex="0">
-                            {allPlans.length < 1 ? "No hay planes que mostrar" : allPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {allPlans.length < 1
+                                ? "No hay planes que mostrar"
+                                : (
+                                    <div className="d-flex flex-column gap-3 mt-2 ">
+                                        {allPlans.map((plan) => (
+                                            <PlansCard key={plan.id} plan={plan} />
+                                        ))}
+                                    </div>
+                                )
+                            }
                         </div>
                         <div className="tab-pane fade" id="nav-next" role="tabpanel" aria-labelledby="nav-next-tab" tabIndex="0">
                             {nextPlans.length < 1 ? "No hay planes que mostrar" : nextPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
