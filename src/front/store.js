@@ -62,7 +62,7 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         token: null,
-        user: null,        
+        user: null,
       };
 
     // Case para manejar los eventos.
@@ -70,6 +70,12 @@ export default function storeReducer(store, action = {}) {
       return {
         ...store,
         events: action.payload,
+      };
+
+    case "set_city":
+      return {
+        ...store,
+        city: action.payload,
       };
 
     default:

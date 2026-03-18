@@ -154,6 +154,8 @@ def get_groups():
     return jsonify([group.serialize() for group in user.groups]), 200
 
 # Grupo individual
+
+
 @api.route("/groups/<int:group_id>", methods=["GET"])
 @jwt_required()
 def get_group(group_id):
@@ -172,6 +174,8 @@ def get_group(group_id):
     return jsonify(group.serialize()), 200
 
 # Crear grupo
+
+
 @api.route("/groups", methods=["POST"])
 @jwt_required()
 def create_group():
@@ -203,6 +207,8 @@ def create_group():
     return jsonify(new_group.serialize()), 201
 
 # Actualizar/editar grupo
+
+
 @api.route("/groups/<int:group_id>", methods=["PUT"])
 @jwt_required()
 def update_group(group_id):
@@ -229,6 +235,8 @@ def update_group(group_id):
     return jsonify(group.serialize()), 200
 
 # Eliminar grupo
+
+
 @api.route("/groups/<int:group_id>", methods=["DELETE"])
 @jwt_required()
 def delete_group(group_id):
@@ -247,6 +255,8 @@ def delete_group(group_id):
     return jsonify({"msg": "Group eliminado"}), 200
 
 # Lista de miembros del grupo
+
+
 @api.route("/groups/<int:group_id>/members", methods=["GET"])
 @jwt_required()
 def get_group_members(group_id):
@@ -267,6 +277,8 @@ def get_group_members(group_id):
     return jsonify(members), 200
 
 # Agregar usuarios a un grupo
+
+
 @api.route("/groups/<int:group_id>/members", methods=["POST"])
 @jwt_required()
 def add_member_group(group_id):
@@ -293,6 +305,8 @@ def add_member_group(group_id):
     return jsonify({"msg": "Nuevo usuario agregado"}), 200
 
 # Eliminar un miembro del grupo
+
+
 @api.route("/groups/<int:group_id>/members/<int:user_id>", methods=["DELETE"])
 @jwt_required()
 def remove_member_group(group_id, user_id):
@@ -477,7 +491,8 @@ def get_top_plans(group_id):
 
     rating_plans = [plan for plan in plans if plan.ratings]
 
-    rating_plans.sort(key=lambda plan: sum(rating.score for rating in plan.ratings) / len(plan.ratings), reverse=True)
+    rating_plans.sort(key=lambda plan: sum(
+        rating.score for rating in plan.ratings) / len(plan.ratings), reverse=True)
 
     return jsonify([plan.serialize() for plan in rating_plans]), 200
 
@@ -622,30 +637,41 @@ def rate_plan(group_id, plan_id):
 
 # Ruta para obtener eventos de Ticketmaster. ------------------------------------
 
-
 @api.route('/ticketmaster-events', methods=['GET'])
 def get_ticketmaster_events():
     api_key = os.getenv("TICKETMASTER_API_KEY")
-
-    if not api_key:
-        return jsonify({"error": "API Key no configurada"}), 500
-
-    # CAPTURA la ciudad que viene del Frontend
     city = request.args.get('city')
+    classification_id = request.args.get('classificationId')
 
-    url = f"https://app.ticketmaster.com/discovery/v2/events.json?apikey={api_key}"
-
-    if city:
-        url += f"&city={city}"
+    all_events = []  # Recibe toddos los eventos
 
     try:
-        response = requests.get(url)
-        response.raise_for_status()
+        # Bucle para páginas 0, 1 y 2
+        for page_number in range(3):
+            params = {
+                "apikey": api_key,
+                "city": city,
+                "size": 20,
+                "page": page_number,
+                "sort": "date,asc"
+            }
+            if classification_id and classification_id != "Comida":
+                params["classificationId"] = classification_id
 
-        data = response.json()
+            response = requests.get(
+                "https://app.ticketmaster.com/discovery/v2/events.json", params=params)
+            response.raise_for_status()
+            data = response.json()
 
-        return jsonify(data), 200
+            page_events = data.get("_embedded", {}).get("events", [])
+            all_events.extend(page_events)
+
+            total_pages = data.get("page", {}).get("totalPages", 0)
+            if page_number >= total_pages - 1:
+                break
+
+        # Devolvemos la lista completa
+        return jsonify({"_embedded": {"events": all_events}}), 200
 
     except requests.exceptions.RequestException as e:
-        # Manejo de errores de conexión o de la API externa
         return jsonify({"error": "Error al conectar con Ticketmaster", "details": str(e)}), 502
