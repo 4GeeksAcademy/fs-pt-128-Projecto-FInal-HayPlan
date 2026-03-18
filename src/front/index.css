@@ -434,3 +434,26 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   filter: invert(1);
   cursor: pointer;
 }
+
+/* --- ESTILO DE TABS PARA TODOS LOS PLANES (PLANS.JSX) --- */
+
+#nav-tab .nav-link.btn {
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #adb5bd; /* softer than pure white */
+    transition: all 0.2s ease;
+}
+
+/* Hover */
+#nav-tab .nav-link.btn:hover {
+    color: #fff;
+    border-color: rgba(255,255,255,0.4);
+    background-color: rgba(255,255,255,0.05);
+}
+
+/* Active */
+#nav-tab .nav-link.btn.active {
+    background-color: var(--bs-warning);
+    color: #000;
+    border-color: var(--bs-warning);
+}
+/* --- ESTILO DE TABS PARA TODOS LOS PLANES (PLANS.JSX) --- */

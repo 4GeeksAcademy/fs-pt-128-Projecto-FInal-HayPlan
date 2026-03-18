@@ -260,21 +260,45 @@ def delete_group(group_id):
 @api.route("/groups/<int:group_id>/members", methods=["GET"])
 @jwt_required()
 def get_group_members(group_id):
-    group = db.session.get(Group, group_id)
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
 
+    group = db.session.get(Group, group_id)
     if not group:
         return jsonify({"error": "Grupo no encontrado"}), 404
-
+    
     members = [
         {
-            "id": user.id,
-            "email": user.email,
-            "username": user.username
+            "id": member.id,
+            "email": member.email,
+            "username": member.username
         }
 
-        for user in group.members
+        for member in group.members
     ]
+
+    #Entregar número de miembros aunque el usuario no pertenezca al grupo, pero no ver quién está dentro
+    if user not in group.members:
+        return jsonify({"count": len(members)}), 200
+    
     return jsonify(members), 200
+
+@api.route("/groups/<string:code>", methods=["GET"])
+@jwt_required()
+def search_group(code):
+    user_id = int(get_jwt_identity())
+    user    = db.session.get(User, user_id)
+    group = db.session.execute(
+        select(Group).where(Group.invite_code == code)
+    ).scalar_one_or_none()
+    if not group:
+        return jsonify({"error": "Código inválido"}), 404
+    
+    data = group.serialize()
+    data["already_member"] = user in group.members
+    return jsonify(data), 200
 
 # Agregar usuarios a un grupo
 

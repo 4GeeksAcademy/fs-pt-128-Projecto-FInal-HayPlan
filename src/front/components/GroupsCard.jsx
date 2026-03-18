@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { getGroupMembers, getGroupPlans } from "../services/backEndServices"
 import { Link } from "react-router-dom"
+import { planDateFormatLarge } from "../functions/planDateFormatLarge"
 
 export const GroupsCard = ({ group }) => {
 
@@ -19,24 +20,6 @@ export const GroupsCard = ({ group }) => {
 
         const responseMembers = await getGroupMembers(group.id)
         setGroupMembers(responseMembers)
-    }
-
-    const planDateFormat = (dateString) => {
-        const date = new Date(dateString)
-        let formatDate = date.toLocaleDateString("es-ES", {
-            weekday: "short",
-            day: "numeric",
-            month: "short",
-            hour: "2-digit",
-            minute: "2-digit"
-        })
-        let formatDateSplit = formatDate.replace(",", "")
-        let formatDatePoint = formatDateSplit.replace(",", " ·")
-        let formatDateUpper = formatDatePoint
-            .split(" ")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ")
-        return formatDateUpper
     }
 
     useEffect(() => {
@@ -86,7 +69,7 @@ export const GroupsCard = ({ group }) => {
                                     {closePlan.title.toUpperCase()}
                                 </div>
                                 <div className="small">
-                                    {planDateFormat(closePlan.date)}
+                                    {planDateFormatLarge(closePlan.date)}
                                 </div>
                             </div>
                         ) : (
@@ -102,7 +85,7 @@ export const GroupsCard = ({ group }) => {
                     </div>
 
                     {/* BUTTON */}
-                    <Link to="${group.id}" className="btn btn-outline-warning rounded-pill w-100">
+                    <Link to={`${group.id}`} className="btn btn-outline-warning rounded-pill w-100">
                         Ver grupo
                     </Link>
 

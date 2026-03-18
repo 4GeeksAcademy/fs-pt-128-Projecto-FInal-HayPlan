@@ -3,26 +3,9 @@ import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import iconLogoColor from "../assets/img/iconLogo-Color.png";
 import { planStatusFormat } from "../functions/planStatusFormat.js";
+import { planDateFormatLarge } from "../functions/planDateFormatLarge";
 
 export const DashboardBlockLarge = ({ plan }) => {
-
-    const planDateFormat = (dateString) => {
-        const date = new Date(dateString)
-        let formatDate = date.toLocaleDateString("es-ES", {
-            weekday: "short",
-            day: "numeric",
-            month: "short",
-            hour: "2-digit",
-            minute: "2-digit"
-        })
-        let formatDateSplit = formatDate.replace(",", "")
-        let formatDatePoint = formatDateSplit.replace(",", " ·")
-        let formatDateUpper = formatDatePoint
-            .split(" ")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ")
-        return formatDateUpper
-    }
 
     return (
 
@@ -46,7 +29,7 @@ export const DashboardBlockLarge = ({ plan }) => {
                                 </div>
 
                                 <div className="d-flex justify-content-START gap-2 gap-md-2 ">
-                                    <p className="mb-2">{planDateFormat(plan.date)}</p>
+                                    <p className="mb-2">{planDateFormatLarge(plan.date)}</p>
                                     {/* <p className="badge rounded-pill text-bg-info px-md-4 m-0">information</p>
                                     <p className="badge rounded-pill text-bg-info px-md-4 m-0">info</p>
                                     <p className="badge rounded-pill text-bg-info px-md-4 m-0">informa</p> */}

@@ -12,6 +12,7 @@ import natureImg1 from "../assets/img/discover/discover_nature_1.jpg"
 import natureImg2 from "../assets/img/discover/discover_nature_2.jpg"
 import sportsImg1 from "../assets/img/discover/discover_sports_1.jpg"
 import sportsImg2 from "../assets/img/discover/discover_sports_2.jpg"
+import { planDateFormatLarge } from "../functions/planDateFormatLarge"
 
 export const Dashboard = () => {
 
@@ -56,24 +57,6 @@ export const Dashboard = () => {
 
     const responseGroups = await getAllGroups()
     setGroups(responseGroups)
-  }
-
-  const planDateFormat = (dateString) => {
-    const date = new Date(dateString)
-    let formatDate = date.toLocaleDateString("es-ES", {
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-      hour: "2-digit",
-      minute: "2-digit"
-    })
-    let formatDateSplit = formatDate.replace(",", "")
-    let formatDatePoint = formatDateSplit.replace(",", " ·")
-    let formatDateUpper = formatDatePoint
-      .split(" ")
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(" ")
-    return formatDateUpper
   }
 
   const closeDateFormat = (dateString) => {
@@ -170,7 +153,7 @@ export const Dashboard = () => {
                               <h5 className="mb-1">{plan.title}</h5>
                               <p className="mb-1 text-secondary">{plan.groupName}</p>
                               <small className="text-secondary">
-                                {planDateFormat(plan.date)}
+                                {planDateFormatLarge(plan.date)}
                                 {plan.location ? ` · ${plan.location}` : ""}
                               </small>
                             </div>
