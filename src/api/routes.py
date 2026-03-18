@@ -5,7 +5,7 @@ import re  # Para expresiones regulares
 import os  # Para leer la API KEY del .env
 import requests  # Para peticiones a Ticketmaster
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Group, Plan, PlanStatus, Vote, PlanRating
+from api.models import db, User, Group, Plan, PlanStatus, Vote, PlanMemory, PlanRating
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from sqlalchemy import select
@@ -658,7 +658,7 @@ def rate_plan(group_id, plan_id):
     db.session.commit()
     return jsonify({"msg": "Valoración registrada"}), 200
 
-
+# Ruta para obtener eventos de API
 # Ruta para obtener eventos de Ticketmaster. ------------------------------------
 
 @api.route('/ticketmaster-events', methods=['GET'])
@@ -699,3 +699,67 @@ def get_ticketmaster_events():
 
     except requests.exceptions.RequestException as e:
         return jsonify({"error": "Error al conectar con Ticketmaster", "details": str(e)}), 502
+
+# — Memories ——————————————————————————————————————————————————
+@api.route('/groups/<int:group_id>/plans/<int:plan_id>/memories', methods=['GET'])
+@jwt_required()
+def get_memories(group_id, plan_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+
+    if group not in user.groups:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+
+    plan = db.session.get(Plan, plan_id)
+    if not plan or plan.group_id != group_id:
+        return jsonify({"error": "Plan no encontrado"}), 404
+
+    memories = db.session.execute(select(PlanMemory).where(
+        PlanMemory.plan_id == plan_id).order_by(PlanMemory.created_at.desc())).scalars().all()
+    return jsonify([memory.serialize() for memory in memories]), 200
+
+
+@api.route('/groups/<int:group_id>/plans/<int:plan_id>/memories', methods=['POST'])
+@jwt_required()
+def add_memory(group_id, plan_id):
+    user_id = int(get_jwt_identity())
+    user = db.session.get(User, user_id)
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    group = db.session.get(Group, group_id)
+    if not group:
+        return jsonify({"error": "Grupo no encontrado"}), 404
+
+    if group not in user.groups:
+        return jsonify({"error": "No tienes acceso a este grupo"}), 403
+
+    plan = db.session.get(Plan, plan_id)
+    if not plan or plan.group_id != group_id:
+        return jsonify({"error": "Plan no encontrado"}), 404
+    
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "JSON inválido"}), 400
+    
+    comment = data.get("comment")
+    if not comment or not comment.strip():
+        return jsonify({"error": "El comentario es obligatorio"}), 400
+    
+    if len(comment) > 500:
+        return jsonify({"error": "Comentario demasiado largo"}), 400
+    
+    memory = PlanMemory(
+        plan_id = plan_id,
+        user_id = user.id,
+        comment = comment
+    )
+    db.session.add(memory)
+    db.session.commit()
+    return jsonify(memory.serialize()), 201
