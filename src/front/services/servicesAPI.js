@@ -42,7 +42,7 @@ export const getTicketmasterEvents = async (
         .values(),
     );
 
-    // Guardamos en el estado global
+    // Guarda en el estado global
     dispatch({ type: "set_events", payload: uniqueEvents });
   } catch (error) {
     console.error("Error en la petición a Ticketmaster:", error);

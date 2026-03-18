@@ -10,7 +10,7 @@ export const EventCard = ({ name, image, date, time, venue, city, url }) => {
         })
         : "Fecha TBD";
 
-    // Formatear la hora
+    // Formatea la hora
     const formattedTime = time ? time.substring(0, 5) : "Hora TBD";
 
     return (
