@@ -3,6 +3,7 @@ import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import iconLogoColor from "../assets/img/iconLogo-Color.png";
 import { planStatusFormat } from "../functions/planStatusFormat.js";
+import { planDateFormatShort } from "../functions/planDateFormatShort.js";
 
 
 export const DashboardBlockMedium = ({ plan, user }) => {
@@ -16,22 +17,6 @@ export const DashboardBlockMedium = ({ plan, user }) => {
             setOrganizer(false)
         }
     }, [user, plan])
-
-    const planDateFormat = (dateString) => {
-        const date = new Date(dateString)
-        let formatDate = date.toLocaleDateString("es-ES", {
-            weekday: "short",
-            day: "numeric",
-            month: "numeric",
-        })
-        let formatDateSplit = formatDate.replace(",", "")
-        let formatDatePoint = formatDateSplit.replace(",", " ·")
-        let formatDateUpper = formatDatePoint
-            .split(" ")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ")
-        return formatDateUpper
-    }
 
     return (
         <div className="card border rounded-4 dashBoard-card-medium-item" >
@@ -48,7 +33,7 @@ export const DashboardBlockMedium = ({ plan, user }) => {
                             {plan.status}
                         </span>
                         <span>
-                            {planDateFormat(plan.date)}
+                            {planDateFormatShort(plan.date)}
                         </span>
                     </div>
                 </div>

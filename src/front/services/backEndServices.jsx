@@ -218,3 +218,32 @@ export const createPlan = async (groupId, planData) => {
         return null;
     }
 };
+
+export const searchGroup = async (code) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${code}`, {
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
+
+export const addMember = async (groupId, memberId) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/members`, {
+        method: "POST",
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ user_id: memberId })
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}

@@ -1,21 +1,6 @@
+import { planDateFormatLarge } from "../functions/planDateFormatLarge"
+
 export const PlansCard = ({ plan }) => {
-    const planDateFormat = (dateString) => {
-        const date = new Date(dateString)
-        let formatDate = date.toLocaleDateString("es-ES", {
-            weekday: "short",
-            day: "numeric",
-            month: "short",
-            hour: "2-digit",
-            minute: "2-digit"
-        })
-        let formatDateSplit = formatDate.replace(",", "")
-        let formatDatePoint = formatDateSplit.replace(",", " ·")
-        let formatDateUpper = formatDatePoint
-            .split(" ")
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" ")
-        return formatDateUpper
-    }
     return (
         <div className="card d-flex flex-row border rounded-4 dashBoard-card-medium-item">
             <div className="col-10 row g-1 p-3">
@@ -25,7 +10,7 @@ export const PlansCard = ({ plan }) => {
                 </span>
                 <p className="mb-1 text-secondary">{plan.groupName}</p>
                 <small className="text-secondary">
-                    {planDateFormat(plan.date)}
+                    {planDateFormatLarge(plan.date)}
                     {plan.location ? ` · ${plan.location}` : ""}
                     {` · ${plan.group_name}`}
                 </small>
