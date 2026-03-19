@@ -1,9 +1,18 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { appNav } from "../navigation/appNav"
 import iconLogoColor from "../assets/img/iconLogo-Color.png";
 import iconLogo from "../assets/img/iconLogo.png";
 
 export const Navbar = () => {
+	const navigate = useNavigate();
+
+	const handleLogout = (e) => {
+		e.preventDefault(); // Evita que el enlace haga algo por defecto
+		if (window.confirm("¿Seguro que quieres cerrar sesión?")) {
+			localStorage.removeItem("token");
+			navigate("/login");
+		}
+	};
 
 	return (
 		<nav className="sidebar">
@@ -41,18 +50,24 @@ export const Navbar = () => {
 				<div className="fw-bold px-2 pb-4">
 					<span className="nav-item-title">{appNav[1].section}</span>
 					<div className="nav flex-column gap-2">
-						{appNav[1].items.map((item) => {
+						{appNav[1].items.map((item) => {							
+							const isLogout = item.label === "Cerrar sesión";
+
 							return (
 								<NavLink
 									key={item.path}
-									to={item.path} end={item.path === "/app"}
-									className={({ isActive }) => `btn d-flex align-items-center gap-2 py-1 ${isActive ? "active" : ""}`}
+									to={item.path} 
+									end={item.path === "/app"}
+									onClick={isLogout ? handleLogout : null} // logout, ejecuta la alerta
+									className={({ isActive }) => 
+										`btn d-flex align-items-center gap-2 py-1 logout-hover-effect ${isActive && !isLogout ? "active" : ""}`
+									}
 								>
 									<i className={`bi ${item.icon}`}></i>
 									<span className="nav-item">{item.label}</span>
 								</NavLink>
 							)
-						})}
+						})}						
 					</div>
 				</div>
 				{/* <div className="nav flex-column gap-2">
@@ -111,3 +126,4 @@ export const Navbar = () => {
 		</nav>
 	);
 };
+
