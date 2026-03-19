@@ -268,7 +268,7 @@ def get_group_members(group_id):
     group = db.session.get(Group, group_id)
     if not group:
         return jsonify({"error": "Grupo no encontrado"}), 404
-    
+
     members = [
         {
             "id": member.id,
@@ -279,23 +279,24 @@ def get_group_members(group_id):
         for member in group.members
     ]
 
-    #Entregar número de miembros aunque el usuario no pertenezca al grupo, pero no ver quién está dentro
+    # Entregar número de miembros aunque el usuario no pertenezca al grupo, pero no ver quién está dentro
     if user not in group.members:
         return jsonify({"count": len(members)}), 200
-    
+
     return jsonify(members), 200
+
 
 @api.route("/groups/<string:code>", methods=["GET"])
 @jwt_required()
 def search_group(code):
     user_id = int(get_jwt_identity())
-    user    = db.session.get(User, user_id)
+    user = db.session.get(User, user_id)
     group = db.session.execute(
         select(Group).where(Group.invite_code == code)
     ).scalar_one_or_none()
     if not group:
         return jsonify({"error": "Código inválido"}), 404
-    
+
     data = group.serialize()
     data["already_member"] = user in group.members
     return jsonify(data), 200
@@ -511,7 +512,8 @@ def get_top_plans(group_id):
 
     rating_plans = [plan for plan in plans if plan.ratings]
 
-    rating_plans.sort(key=lambda plan: sum(rating.score for rating in plan.ratings) / len(plan.ratings), reverse=True)
+    rating_plans.sort(key=lambda plan: sum(
+    rating.score for rating in plan.ratings) / len(plan.ratings), reverse=True)
 
     return jsonify([plan.serialize() for plan in rating_plans]), 200
 
@@ -727,22 +729,22 @@ def add_memory(group_id, plan_id):
     plan = db.session.get(Plan, plan_id)
     if not plan or plan.group_id != group_id:
         return jsonify({"error": "Plan no encontrado"}), 404
-    
+
     data = request.get_json()
     if not data:
         return jsonify({"error": "JSON inválido"}), 400
-    
+
     comment = data.get("comment")
     if not comment or not comment.strip():
         return jsonify({"error": "El comentario es obligatorio"}), 400
-    
+
     if len(comment) > 500:
         return jsonify({"error": "Comentario demasiado largo"}), 400
-    
+
     memory = PlanMemory(
-        plan_id = plan_id,
-        user_id = user.id,
-        comment = comment
+        plan_id=plan_id,
+        user_id=user.id,
+        comment=comment
     )
     db.session.add(memory)
     db.session.commit()
