@@ -318,3 +318,22 @@ export const votePlan = async (groupId, planId, vote) => {
     }
     return data;
 }
+export const ratePlan = async (groupId, planId, score) => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans/${planId}/rating`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ score })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        console.error(data);
+        return false;
+    }
+
+    return data;
+};

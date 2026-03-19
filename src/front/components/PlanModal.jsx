@@ -1,7 +1,7 @@
 import { planDateFormatLarge } from "../functions/planDateFormatLarge";
 import { planDateFormatShort } from "../functions/planDateFormatShort"
 import "progress-tracker/src/styles/progress-tracker.css";
-import { addMemoryPlan, advanceStatus, getGroupMembers, getMemoriesPlan, getVotePlan, votePlan } from "../services/backEndServices";
+import { addMemoryPlan, advanceStatus, getGroupMembers, getMemoriesPlan, getVotePlan, ratePlan, votePlan } from "../services/backEndServices";
 import { useEffect, useState } from "react";
 import { Group } from "../pages/Group";
 
@@ -20,8 +20,10 @@ export const PlanModal = ({ onClose, plan, user }) => {
     const currentIndex = statusSteps.indexOf(plan.status)
     const [organizer, setOrganizer] = useState(false)
     const [memories, setMemories] = useState([]);
-    const [newComment, setNewComment] = useState("");
+    const [newComment, setNewComment] = useState("")
     const [error, setError] = useState("")
+    const [rating, setRating] = useState(0)
+    const [hover, setHover] = useState(0)
 
     const getMembers = async (group_id) => {
         const responseMembers = await getGroupMembers(group_id)
@@ -43,6 +45,13 @@ export const PlanModal = ({ onClose, plan, user }) => {
         }
         setNewComment("")
     }
+    const handleRating = async (value) => {
+        setRating(value)
+        const responseRating = await ratePlan(plan.group_id, plan.id, value)
+        if (!responseRating) {
+            setError("Error al enviar rating")
+        }
+    };
 
     useEffect(() => {
         getMembers(plan.group_id)
@@ -174,7 +183,25 @@ export const PlanModal = ({ onClose, plan, user }) => {
                                 <>
                                     <div className="py-2 px-4 rounded-2" style={{ background: "rgba(255, 255, 255, 0.02)" }}>
                                         <p className="mb-1 text-secondary text-start">RATING</p>
-                                        Aquí va el rating
+                                        <div className="d-flex gap-1">
+                                            {[1, 2, 3, 4, 5].map((star) => (
+                                                <i
+                                                    key={star}
+                                                    className="fa-solid fa-star"
+                                                    style={{
+                                                        cursor: "pointer",
+                                                        fontSize: "1.4rem",
+                                                        color: (hover || rating) >= star
+                                                            ? "rgb(255, 210, 74)"
+                                                            : "rgba(255, 255, 255, 0.2)",
+                                                        transition: "0.2s"
+                                                    }}
+                                                    onClick={() => handleRating(star)}
+                                                    onMouseEnter={() => setHover(star)}
+                                                    onMouseLeave={() => setHover(0)}
+                                                ></i>
+                                            ))}
+                                        </div>
                                     </div>
                                     <div className="py-2 px-4 rounded-2" style={{ background: "rgba(255, 255, 255, 0.02)" }}>
                                         <p className="mb-1 text-secondary text-start">MEMORIAS</p>
