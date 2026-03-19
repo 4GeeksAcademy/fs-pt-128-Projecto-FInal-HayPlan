@@ -241,11 +241,11 @@ export const Planes = () => {
 						recentPlans={recentPlans}
 					/>
 				</div>
-				<div className="col-12 col-md-6">
+				{/* <div className="col-12 col-md-6">
 					<HallOfFame 
 						hallOfFamePlans={hallOfFamePlans}
 					/>
-				</div>
+				</div> */}
 			</div>
 		</>
 	);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllPlans, getUser } from "../services/backEndServices"
+import { getAllPlans, getUser, getGroupMembers } from "../services/backEndServices"
 import { PlansCard } from "../components/PlansCard"
 import { useNavigate } from "react-router-dom"
 
@@ -21,6 +21,7 @@ export const Plans = () => {
     const getInfo = async () => {
         const responsePlans = await getAllPlans()
         setAllPlans(responsePlans)
+
         const sortedMyPlans = responsePlans.filter(plan => plan.organizer_id == user?.id)
         setMyPlans(sortedMyPlans)
         const sortedProposalPlans = responsePlans.filter(plan => plan.status === "propuesta")
@@ -68,6 +69,26 @@ export const Plans = () => {
         }
     }, [user])
 
+    const renderPlansGrid = (plans) => {
+        if (plans.length < 1) {
+            return (
+                <div className="text-white-50 py-4">
+                    No hay planes que mostrar
+                </div>
+            )
+        }
+
+        return (
+            <div className="row g-4 mt-1">
+                {plans.map((plan) => (
+                    <div key={plan.id} className="col-12 col-md-6 col-xl-4">
+                        <PlansCard plan={plan} />
+                    </div>
+                ))}
+            </div>
+        )
+    }
+
     return (
         <>
             {loadingPage ? (
@@ -77,21 +98,26 @@ export const Plans = () => {
                     </div>
                 </div>
             ) : (
-                <div className="container">
-                    <div className="d-flex flex-md-row justify-content-between align-items-start align-items-md-center gap-3 mt-4 mb-4">
+                <div className="container py-4">
+                    <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3 mb-4">
                         <h2 className="text-white m-0">Planes</h2>
+
                         <button
-                            className="btn btn-warning rounded-pill px-4 py-2 fw-semibold shadow-sm"
+                            className="btn btn-warning rounded-pill px-4 py-2 fw-semibold text-uppercase"
                             onClick={() => navigate("create-plan")}
                         >
                             Crear plan
                         </button>
                     </div>
 
-                    <nav className="mb-4">
-                        <div className="nav nav-pills gap-2 flex-wrap overflow-auto pb-2 justify-content-center" id="nav-tab" role="tablist">
+                    <nav className="d-flex justify-content-center mb-4">
+                        <div
+                            className="nav nav-pills gap-2 flex-wrap pb-2"
+                            id="nav-tab"
+                            role="tablist"
+                        >
                             <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3 active" id="nav-all-tab" data-bs-toggle="tab" data-bs-target="#nav-all" type="button" role="tab" aria-controls="nav-all" aria-selected="true">Todos</button>
-                            <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-next-tab" data-bs-toggle="tab" data-bs-target="#nav-next" type="button" role="tab" aria-controls="nav-next" aria-selected="false">Proximos</button>
+                            <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-next-tab" data-bs-toggle="tab" data-bs-target="#nav-next" type="button" role="tab" aria-controls="nav-next" aria-selected="false">Próximos</button>
                             <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-my-tab" data-bs-toggle="tab" data-bs-target="#nav-my" type="button" role="tab" aria-controls="nav-my" aria-selected="false">Mis Planes</button>
                             <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-proposal-tab" data-bs-toggle="tab" data-bs-target="#nav-proposal" type="button" role="tab" aria-controls="nav-proposal" aria-selected="false">Propuestos</button>
                             <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-vote-tab" data-bs-toggle="tab" data-bs-target="#nav-vote" type="button" role="tab" aria-controls="nav-vote" aria-selected="false">En Votación</button>
@@ -100,43 +126,40 @@ export const Plans = () => {
                             <button className="nav-link btn btn-sm btn-outline-light rounded-pill px-3" id="nav-closed-tab" data-bs-toggle="tab" data-bs-target="#nav-closed" type="button" role="tab" aria-controls="nav-closed" aria-selected="false">Cerrados</button>
                         </div>
                     </nav>
-                    <div className="tab-content " id="nav-tabContent">
+
+                    <div className="tab-content" id="nav-tabContent">
                         <div className="tab-pane fade show active" id="nav-all" role="tabpanel" aria-labelledby="nav-all-tab" tabIndex="0">
-                            {allPlans.length < 1
-                                ? "No hay planes que mostrar"
-                                : (
-                                    <div className="d-flex flex-column gap-3 mt-2 ">
-                                        {allPlans.map((plan) => (
-                                            <PlansCard key={plan.id} plan={plan} />
-                                        ))}
-                                    </div>
-                                )
-                            }
+                            {renderPlansGrid(allPlans)}
                         </div>
+
                         <div className="tab-pane fade" id="nav-next" role="tabpanel" aria-labelledby="nav-next-tab" tabIndex="0">
-                            {nextPlans.length < 1 ? "No hay planes que mostrar" : nextPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {renderPlansGrid(nextPlans)}
                         </div>
+
                         <div className="tab-pane fade" id="nav-my" role="tabpanel" aria-labelledby="nav-my-tab" tabIndex="0">
-                            {myPlans.length < 1 ? "No hay planes que mostrar" : myPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {renderPlansGrid(myPlans)}
                         </div>
+
                         <div className="tab-pane fade" id="nav-proposal" role="tabpanel" aria-labelledby="nav-proposal-tab" tabIndex="0">
-                            {proposalPlans.length < 1 ? "No hay planes que mostrar" : proposalPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {renderPlansGrid(proposalPlans)}
                         </div>
+
                         <div className="tab-pane fade" id="nav-vote" role="tabpanel" aria-labelledby="nav-vote-tab" tabIndex="0">
-                            {votePlans.length < 1 ? "No hay planes que mostrar" : votePlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {renderPlansGrid(votePlans)}
                         </div>
+
                         <div className="tab-pane fade" id="nav-confirmed" role="tabpanel" aria-labelledby="nav-confirmed-tab" tabIndex="0">
-                            {confirmedPlans.length < 1 ? "No hay planes que mostrar" : confirmedPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {renderPlansGrid(confirmedPlans)}
                         </div>
+
                         <div className="tab-pane fade" id="nav-active" role="tabpanel" aria-labelledby="nav-active-tab" tabIndex="0">
-                            {activePlans.length < 1 ? "No hay planes que mostrar" : activePlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {renderPlansGrid(activePlans)}
                         </div>
+
                         <div className="tab-pane fade" id="nav-closed" role="tabpanel" aria-labelledby="nav-closed-tab" tabIndex="0">
-                            {closedPlans.length < 1 ? "No hay planes que mostrar" : closedPlans.map((plan) => <PlansCard key={plan.id} plan={plan} />)}
+                            {renderPlansGrid(closedPlans)}
                         </div>
-
                     </div>
-
                 </div>
             )}
         </>

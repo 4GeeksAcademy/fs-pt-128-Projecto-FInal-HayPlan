@@ -15,7 +15,7 @@ export const appNav = [
       {
         label: "Detalle de Plan",
         icon: "bi-journal-check",
-        path: "/app/planes",
+        path: "/app/planDetails",
       },
       {
         label: "Mis grupos",
@@ -31,11 +31,6 @@ export const appNav = [
         label: "Descubre",
         icon: "bi-search",
         path: "/app/descubre",
-      },
-      {
-        label: "Componentes",
-        icon: "bi-info-circle",
-        path: "/app/componentes",
       }
     ],
   },

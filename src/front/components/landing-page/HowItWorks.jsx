@@ -2,7 +2,7 @@ import iconLogoColor from "../../assets/img/iconLogo-Color.png";
 
 export const HowItWorks = () => {
     return (
-        <div className="container px-4 py-3" id="custom-cards">
+        <div className="container px-4 py-3" id="how-it-works">
             <h2 className="pb-2 border-bottom fw-bold text-center text-md-start">
                 ¿Cómo funciona?
             </h2>

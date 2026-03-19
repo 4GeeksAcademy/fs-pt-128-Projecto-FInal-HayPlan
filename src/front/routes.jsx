@@ -22,6 +22,7 @@ import { Descubre } from "./pages/Descubre";
 import { DescubreResultados } from "./pages/DescubreResultados";
 import { Planes } from "./pages/Planes";
 import { Plans } from "./pages/Plans";
+import { PlanDetails } from "./pages/Plan";
 import { Groups } from "./pages/Groups";
 import { Componentes } from "./pages/Componentes";
 import { CreatePlan } from "./pages/CreatePlan";
@@ -43,18 +44,17 @@ export const router = createBrowserRouter(
       <Route path="/app" element={<AppLayout />} errorElement={<h1>Not found!</h1>} >
         <Route index element={<Dashboard />} />
         <Route path="plans" element={<Plans />} />
-        <Route path="planes" element={<Planes />} />
+        <Route path="planDetails" element={<PlanDetails />} />
+        <Route path="plans/create-plan" element={<CreatePlan />} />
+        {/* <Route path="planes" element={<Planes />} /> */}
         <Route path="groups" element={<Groups />} />
         <Route path="groups/:group_id" element={<Group />} />
-        {/* <Route path="groups/:groupId" element={<Group1 />} />  */}
         <Route path="groups/details/:group_id" element={<GroupDetails />} /> 
-        <Route path="descubre" element={<Descubre />} />
-        <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
-        <Route path="componentes" element={<Componentes />} />
-        <Route path="plans" element={<Plans />} />
-        <Route path="plans/create-plan" element={<CreatePlan />} />
         <Route path="groups/:groupId/create-plan" element={<CreatePlan />} />
         <Route path="groups/create-group" element={<CreateGroup />} />
+        {/* <Route path="groups/:groupId" element={<Group1 />} />  */}
+        <Route path="descubre" element={<Descubre />} />
+        <Route path="descubre-resultados/:city" element={<DescubreResultados />} />
 
       </Route>
     </>

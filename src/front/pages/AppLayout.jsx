@@ -32,9 +32,9 @@ export const AppLayout = () => {
                 {/* Dashboard - columna Central */}
                 <div className="flex-grow-1 d-flex flex-column">
                     {/* Barra de pagina */}
-                    <div className="d-lg-block">
+                    {/* <div className="d-lg-block">
                         <Topbar />
-                    </div>
+                    </div> */}
                     {/* content */}
                     <div className="flex-grow-1 overflow-auto p-3 pb-5 pb-lg-2">
                         <Outlet />

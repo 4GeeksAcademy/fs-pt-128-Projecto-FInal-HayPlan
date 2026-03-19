@@ -66,18 +66,18 @@ export const Groups = () => {
                             <div className="d-flex justify-content-between align-items-center mb-4">
                                 <h2 className="text-white">Mis grupos</h2>
                                 <div className="d-flex gap-3">
-                                <button className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm" 
-                                onClick={() => setShowJoin(true)}
-                                >Unirse con código</button>
-                                {showJoin && <JoinGroupModal onClose={() => setShowJoin(false)} />}
-                                {groups.length > 0 && (
-                                    <button
-                                        className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm"
-                                        onClick={() => navigate("/app/groups/create-group")}
-                                    >
-                                        Nuevo Grupo
-                                    </button>
-                                )}
+                                    <button className="btn btn-outline-warning rounded-pill px-4 fw-bold shadow-sm"
+                                        onClick={() => setShowJoin(true)}
+                                    >Unirse con código</button>
+                                    {showJoin && <JoinGroupModal onClose={() => setShowJoin(false)} />}
+                                    {groups.length > 0 && (
+                                        <button
+                                            className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm"
+                                            onClick={() => navigate("/app/groups/create-group")}
+                                        >
+                                            Nuevo Grupo
+                                        </button>
+                                    )}
                                 </div>
                             </div>
 

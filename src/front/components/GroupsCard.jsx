@@ -31,7 +31,9 @@ export const GroupsCard = ({ group }) => {
             <div className="card border-0 shadow-sm rounded-4 h-100 dashBoard-card-medium-item overflow-hidden">
 
                 {/* IMAGE */}
-                <div style={{ height: "140px", overflow: "hidden" }}>
+                <div className="bg-dark" style={{ height: "140px" }}></div>
+
+                {/* <div style={{ height: "140px", overflow: "hidden" }}>
                     <img
                         src={group.image || "https://via.placeholder.com/600x300"}
                         alt={group.name}
@@ -40,7 +42,7 @@ export const GroupsCard = ({ group }) => {
                             objectFit: "cover"
                         }}
                     />
-                </div>
+                </div> */}
 
                 <div className="card-body d-flex flex-column ">
 
@@ -60,11 +62,11 @@ export const GroupsCard = ({ group }) => {
                     {/* NEXT PLAN */}
                     <div className="mb-4 flex-grow-1">
                         <p className="small text-uppercase fw-semibold mb-2">
-                            Próximo plan
+                            Siguiente plan
                         </p>
 
                         {closePlan ? (
-                            <div className="rounded-4 p-3 dashBoard-card-medium-item">
+                            <div className="rounded-4 p-3 dashBoard-card-medium-item text-bg-dark">
                                 <div className="fw-semibold text-white mb-1">
                                     {closePlan.title.toUpperCase()}
                                 </div>
@@ -73,19 +75,19 @@ export const GroupsCard = ({ group }) => {
                                 </div>
                             </div>
                         ) : (
-                            <div className="rounded-4 p-3 border border-danger">
+                            <div className="rounded-4 p-3 border border-danger text-bg-dark">
                                 <p className="small text-uppercase fw-semibold mb-2">
                                     No hay plan!
                                 </p>
                                 <div className="small">
-                                    Cuando creen uno, aparecerá aquí.
+                                    Y entonces?
                                 </div>
                             </div>
                         )}
                     </div>
 
                     {/* BUTTON */}
-                    <Link to={`${group.id}`} className="btn btn-outline-warning rounded-pill w-100">
+                    <Link to={`${group.id}`} className="btn btn-outline-warning rounded-pill ">
                         Ver grupo
                     </Link>
 
