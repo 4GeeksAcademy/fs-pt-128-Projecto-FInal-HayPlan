@@ -71,6 +71,16 @@ export default function storeReducer(store, action = {}) {
         ...store,
         events: action.payload,
       };
+    
+    // Case para actualizar datos parciales del usuario
+    case "update_user":
+      return {
+        ...store,
+        user: {
+          ...store.user,
+          ...action.payload,
+        },
+      };
 
     default:
       return store;
