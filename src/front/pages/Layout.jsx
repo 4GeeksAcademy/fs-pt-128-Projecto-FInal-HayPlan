@@ -38,8 +38,8 @@ export const Layout = () => {
                         <Topbar />
                     </div>
 
-                    {/* Navbar - columna Izquierda */}
-                    <div className="flex-grow-1 overflow-auto p-3 pb-5 pb-lg-2">
+                    {/* Content */}
+                    <div className="flex-grow-1 overflow-hidden p-3 pb-5 pb-lg-2">
                         <Outlet />
                     </div>
 

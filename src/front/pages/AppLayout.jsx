@@ -35,7 +35,7 @@ export const AppLayout = () => {
                     <div className="d-lg-block">
                         <Topbar />
                     </div>
-                    {/* Navbar - columna Izquierda */}
+                    {/* content */}
                     <div className="flex-grow-1 overflow-auto p-3 pb-5 pb-lg-2">
                         <Outlet />
                     </div>
