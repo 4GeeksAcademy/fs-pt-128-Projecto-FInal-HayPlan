@@ -116,7 +116,7 @@ export const Dashboard = () => {
           </div>
         </div>
       ) : (
-        <div className="container-fluid py-3 px-3 px-lg-4 dashboard-rebrand">
+        <div className="container-fluid py-0 px-3 px-lg-4 dashboard">
           <h2 className="mb-4">Hola, {user.username}!</h2>
 
           <DashboardGrid>

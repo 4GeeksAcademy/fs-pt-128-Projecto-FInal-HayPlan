@@ -13,8 +13,8 @@
   --accent: #c8e600;
   --accent2: #ff6b6b;
   --accent3: #00c97a;
-  --accent4: #4a8fff;
-  --accent5: #2a79d8;
+  --accent4: #6B9FFF;
+  --accent5: #6BFFB8;
   --accent6: #eb3a44;
   --accent7: #D6E93E;
 
@@ -77,6 +77,12 @@
 
   --bs-btn-hover-bg: #e68914;
   --bs-btn-hover-border-color: var(--clr-primary-a0);
+}
+
+.nav .nav-link.btn-outline-light.active {
+  background-color: var(--clr-primary-a0) !important;
+  border-color: var(--clr-primary-a0) !important;
+  color: #000;
 }
 
 /*-------------- BOOTSTRAP OVERRIDE -------------- */
@@ -282,7 +288,7 @@ span {
 }
 
 .dashBoard-card-medium-item {
-  border: 1px solid var(--clr-primary-a50-opacity) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
   background-color: var(--clr-surface-a10);
 }
 
@@ -672,13 +678,19 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 .dashboard-card-red {
   background: linear-gradient(180deg, rgba(230,80,60,0.15), transparent);
 }
+.dashboard-card-red-inverted {
+  background: linear-gradient(25deg, rgba(230,80,60,0.15), transparent);
+}
 
 .dashboard-card-yellow {
   background: linear-gradient(180deg, rgba(220,180,40,0.15), transparent);
 }
 
 .dashboard-card-orange {
-  background: linear-gradient(180deg, rgba(240,160,50,0.15), transparent);
+  background: linear-gradient(180deg, rgba(250, 152, 25, 0.2), transparent);
+}
+.dashboard-card-orange-inverted {
+  background: linear-gradient(25deg, rgba(250, 152, 25, 0.2), transparent);
 }
 
 .dashboard-stat-value {

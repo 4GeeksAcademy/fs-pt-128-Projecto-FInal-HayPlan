@@ -98,8 +98,8 @@ export const Plans = () => {
                     </div>
                 </div>
             ) : (
-                <div className="container py-4">
-                    <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3 mb-4">
+                <div className="container py-0">
+                    <div className="d-flex  flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3 mb-4">
                         <h2 className="text-white m-0">Planes</h2>
 
                         <button
@@ -110,9 +110,9 @@ export const Plans = () => {
                         </button>
                     </div>
 
-                    <nav className="d-flex justify-content-center mb-4">
+                    <nav className="d-flex justify-content-center mb-0">
                         <div
-                            className="nav nav-pills gap-2 flex-wrap pb-2"
+                            className="nav nav-pills gap-2 flex-wrap pb-2 justify-content-center"
                             id="nav-tab"
                             role="tablist"
                         >
