@@ -54,7 +54,7 @@ export const Group = () => {
 	}, [])
 	useEffect(() => {
 		getInfo()
-	}, [group_id])
+	}, [group_id, groupPlans])
 
 	return (
 		<>
