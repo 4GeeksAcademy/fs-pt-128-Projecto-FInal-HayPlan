@@ -41,7 +41,7 @@ export const JoinGroupModal = ({ onClose }) => {
         if (!response) {
             setError("Error al unirse al grupo")
         } else {
-            onClose(); navigate(`/groups/${group.id}`);
+            onClose(); navigate(`/app/groups/${group.id}`);
         }
         setJoining(false);
     }
@@ -53,16 +53,16 @@ export const JoinGroupModal = ({ onClose }) => {
             backdropFilter: "blur(8px)"
         }}>
             <div className="modal-dialog modal-dialog-centered">
-                <div className="modal-content" style={{ backgroundColor: "rgba(255, 187, 0, 0.4)" }}>
-                    <div className="modal-header">
-                        <h3 className="modal-title">Unirse a un grupo</h3>
+                <div className="modal-content" style={{ backgroundColor: "rgb(36, 24, 21)" }}>
+                    <div className="modal-header" style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.14)" }}>
+                        <h4 className="modal-title">Unirse a un grupo</h4>
                         <button
                             className="btn-close"
                             onClick={onClose}
                         ></button>
                     </div>
 
-                    <div className="modal-body px-4">
+                    <div className="modal-body px-4" >
                         <label className="form-label">
                             Pega el código del grupo (8 caracteres)
                         </label>
@@ -80,7 +80,8 @@ export const JoinGroupModal = ({ onClose }) => {
                                         maxLength={8}
                                     />
                                     <button
-                                        className="btn btn-primary"
+                                        className="btn"
+                                        style={{ background: "rgb(255, 122, 61)" }}
                                         onClick={handleSearch}
                                         disabled={searching || code.trim().length !== 8}
                                     >
@@ -98,7 +99,7 @@ export const JoinGroupModal = ({ onClose }) => {
                         )}
 
                         {group && (
-                            <div className="card mt-2" style={{ backgroundColor: "rgba(0, 0, 0, 0.4)" }}>
+                            <div className="card mt-2" style={{ background: "rgba(255, 255, 255, 0.02)" }}>
                                 <div className="card-body">
                                     <h5 className="mb-0 text-white">{group.name.toUpperCase()}</h5>
                                     <p className="small">Admin: {group.admin_username}</p>
@@ -118,14 +119,16 @@ export const JoinGroupModal = ({ onClose }) => {
                         )}
                     </div>
 
-                    <div className="modal-footer">
+                    <div className="modal-footer" style={{ borderTop: "1px solid rgba(0, 0, 0, 0.14)" }}>
                         <button
                             className="btn btn-secondary"
+                            style={{ background: "rgb(27, 23, 22)" }}
                             onClick={onClose}
                         >
                             Cerrar
                         </button>
                         <button className="btn btn-success"
+                            style={{ background: "rgba(75,176,106,0.14)", color: "rgb(75,176,106)" }}
                             onClick={handleJoin}
                             disabled={!group || joining || group?.already_member}>
                             {joining

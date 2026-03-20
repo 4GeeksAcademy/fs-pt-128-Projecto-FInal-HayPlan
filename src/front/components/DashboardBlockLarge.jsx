@@ -20,16 +20,16 @@ export const DashboardBlockLarge = ({ plan }) => {
                             {/* Informacion plan actual */}
                             <div className="col-9 col-md-10">
                                 <div className="col-12 col-md-6 d-flex justify-content-start gap-3">
-                                    <p className={planStatusFormat(plan.status)}>{plan.status}</p>
+                                    <p className={planStatusFormat(plan?.status)}>{plan?.status}</p>
                                     
                                 </div>
 
                                 <div className="">
-                                    <h2 className="fw-bold mb-3 h1 text-uppercase">{plan.title}</h2>
+                                    <h2 className="fw-bold mb-3 h1 text-uppercase">{plan?.title}</h2>
                                 </div>
 
                                 <div className="d-flex justify-content-START gap-2 gap-md-2 ">
-                                    <p className="mb-2">{planDateFormatLarge(plan.date)}</p>
+                                    <p className="mb-2">{planDateFormatLarge(plan?.date)}</p>
                                     {/* <p className="badge rounded-pill text-bg-info px-md-4 m-0">information</p>
                                     <p className="badge rounded-pill text-bg-info px-md-4 m-0">info</p>
                                     <p className="badge rounded-pill text-bg-info px-md-4 m-0">informa</p> */}

@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, Navigate } from "react-router-dom" 
 import ScrollToTop from "../components/ScrollToTop"
 import { Topbar } from "../components/Topbar"
 import { Navbar } from "../components/Navbar"
@@ -13,6 +13,12 @@ import { verifyToken } from "../services/backEndServices"
 export const AppLayout = () => {
     const { store, dispatch } = useGlobalReducer()
 
+    // --- PROTECCIÓN DE RUTAS PRIVADAS ---
+        const token = store.token || localStorage.getItem("token");
+    if (!token) {
+        return <Navigate to="/login" replace />;
+    }
+    
     useEffect(() => {        
         if (store.token && !store.user) {
             verifyToken(store.token, dispatch)
@@ -50,3 +56,4 @@ export const AppLayout = () => {
         </ScrollToTop>
     )
 }
+

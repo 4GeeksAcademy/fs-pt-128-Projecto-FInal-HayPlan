@@ -236,8 +236,25 @@ span {
 }
 
 .btn.active {
-  border: none;
-  background-color: var(--clr-primary-a0-opacity);
+  border: 1px solid transparent !important;
+  background-color: var(--clr-primary-a0-opacity) !important;
+  color: white !important;
+  font-weight: 600; 
+}
+
+/* Estado Hover para TODOS los botones */
+.btn:hover, .logout-hover-effect:hover {
+  background-color: var(--clr-primary-a0-opacity) !important;
+  color: white !important;
+  border-radius: 6px;
+  border: 1px solid transparent !important;
+  transition: background-color 0.2s ease;  
+}
+
+.btn:hover i, .btn:hover span,
+.btn.active i, .btn.active span,
+.logout-hover-effect:hover i, .logout-hover-effect:hover span {
+  color: white !important;
 }
 
 .nav-item-title {
@@ -264,7 +281,6 @@ span {
 }
 
 .dashBoard-card-small {
-  /* border: 1px solid red; */
   background-color: var(--clr-surface-a10);
 }
 
@@ -275,8 +291,22 @@ span {
 
 .dashBoard-card-small p {
   color: var(--text-muted);
-  /* letter-spacing: .05rem; */
   font-weight: 600;
+}
+
+/*-------------- PARA LOGOUT -------------- */
+
+.logout-hover-effect {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: 1px solid transparent !important; 
+  background: none;
+  color: inherit;
+  font-weight: 600; 
+}
+
+.logout-hover-effect:hover {  
+  border: 1px solid transparent !important;
 }
 
 /*-------------- SMALL CARDS -------------- */
@@ -406,25 +436,25 @@ span {
   filter: brightness(0.8);
 }
 /* --- ESTILOS PARA DESCUBRE--- */
-/* Estilos para Descubre */
+
 .search-input-custom {
-  background-color: var(--clr-surface-a50) !important;
+  background-color: var(--text-muted) !important;
   border-radius: 12px;
   font-size: 1.1rem;
-  color: var(--text-primary) !important;
+  color: var(--clr-surface-a0) !important;
 }
 
 .category-card {
   height: 180px;
   background-size: cover;
   background-position: center;
-  border-radius: 18px;
+  border-radius: 14px;
   display: flex;
   align-items: flex-end;
   padding: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 3px solid transparent;
+  /* border: 3px solid transparent; */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
@@ -453,7 +483,7 @@ span {
 .ticket-badge {
   background-color: var(--clr-primary-a0-opacity) !important;
   color: var(--clr-primary-a10) !important;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: bold;
 }
 
@@ -563,7 +593,7 @@ span {
 }
 /* --- ESTILO DE HERO SECTION --- */
 
-/* --- ESTILOS PARA FORMULARIOS GRUPOS Y PLANES (creación) --- */
+/* --- ESTILOS PARA FORMULARIOS CREAR GRUPOS Y PLANES --- */
 
 .form-container-custom {
   max-width: 700px;
@@ -662,59 +692,102 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 /* --- ESTILO DE TABS PARA TODOS LOS PLANES (PLANS.JSX) --- */
 
-/* --- ESTILO PARA DASHBOARD --- */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+
+
+
+
+/* ESTILO PARA DETALLES DE GRUPO / ELIMINAR MIEMBRO */
+.trash-btn:hover {
+  transform: scale(1.5);
+}
+/* --- ESTILOS DE PERFIL Y EDITAR PERFIL --- */
+
+.avatar-circle-profile {
+  width: 110px; height: 110px;
+  background-color: var(--clr-surface-a10);
+  border: 3px solid var(--clr-primary-a0);
+  font-size: 3rem; color: var(--clr-primary-a0);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); 
+  display: flex; align-items: center; justify-content: center;
 }
 
-.dashboard-card {
-  border-radius: 1rem;
-  padding: 1.5rem;
-  border: 1px solid rgba(255,255,255,0.08);
+.username-badge {
+  background-color: rgba(255, 138, 0, 0.1);
+  color: var(--clr-primary-a0);
+  border: 1px solid var(--clr-primary-a0);
+  padding: 0.5rem 1rem; font-weight: 600;
 }
 
-.dashboard-card-red {
-  background: linear-gradient(180deg, rgba(230,80,60,0.15), transparent);
-}
-.dashboard-card-red-inverted {
-  background: linear-gradient(25deg, rgba(230,80,60,0.15), transparent);
+.profile-divider { border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; }
+
+.btn-edit-profile {
+  background-color: var(--clr-primary-a0);
+  color: var(--clr-dark-a0);
+  border-radius: 12px; font-weight: 700;
+  transition: all 0.3s ease; border: none;
 }
 
-.dashboard-card-yellow {
-  background: linear-gradient(180deg, rgba(220,180,40,0.15), transparent);
+.btn-edit-profile:hover {
+  background-color: var(--clr-primary-a10);
+  color: var(--clr-dark-a0) !important;
+  transform: translateY(-2px);
 }
 
-.dashboard-card-orange {
-  background: linear-gradient(180deg, rgba(250, 152, 25, 0.2), transparent);
-}
-.dashboard-card-orange-inverted {
-  background: linear-gradient(25deg, rgba(250, 152, 25, 0.2), transparent);
-}
-
-.dashboard-stat-value {
-  font-size: 2.5rem;
-  font-weight: 700;
+.profile-card-container {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: var(--clr-surface-a10);
 }
 
-.dashboard-stat-label {
-  font-size: 1rem;
-  font-weight: 800;
-  opacity: 0.7;
+.icon-solid-primary {
+  color: var(--clr-primary-a10) !important;
+  font-size: 1.25rem; display: inline-flex; align-items: center;
 }
 
-.dashboard-group-item {
-  background: rgba(255,255,255,0.03);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
+.text-muted { color: #a0a0a0 !important; }
+
+.btn-descartar-custom {
+  color: var(--clr-primary-a0) !important;
+  background: transparent !important;
+  font-size: 0.85rem; border: none;
+  transition: color 0.2s ease;
 }
 
-.dashboard-card-discover {
-  background: linear-gradient(
-    180deg,
-    rgba(255,122,61,0.06) 0%,
-    rgba(255,255,255,0.01) 100%
-  );
+.btn-descartar-custom:hover { color: var(--clr-primary-a50) !important; }
+
+/* ---  PARA EL CALENDARIO --- */
+
+.calendar-icon-fix {
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; 
 }
-/* --- ESTILO PARA DASHBOARD --- */
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0; /* Invisible */
+    cursor: pointer;
+}
+
+/* --- UNIFICACIÓN DE ALTURAS (48px) --- */
+
+.form-input-dark, 
+.form-select.form-input-dark,
+.input-group-text,
+.btn.form-input-dark {
+    height: 48px !important;
+    min-height: 48px !important;
+    display: flex; align-items: center;
+    border-radius: 12px !important;
+    box-sizing: border-box;
+    padding-top: 0 !important; padding-bottom: 0 !important;
+}
+
+.input-group { height: 48px !important; }
+.input-group .form-control { height: 100% !important; border-radius: 0 12px 12px 0 !important; }
+.input-group .input-group-text { border-radius: 12px 0 0 12px !important; height: 100% !important; }
+
+.form-select.form-input-dark { background-image: none !important; }
