@@ -791,3 +791,62 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .input-group .input-group-text { border-radius: 12px 0 0 12px !important; height: 100% !important; }
 
 .form-select.form-input-dark { background-image: none !important; }
+
+
+/* --- DASHBOARD --- */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.dashboard-card {
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.dashboard-card-red {
+  background: linear-gradient(180deg, rgba(230,80,60,0.15), transparent);
+}
+.dashboard-card-red-inverted {
+  background: linear-gradient(25deg, rgba(230,80,60,0.15), transparent);
+}
+
+.dashboard-card-yellow {
+  background: linear-gradient(180deg, rgba(220,180,40,0.15), transparent);
+}
+
+.dashboard-card-orange {
+  background: linear-gradient(180deg, rgba(250, 152, 25, 0.2), transparent);
+}
+.dashboard-card-orange-inverted {
+  background: linear-gradient(25deg, rgba(250, 152, 25, 0.2), transparent);
+}
+
+.dashboard-stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.dashboard-stat-label {
+  font-size: 1rem;
+  font-weight: 800;
+  opacity: 0.7;
+}
+
+.dashboard-group-item {
+  background: rgba(255,255,255,0.03);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.dashboard-card-discover {
+  background: linear-gradient(
+    180deg,
+    rgba(255,122,61,0.06) 0%,
+    rgba(255,255,255,0.01) 100%
+  );
+}
+/* --- DASHBOARD --- */
