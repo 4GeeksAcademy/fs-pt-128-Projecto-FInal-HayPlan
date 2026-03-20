@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { getAllGroups, getAllPlans, getUser } from "../services/backEndServices"
 import concertImg1 from "../assets/img/discover/discover_concert_1.jpg"
 import concertImg2 from "../assets/img/discover/discover_concert_2.jpg"
 import friendsImg1 from "../assets/img/discover/discover_friends_1.jpg"
@@ -12,7 +9,15 @@ import natureImg1 from "../assets/img/discover/discover_nature_1.jpg"
 import natureImg2 from "../assets/img/discover/discover_nature_2.jpg"
 import sportsImg1 from "../assets/img/discover/discover_sports_1.jpg"
 import sportsImg2 from "../assets/img/discover/discover_sports_2.jpg"
+
+import { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { getAllGroups, getAllPlans, getUser } from "../services/backEndServices"
 import { planDateFormatLarge } from "../functions/planDateFormatLarge"
+import { DashboardGrid } from "../components/dashboard/DashboardGrid"
+import { DashboardStatCard } from "../components/dashboard/DashboardStatCard"
+import { PendingActionsCard } from "../components/dashboard/PendingActionsCard"
+import { DiscoverCard } from "../components/dashboard/DiscoverCard"
 
 export const Dashboard = () => {
 
@@ -88,10 +93,10 @@ export const Dashboard = () => {
   }, [])
 
   useEffect(() => {
-        if (user) {
-            getInfo()
-        }
-    }, [user])
+    if (user) {
+      getInfo()
+    }
+  }, [user])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -111,104 +116,44 @@ export const Dashboard = () => {
           </div>
         </div>
       ) : (
-        <div className="container-fluid py-3 px-3 px-lg-4">
-          {/* Header */}
+        <div className="container-fluid py-0 px-3 px-lg-4 dashboard">
           <h2 className="mb-4">Hola, {user.username}!</h2>
-          <div className="rounded-4 p-3 border d-flex justify-content-around align-items-center gap-2">
-            <div>
-              <i className="fa-solid fa-user-group"></i> <strong>{groups.length} grupo{groups.length == 1 ? "" : "s"}</strong> <span className="text-secondary">en total</span>
+
+          <DashboardGrid>
+            <div className="col-12 col-md-6 col-lg-4 d-flex">
+              <DashboardStatCard
+                variant="red"
+                type="groups"
+                groups={groups}
+              />
             </div>
 
-            <div>
-              <i className="fa-solid fa-calendar"></i> <strong>Próximo plan</strong> <span className="text-secondary">{closePlan}</span>
+            <div className="col-12 col-md-6 col-lg-4 d-flex">
+              <DashboardStatCard
+                variant="yellow"
+                type="next-plan"
+                nextPlan={nextPlans[0]}
+                closePlan={closePlan}
+              />
             </div>
 
-            <div>
-              <i className="fa-solid fa-bolt"></i> <strong>Asistencia media:</strong> <span className="text-secondary">87%</span>
+            <div className="col-12 col-md-6 col-lg-4 d-flex">
+              <DashboardStatCard
+                variant="orange"
+                type="plans-count"
+                value={nextPlans.length}
+                nextPlans={nextPlans}
+              />
             </div>
-          </div>
 
-          {/* Body */}
-          <div className="my-2 row g-3">
-            <div className="col-12 col-lg-4">
-              <div className="dashBoard-card-large rounded-4 p-4 h-100">
-                <div className="dashBoard-card-large-border"></div>
-                <h5 className="">Acciones pendientes</h5>
-              </div>
+            <div className="col-12 col-md-6 col-lg-4 d-flex">
+              <PendingActionsCard plans={nextPlans} />
             </div>
-            <div className="col-12 col-lg-8">
-              <div className="dashBoard-card-large rounded-4 p-4 h-100">
-                <div className="dashBoard-card-large-border"></div>
-                <h5 className="">Próximos planes</h5>
-                <div className="d-flex flex-column gap-3">
-                  {
-                    nextPlans.slice(0, 3).map(plan => {
-                      return (
-                        <div
-                          key={plan.id}
-                          className="dashBoard-card-medium-item rounded-4 p-3"
-                        >
-                          <div className="d-flex justify-content-between align-items-start gap-3 flex-wrap">
-                            <div>
-                              <h5 className="mb-1">{plan.title}</h5>
-                              <p className="mb-1 text-secondary">{plan.groupName}</p>
-                              <small className="text-secondary">
-                                {planDateFormatLarge(plan.date)}
-                                {plan.location ? ` · ${plan.location}` : ""}
-                              </small>
-                            </div>
 
-                            <div className="d-flex flex-column align-items-end gap-2">
-                              <span className={`badge rounded-pill ${plan.status === "votacion" ? "bg-warning" : "bg-success"}`}>
-                                {plan.status}
-                              </span>
-                              <button className="btn btn-sm btn-outline-light rounded-pill px-3">
-                                Ver plan
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    })
-                  }
-                </div>
-                <div className="mt-3 text-end">
-                  <button className="btn btn-sm btn-outline-light rounded-pill px-3 mx-3">
-                    Ver todos
-                  </button>
-                </div>
-
-              </div>
+            <div className="col-12 col-md-6 col-lg-8 d-flex">
+              <DiscoverCard image={discoverImages[currentImage]} />
             </div>
-          </div>
-          {/* Discover */}
-          <div className="dashBoard-card-large rounded-4 overflow-hidden border px-0 mt-3">
-            <div className="row g-0 align-items-stretch">
-              <div className="col-12 col-lg-4">
-                <div className="h-100">
-                  <img
-                    src={discoverImages[currentImage]}
-                    alt="Descubre planes"
-                    className="w-100 h-100 discover-image"
-                  />
-                </div>
-              </div>
-
-              <div className="col-12 col-lg-8">
-                <div className="p-4 p-lg-5 h-100 d-flex flex-column justify-content-center">
-                  <h2 className="mb-3">Descubre ideas para planes</h2>
-                  <p className="mb-2 text-secondary">
-                    Encuentra eventos, sitios y propuestas para tu próximo plan con amigos.
-                  </p>
-                  <div>
-                    <Link to="/app/descubre" className="btn btn-warning rounded-pill px-4 py-2 fw-bold">
-                      Explorar eventos
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </DashboardGrid>
         </div>
       )}
     </>

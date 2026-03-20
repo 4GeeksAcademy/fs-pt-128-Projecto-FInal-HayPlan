@@ -201,6 +201,7 @@ class Group(db.Model):
     description: Mapped[str] = mapped_column(Text, default="", nullable=False)
     invite_code: Mapped[str] = mapped_column(String(8), unique=True, nullable=False, default=lambda: generate_invite_code())
     admin_id: Mapped[int]= mapped_column(ForeignKey("user.id"), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     #relaciones
     admin: Mapped["User"] = relationship("User", back_populates="admin_groups")
@@ -214,6 +215,7 @@ class Group(db.Model):
             "description": self.description,
             "invite_code": self.invite_code,
             "admin_id": self.admin_id,
-            "admin_username": self.admin.username
+            "admin_username": self.admin.username,
+            "created_at": self.created_at.isoformat()
         }
     # --PF

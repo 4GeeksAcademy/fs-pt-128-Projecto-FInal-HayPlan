@@ -1,26 +1,39 @@
+import { Link } from "react-router-dom"
 import { planDateFormatLarge } from "../functions/planDateFormatLarge"
+import { planDateFormatShort } from "../functions/planDateFormatShort"
+import { planStatusFormat } from "../functions/planStatusFormat"
+import { useState } from "react"
+import { PlanModal } from "../components/PlanModal"
 
-export const PlansCard = ({ plan }) => {
+export const PlansCard = ({ plan, user }) => {
+
+    const [showPlanDetails, setShowPlanDetails] = useState(false)
+
     return (
-        <div className="card d-flex flex-row border rounded-4 dashBoard-card-medium-item">
-            <div className="col-10 row g-1 p-3">
-                <h5 className="mb-1 text-uppercase ">{plan.title}</h5>
-                <span className={`w-auto badge rounded-pill px-4 ${plan.status === "votacion" ? "bg-warning" : "bg-success"}`}>
-                    {plan.status}
-                </span>
-                <p className="mb-1 text-secondary">{plan.groupName}</p>
-                <small className="text-secondary">
-                    {planDateFormatLarge(plan.date)}
-                    {plan.location ? ` · ${plan.location}` : ""}
-                    {` · ${plan.group_name}`}
-                </small>
-            </div>
+        <div className="card border-0 shadow-sm rounded-4 h-100 dashBoard-card-medium-item  overflow-hidden dashboard-card-red-inverted ">
 
-            <div className="d-flex flex-column align-items-end gap-3 col-2 p-2">
-                
-                <button className="btn btn-sm btn-outline-light rounded-pill px-3">
-                    Ver plan
-                </button>
+            {/* Imagen? */}
+            <div className="bg-dark" style={{ height: "140px" }}></div>
+            <div className="card-body d-flex flex-column">
+
+                {/* Nombre */}
+                <div className="mb-3">
+                    <h5 className="fw-semibold text-white mb-1"> {plan.title.toUpperCase()} </h5>
+                    <div className="text-white small"> {plan.group_name} </div>
+                    <div className="small"> Organizado por:  {plan.organizer_username} </div>
+                </div>
+
+                <div className="d-flex align-items-center gap-4 m-0">
+                    {/* Status */}
+                    <span className={planStatusFormat(plan.status)}> {plan.status} </span>
+                    {/* Fecha */}
+                    <div className="small text-white"> {planDateFormatShort(plan.date)} </div>
+                </div>
+
+                <hr style={{ color: "var(--clr-primary-a50)" }} />
+                {/* Button */}
+                <button className="btn btn-outline-light rounded-pill mt-auto" onClick={() => setShowPlanDetails(true)}>Ver Plan</button>
+                {showPlanDetails && <PlanModal onClose={() => setShowPlanDetails(false)} plan={plan} user={user} />}
             </div>
         </div>
     )
