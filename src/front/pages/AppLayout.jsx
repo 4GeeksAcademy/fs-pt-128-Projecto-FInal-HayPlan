@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, Navigate } from "react-router-dom" 
 import ScrollToTop from "../components/ScrollToTop"
 import { Topbar } from "../components/Topbar"
 import { Navbar } from "../components/Navbar"
@@ -13,6 +13,12 @@ import { verifyToken } from "../services/backEndServices"
 export const AppLayout = () => {
     const { store, dispatch } = useGlobalReducer()
 
+    // --- PROTECCIÓN DE RUTAS PRIVADAS ---
+        const token = store.token || localStorage.getItem("token");
+    if (!token) {
+        return <Navigate to="/login" replace />;
+    }
+    
     useEffect(() => {        
         if (store.token && !store.user) {
             verifyToken(store.token, dispatch)
@@ -32,10 +38,10 @@ export const AppLayout = () => {
                 {/* Dashboard - columna Central */}
                 <div className="flex-grow-1 d-flex flex-column">
                     {/* Barra de pagina */}
-                    <div className="d-lg-block">
+                    {/* <div className="d-lg-block">
                         <Topbar />
-                    </div>
-                    {/* Navbar - columna Izquierda */}
+                    </div> */}
+                    {/* content */}
                     <div className="flex-grow-1 overflow-auto p-3 pb-5 pb-lg-2">
                         <Outlet />
                     </div>
@@ -50,3 +56,4 @@ export const AppLayout = () => {
         </ScrollToTop>
     )
 }
+

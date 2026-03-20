@@ -227,26 +227,25 @@ export const Planes = () => {
 	
 	return (
 		<>
+		<p>Pagina que muestra Detalle de plan</p>
 			<DashboardBlockSmall 
 				totalPlans={totalPlans}
 				pendingPlans={pendingPlans}
 				activePlans={activePlans}
 				averageRating={averageRating}
 			/>
-			<DashboardBlockLarge 
-				featuredPlan={featuredPlan} 
-			/>
+			
 			<div className="row">
 				<div className="col-12 col-md-6 mb-3 mb-lg-0">
 					<DashboardBlockMedium 
 						recentPlans={recentPlans}
 					/>
 				</div>
-				<div className="col-12 col-md-6">
+				{/* <div className="col-12 col-md-6">
 					<HallOfFame 
 						hallOfFamePlans={hallOfFamePlans}
 					/>
-				</div>
+				</div> */}
 			</div>
 		</>
 	);
