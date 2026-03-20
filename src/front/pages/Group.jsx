@@ -54,7 +54,7 @@ export const Group = () => {
 	}, [])
 	useEffect(() => {
 		getInfo()
-	}, [group_id])
+	}, [group_id, groupPlans])
 
 	return (
 		<>
@@ -65,13 +65,13 @@ export const Group = () => {
 					</div>
 				</div>
 			) : (
-				<div>
+				<>
 					<div className="d-flex justify-content-between">
 						<h1 className="mb-3">{groupInfo.name?.toUpperCase()}</h1>
 						<div className="me-2">
-							<button 
+							<button
 								className="btn rounded-pill text-bg-secondary px-4 my-3 me-2"
-								onClick={() => navigate(`/app/groups/details/${groupInfo.id}`)}	
+								onClick={() => navigate(`/app/groups/details/${groupInfo.id}`)}
 							>Ver mas detalles</button>
 							<button
 								className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm"
@@ -81,45 +81,61 @@ export const Group = () => {
 							</button>
 						</div>
 					</div>
-					<DashboardBlockSmall plans={groupPlans} />
-					<h5 className="mt-4 text-uppercase small fw-semibold">Próximo plan</h5>
-					<DashboardBlockLarge plan={closePlan} />
-					<div className="row">
-						<div className="col-12 col-xl-6 mb-3 mb-lg-0">
-							<div className="card border-0 rounded-4 dashBoard-card-medium-container">
-								<div className="card-body px-2 py-0 p-md-3 px-md-1">
-									{/* Header */}
-									<span className="text-uppercase small fw-semibold">
-										Todos los planes
-									</span>
-									{/* <button className="btn btn-sm rounded-pill px-3">
-                        							Ver todos
-                    							</button> */}
-									<div className="d-flex flex-column gap-2 px-md-2 mt-3">
-										{groupPlans.map(plan => <DashboardBlockMedium key={plan.id} plan={plan} user={user} />)}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="col-12 col-xl-6">
-							<div className="card border-0 rounded-4 dashBoard-card-medium-container">
-								<div className="card-body px-2 py-0 p-md-3 px-md-1">
-									{/* Header */}
-									<span className="text-uppercase small fw-semibold">
-										Hall of Fame
-									</span>
-									{/* <button className="btn btn-sm rounded-pill px-3">
-                        							Ver todos
-                    							</button> */}
-									<div className="d-flex flex-column gap-2 px-md-2 mt-3">
-										{topPlans.map((plan, index) => <HallOfFame key={plan.id} plan={plan} position={index + 1} />)}
-									</div>
-								</div>
-							</div>
+					{groupPlans.length > 0 ? (
+						<div>
 
+							<DashboardBlockSmall plans={groupPlans} />
+							<h5 className="mt-4 text-uppercase small fw-semibold">Próximo plan</h5>
+							<DashboardBlockLarge plan={closePlan} />
+							<div className="row">
+								<div className="col-12 col-xl-6 mb-3 mb-lg-0">
+									<div className="card border-0 rounded-4 dashBoard-card-medium-container">
+										<div className="card-body px-2 py-0 p-md-3 px-md-1">
+											{/* Header */}
+											<span className="text-uppercase small fw-semibold">
+												Todos los planes
+											</span>
+											{/* <button className="btn btn-sm rounded-pill px-3">
+                        							Ver todos
+                    							</button> */}
+											<div className="d-flex flex-column gap-2 px-md-2 mt-3">
+												{groupPlans.map(plan => <DashboardBlockMedium key={plan.id} plan={plan} user={user} />)}
+											</div>
+										</div>
+									</div>
+								</div>
+								<div className="col-12 col-xl-6">
+									<div className="card border-0 rounded-4 dashBoard-card-medium-container">
+										<div className="card-body px-2 py-0 p-md-3 px-md-1">
+											{/* Header */}
+											<span className="text-uppercase small fw-semibold">
+												Hall of Fame
+											</span>
+											{/* <button className="btn btn-sm rounded-pill px-3">
+                        							Ver todos
+                    							</button> */}
+											<div className="d-flex flex-column gap-2 px-md-2 mt-3">
+												{topPlans.map((plan, index) => <HallOfFame key={plan.id} plan={plan} position={index + 1} />)}
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
+					) : (
+						<div className="empty-state text-center mt-5">
+							<h2 className="text-white">Aún no tienes planes</h2>
+							<p className="text-secondary">Crea un plan para empezar a disfrutar con tus amigos.</p>
+							<button
+								className="btn btn-warning rounded-pill px-4 fw-bold shadow-sm"
+								onClick={() => navigate("create-plan")}
+							>
+								+ Crear plan
+							</button>
+						</div>
+					)}
+				</>
 			)}
 		</>
 	);

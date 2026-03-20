@@ -4,11 +4,13 @@ import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 import iconLogoColor from "../assets/img/iconLogo-Color.png";
 import { planStatusFormat } from "../functions/planStatusFormat.js";
 import { planDateFormatShort } from "../functions/planDateFormatShort.js";
+import { PlanModal } from "./PlanModal.jsx";
 
 
 export const DashboardBlockMedium = ({ plan, user }) => {
 
     const [organizer, setOrganizer] = useState(false)
+    const [showPlanDetails, setShowPlanDetails] = useState(false)
 
     useEffect(() => {
         if (user.id === plan.organizer_id && plan.status !== "cerrado" && plan.status !== "confirmado" && plan.status !== "activo") {
@@ -40,7 +42,8 @@ export const DashboardBlockMedium = ({ plan, user }) => {
                 {/* boton */}
                 <div className="d-flex align-items-center gap-1">
                     {organizer && <button className="btn badge rounded-pill text-bg-secondary px-3">Editar Plan</button>}
-                    <button className="btn badge rounded-pill text-bg-success px-3 me-2">Ver Plan</button>
+                    <button className="btn badge rounded-pill text-bg-success px-3 me-2" onClick={() => setShowPlanDetails(true)}>Ver Plan</button>
+                    {showPlanDetails && <PlanModal onClose={() => setShowPlanDetails(false)} plan={plan} user={user}/>}
                 </div>
             </div>
         </div >

@@ -17,6 +17,7 @@ export const GroupDetails = () => {
 	const [group, setGroup] = useState(null)
 	const [members, setMembers] = useState([])
 	const [topPlans, setTopPlans] = useState([])
+	const [admin, setAdmin] = useState(false)
 
 	const checkToken = async () => {
 		const response = await getUser()
@@ -34,6 +35,9 @@ export const GroupDetails = () => {
 	const getInfo = async () => {
 		const responseGroup = await getGroup(group_id)
 		setGroup(responseGroup)
+		if (user?.id === group?.admin_id) {
+			setAdmin(true)
+		}
 
 		const responseMembers = await getGroupMembers(group_id)
 		setMembers(responseMembers)
@@ -79,6 +83,9 @@ export const GroupDetails = () => {
 				</div>
 			) : (
 				<>
+					<button onClick={() => navigate(-1)} className="btn btn-link text-white p-0 me-3 border-0 shadow-none" style={{ textDecoration: 'none' }}>
+						<span style={{ fontSize: '1.5rem' }}>←</span>
+					</button>
 					<div className="row">
 
 						<div className="col-12 col-md-6 mb-3 mb-lg-0 px-1">
@@ -95,7 +102,7 @@ export const GroupDetails = () => {
 
 						<div className="col-12 col-md-6 mb-3 mb-lg-0 px-1">
 							<div className="card border-0 rounded-4 dashBoard-card-medium-container">
-								<MemberListCard members={members} />
+								<MemberListCard members={members} admin={admin} group={group} />
 							</div>
 						</div>
 					</div>

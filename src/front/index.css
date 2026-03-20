@@ -488,6 +488,14 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 }
 /* --- ESTILO DE TABS PARA TODOS LOS PLANES (PLANS.JSX) --- */
 
+
+
+
+
+/* ESTILO PARA DETALLES DE GRUPO / ELIMINAR MIEMBRO */
+.trash-btn:hover {
+  transform: scale(1.5);
+}
 /* --- ESTILOS DE PERFIL Y EDITAR PERFIL --- */
 
 .avatar-circle-profile {

@@ -247,3 +247,107 @@ export const addMember = async (groupId, memberId) => {
     }
     return data;
 }
+export const deleteMember = async (groupId, memberId) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/members/${memberId}`, {
+        method: "DELETE",
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
+
+export const getVotePlan = async (groupId, planId) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans/${planId}/votes`, {
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
+
+export const advanceStatus = async (groupId, planId) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans/${planId}/advance_status`, {
+        method: "POST",
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
+
+export const getMemoriesPlan = async (groupId, planId) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans/${planId}/memories`, {
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
+export const addMemoryPlan = async (groupId, planId, comment) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans/${planId}/memories`, {
+        method: "POST",
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ comment: comment })
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
+export const votePlan = async (groupId, planId, vote) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans/${planId}/vote`, {
+        method: "POST",
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ vote })
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
+export const ratePlan = async (groupId, planId, score) => {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans/${planId}/rating`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ score })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        console.error(data);
+        return false;
+    }
+
+    return data;
+};
