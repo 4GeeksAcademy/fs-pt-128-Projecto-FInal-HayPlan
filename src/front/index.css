@@ -358,7 +358,7 @@ span {
 }
 /* --- ESTILO DE HERO SECTION --- */
 
-/* --- ESTILOS PARA FORMULARIOS GRUPOS Y PLANES (creación) --- */
+/* --- ESTILOS PARA FORMULARIOS CREAR GRUPOS Y PLANES --- */
 
 .form-container-custom {
   max-width: 700px;
@@ -435,7 +435,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
   cursor: pointer;
 }
 
-/* --- ESTILO DE TABS PARA TODOS LOS PLANES (PLANS.JSX) --- */
+/* --- ESTILO DE TABS PARA TODOS LOS PLANES --- */
 
 #nav-tab .nav-link.btn {
     border: 1px solid rgba(255,255,255,0.2);
@@ -457,3 +457,95 @@ input[type="time"]::-webkit-calendar-picker-indicator {
     border-color: var(--bs-warning);
 }
 /* --- ESTILO DE TABS PARA TODOS LOS PLANES (PLANS.JSX) --- */
+
+/* --- ESTILOS DE PERFIL Y EDITAR PERFIL --- */
+
+.avatar-circle-profile {
+  width: 110px; height: 110px;
+  background-color: var(--clr-surface-a10);
+  border: 3px solid var(--clr-primary-a0);
+  font-size: 3rem; color: var(--clr-primary-a0);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); 
+  display: flex; align-items: center; justify-content: center;
+}
+
+.username-badge {
+  background-color: rgba(255, 138, 0, 0.1);
+  color: var(--clr-primary-a0);
+  border: 1px solid var(--clr-primary-a0);
+  padding: 0.5rem 1rem; font-weight: 600;
+}
+
+.profile-divider { border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important; }
+
+.btn-edit-profile {
+  background-color: var(--clr-primary-a0);
+  color: var(--clr-dark-a0);
+  border-radius: 12px; font-weight: 700;
+  transition: all 0.3s ease; border: none;
+}
+
+.btn-edit-profile:hover {
+  background-color: var(--clr-primary-a10);
+  color: var(--clr-dark-a0) !important;
+  transform: translateY(-2px);
+}
+
+.profile-card-container {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: var(--clr-surface-a10);
+}
+
+.icon-solid-primary {
+  color: var(--clr-primary-a10) !important;
+  font-size: 1.25rem; display: inline-flex; align-items: center;
+}
+
+.text-muted { color: #a0a0a0 !important; }
+
+.btn-descartar-custom {
+  color: var(--clr-primary-a0) !important;
+  background: transparent !important;
+  font-size: 0.85rem; border: none;
+  transition: color 0.2s ease;
+}
+
+.btn-descartar-custom:hover { color: var(--clr-primary-a50) !important; }
+
+/* ---  PARA EL CALENDARIO --- */
+
+.calendar-icon-fix {
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; 
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0; /* Invisible */
+    cursor: pointer;
+}
+
+/* --- UNIFICACIÓN DE ALTURAS (48px) --- */
+
+.form-input-dark, 
+.form-select.form-input-dark,
+.input-group-text,
+.btn.form-input-dark {
+    height: 48px !important;
+    min-height: 48px !important;
+    display: flex; align-items: center;
+    border-radius: 12px !important;
+    box-sizing: border-box;
+    padding-top: 0 !important; padding-bottom: 0 !important;
+}
+
+.input-group { height: 48px !important; }
+.input-group .form-control { height: 100% !important; border-radius: 0 12px 12px 0 !important; }
+.input-group .input-group-text { border-radius: 12px 0 0 12px !important; height: 100% !important; }
+
+.form-select.form-input-dark { background-image: none !important; }

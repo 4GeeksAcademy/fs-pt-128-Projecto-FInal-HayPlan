@@ -71,6 +71,16 @@ export default function storeReducer(store, action = {}) {
         ...store,
         events: action.payload,
       };
+
+    // Case para actualizar datos parciales del usuario
+    case "update_user":
+      return {
+        ...store,
+        user: {
+          ...store.user,
+          ...action.payload,
+        },
+      };
     //Case para que la ciudad se mantenga en la busqueda.
     case "set_city":
       return {

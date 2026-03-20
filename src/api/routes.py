@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-import re  # Para expresiones regulares
+import re
 import os  # Para leer la API KEY del .env
 import requests  # Para peticiones a Ticketmaster
 from flask import Flask, request, jsonify, url_for, Blueprint
@@ -39,7 +39,7 @@ def signup():
     username = data.get('username')
 
     # Valida que tenga username
-    if not email or not password or not username:
+    if not email or not password or username is None:
         return jsonify({"error": "Email, contraseña y nombre de usuario son requeridos"}), 400
 
     # Validación de formato de email (Regex)
@@ -92,41 +92,66 @@ def login():
     if user and user.check_password(password):
         # Creamos el token de acceso
         access_token = create_access_token(identity=str(user.id))
-        return jsonify({"msg": "Login correcto", "token": access_token, "user_id": user.serialize()}), 200
+        return jsonify({"msg": "Login correcto", "token": access_token, "user": user.serialize()}), 200
 
     # Si algo falla, devolvemos un error por seguridad
     else:
         return jsonify({"error": "Algo no cuadra, revisa tu email o contraseña."}), 401
 
-# Ruta para el Username
+# Ruta para el Username y Perfil
 
 
 @api.route('/editProfile', methods=['PUT'])
 @jwt_required()
-def update_private():
+def update_profile():
+    #  Obtenemos el ID del token y buscamos al usuario
     user_id = get_jwt_identity()
     user = db.session.get(User, int(user_id))
 
     if not user:
-        return jsonify({"error": "User not found"}), 404
+        return jsonify({"error": "Usuario no encontrado"}), 404
 
     data = request.get_json()
-    username = data.get("username")
 
-    if not username:
-        return jsonify({"error": "username es required"}), 400
+    #  Validación de Username
+    new_username = data.get("username")
+    if new_username and new_username != user.username:
+        existing = db.session.execute(
+            db.select(User).where(User.username ==
+            new_username, User.id != user.id)
+        ).scalar_one_or_none()
 
-    existing = db.session.execute(
-        db.select(User).where(User.username == username, User.id != user.id)
-    ).scalar_one_or_none()
+        if existing:
+            return jsonify({"error": "¡Vaya! Ese nombre de usuario ya lo tiene alguien más."}), 400
+        user.username = new_username
 
-    if existing:
-        return jsonify({"error": "El usuario ya existe"}), 400
+    #  Actualización de los campos del modelo User
+    user.first_name = data.get("first_name", user.first_name)
+    user.last_name = data.get("last_name", user.last_name)
+    user.phone = data.get("phone", user.phone)
+    user.gender = data.get("gender", user.gender)
+    user.city = data.get("city", user.city)
+    user.country = data.get("country", user.country)
+    user.profile_picture = data.get("profile_picture", user.profile_picture)
 
-    user.username = username
+    # 4. Manejo de la fecha de cumpleaños (String a Datetime)
+    birthday_str = data.get("birthday")
+    if birthday_str:
+        try:            
+            user.birthday = datetime.strptime(birthday_str, '%Y-%m-%d')
+        except ValueError:
+            return jsonify({"error": "El formato de fecha debe ser AAAA-MM-DD"}), 400
 
-    db.session.commit()
-    return jsonify(user.serialize()), 200
+    # 5. Guardar cambios en la DB
+    try:
+        db.session.commit()
+        return jsonify({
+            "msg": "¡Perfil actualizado correctamente! ✨",
+            "user": user.serialize()
+        }), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Hubo un problema al guardar los cambios."}), 500
 
 
 @api.route('/get_user', methods=['GET'])
@@ -138,11 +163,12 @@ def get_user():
         return jsonify({"msg": "User not found"}), 404
     return jsonify(user.serialize()), 200
 
-
 # PF
 
 # --------------------- RUTAS GRUPO ---------------------
 # Lista de todos los grupos.
+
+
 @api.route("/groups", methods=["GET"])
 @jwt_required()
 def get_groups():
@@ -268,7 +294,7 @@ def get_group_members(group_id):
     group = db.session.get(Group, group_id)
     if not group:
         return jsonify({"error": "Grupo no encontrado"}), 404
-    
+
     members = [
         {
             "id": member.id,
@@ -279,23 +305,24 @@ def get_group_members(group_id):
         for member in group.members
     ]
 
-    #Entregar número de miembros aunque el usuario no pertenezca al grupo, pero no ver quién está dentro
+    # Entregar número de miembros aunque el usuario no pertenezca al grupo, pero no ver quién está dentro
     if user not in group.members:
         return jsonify({"count": len(members)}), 200
-    
+
     return jsonify(members), 200
+
 
 @api.route("/groups/<string:code>", methods=["GET"])
 @jwt_required()
 def search_group(code):
     user_id = int(get_jwt_identity())
-    user    = db.session.get(User, user_id)
+    user = db.session.get(User, user_id)
     group = db.session.execute(
         select(Group).where(Group.invite_code == code)
     ).scalar_one_or_none()
     if not group:
         return jsonify({"error": "Código inválido"}), 404
-    
+
     data = group.serialize()
     data["already_member"] = user in group.members
     return jsonify(data), 200
@@ -701,6 +728,8 @@ def get_ticketmaster_events():
         return jsonify({"error": "Error al conectar con Ticketmaster", "details": str(e)}), 502
 
 # — Memories ——————————————————————————————————————————————————
+
+
 @api.route('/groups/<int:group_id>/plans/<int:plan_id>/memories', methods=['GET'])
 @jwt_required()
 def get_memories(group_id, plan_id):
@@ -743,22 +772,22 @@ def add_memory(group_id, plan_id):
     plan = db.session.get(Plan, plan_id)
     if not plan or plan.group_id != group_id:
         return jsonify({"error": "Plan no encontrado"}), 404
-    
+
     data = request.get_json()
     if not data:
         return jsonify({"error": "JSON inválido"}), 400
-    
+
     comment = data.get("comment")
     if not comment or not comment.strip():
         return jsonify({"error": "El comentario es obligatorio"}), 400
-    
+
     if len(comment) > 500:
         return jsonify({"error": "Comentario demasiado largo"}), 400
-    
+
     memory = PlanMemory(
-        plan_id = plan_id,
-        user_id = user.id,
-        comment = comment
+        plan_id=plan_id,
+        user_id=user.id,
+        comment=comment
     )
     db.session.add(memory)
     db.session.commit()
