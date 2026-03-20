@@ -82,7 +82,10 @@ export const Plans = () => {
             <div className="row g-4 mt-1">
                 {plans.map((plan) => (
                     <div key={plan.id} className="col-12 col-md-6 col-xl-4">
-                        <PlansCard plan={plan} />
+                        <PlansCard 
+                            plan={plan}
+                            user={user}
+                         />
                     </div>
                 ))}
             </div>

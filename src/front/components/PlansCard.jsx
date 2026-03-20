@@ -2,8 +2,12 @@ import { Link } from "react-router-dom"
 import { planDateFormatLarge } from "../functions/planDateFormatLarge"
 import { planDateFormatShort } from "../functions/planDateFormatShort"
 import { planStatusFormat } from "../functions/planStatusFormat"
+import { useState } from "react"
+import { PlanModal } from "../components/PlanModal"
 
-export const PlansCard = ({ plan }) => {
+export const PlansCard = ({ plan, user }) => {
+
+    const [showPlanDetails, setShowPlanDetails] = useState(false)
 
     return (
         <div className="card border-0 shadow-sm rounded-4 h-100 dashBoard-card-medium-item  overflow-hidden dashboard-card-red-inverted ">
@@ -28,9 +32,8 @@ export const PlansCard = ({ plan }) => {
 
                 <hr style={{ color: "var(--clr-primary-a50)" }} />
                 {/* Button */}
-                <Link to={`/app/plans/details/${plan.id}`} className="btn btn-outline-light rounded-pill mt-auto">
-                    Ver plan
-                </Link>
+                <button className="btn btn-outline-light rounded-pill mt-auto" onClick={() => setShowPlanDetails(true)}>Ver Plan</button>
+                {showPlanDetails && <PlanModal onClose={() => setShowPlanDetails(false)} plan={plan} user={user} />}
             </div>
         </div>
     )
