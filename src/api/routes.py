@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
-CORS(api)
+CORS(api, resources={r"/api/*": {"origins": "*"}})
 
 
 @api.route('/hello', methods=['POST', 'GET'])
@@ -543,7 +543,7 @@ def get_top_plans(group_id):
     rating_plans = [plan for plan in plans if plan.ratings]
 
     rating_plans.sort(key=lambda plan: sum(
-        rating.score for rating in plan.ratings) / len(plan.ratings), reverse=True)
+    rating.score for rating in plan.ratings) / len(plan.ratings), reverse=True)
 
     return jsonify([plan.serialize() for plan in rating_plans]), 200
 

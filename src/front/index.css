@@ -104,8 +104,25 @@ span {
 }
 
 .btn.active {
-  border: none;
-  background-color: var(--clr-primary-a0-opacity);
+  border: 1px solid transparent !important;
+  background-color: var(--clr-primary-a0-opacity) !important;
+  color: white !important;
+  font-weight: 600; 
+}
+
+/* Estado Hover para TODOS los botones */
+.btn:hover, .logout-hover-effect:hover {
+  background-color: var(--clr-primary-a0-opacity) !important;
+  color: white !important;
+  border-radius: 6px;
+  border: 1px solid transparent !important;
+  transition: background-color 0.2s ease;  
+}
+
+.btn:hover i, .btn:hover span,
+.btn.active i, .btn.active span,
+.logout-hover-effect:hover i, .logout-hover-effect:hover span {
+  color: white !important;
 }
 
 .nav-item-title {
@@ -132,7 +149,6 @@ span {
 }
 
 .dashBoard-card-small {
-  /* border: 1px solid red; */
   background-color: var(--clr-surface-a10);
 }
 
@@ -143,8 +159,22 @@ span {
 
 .dashBoard-card-small p {
   color: var(--text-muted);
-  /* letter-spacing: .05rem; */
   font-weight: 600;
+}
+
+/*-------------- PARA LOGOUT -------------- */
+
+.logout-hover-effect {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border: 1px solid transparent !important; 
+  background: none;
+  color: inherit;
+  font-weight: 600; 
+}
+
+.logout-hover-effect:hover {  
+  border: 1px solid transparent !important;
 }
 
 /*-------------- SMALL CARDS -------------- */
