@@ -36,7 +36,7 @@ export const appNav = [
         label: "Componentes",
         icon: "bi-info-circle",
         path: "/app/componentes",
-      }
+      },
     ],
   },
   {
@@ -45,12 +45,18 @@ export const appNav = [
       {
         label: "Perfil",
         icon: "bi-person-circle",
-        path: "/app/perfil",
+        path: "/app/profile",
       },
       {
         label: "Ayuda",
         icon: "bi-info-circle",
         path: "/app/ayuda",
+      },
+      {
+        label: "Cerrar sesión",
+        icon: "bi-box-arrow-right",
+        path: "#",
+        isLogout: true, // Esta es la "llave" que activa la alerta
       },
     ],
   },
@@ -77,11 +83,11 @@ export const appNav = [
         icon: "bi-info-circle",
         path: "/app/descubre",
       },
-       {
+      {
         label: "Configuracion",
         icon: "bi-gear",
         path: "/app/ayuda",
-      }
+      },
     ],
-  }
+  },
 ];
