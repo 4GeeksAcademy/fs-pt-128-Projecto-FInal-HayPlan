@@ -45,7 +45,7 @@ export const appNav = [
       {
         label: "Perfil",
         icon: "bi-person-circle",
-        path: "/app/perfil",
+        path: "/app/profile",
       },
       {
         label: "Ayuda",

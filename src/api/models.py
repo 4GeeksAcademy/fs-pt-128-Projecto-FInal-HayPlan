@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import String, Boolean, Text, ForeignKey, Enum, DateTime, Integer, Float
+from sqlalchemy import String, Boolean, Text, ForeignKey, Enum, DateTime, Integer, Float, Date
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 import enum
 from datetime import datetime, timezone
@@ -27,10 +27,20 @@ group_members = db.Table(
     
 class User(db.Model):
     id: Mapped[int] = mapped_column(primary_key=True)
+    is_active: Mapped[bool] = mapped_column(Boolean(), default=True, nullable=False)
     email: Mapped[str] = mapped_column(String(120), unique=True, nullable=False)
     password_hash: Mapped[str] = mapped_column(nullable=False)  
     username: Mapped[str] = mapped_column(String(120), unique=True, nullable=False) 
-    is_active: Mapped[bool] = mapped_column(Boolean(), default=True, nullable=False)
+    
+    # CAMPOS PARA PERFIL
+    first_name: Mapped[str] = mapped_column(String(100), nullable=True)
+    last_name: Mapped[str] = mapped_column(String(100), nullable=True)
+    phone: Mapped[str] = mapped_column(String(20), nullable=True)
+    birthday: Mapped[datetime] = mapped_column(Date, nullable=True)
+    gender: Mapped[str] = mapped_column(String(20), nullable=True)
+    city: Mapped[str] = mapped_column(String(100), nullable=True)
+    country: Mapped[str] = mapped_column(String(100), nullable=True)
+    profile_picture: Mapped[str] = mapped_column(String(100), nullable=True, default="fa-user")
 
     #PF
     admin_groups: Mapped[List["Group"]] = relationship("Group", back_populates="admin")
@@ -50,6 +60,14 @@ class User(db.Model):
             "email": self.email,
             "username": self.username,
             # do not serialize the password, its a security breach
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "profile_picture": self.profile_picture,
+            "phone": self.phone,
+            "birthday": self.birthday.strftime('%Y-%m-%d') if self.birthday else None,
+            "gender": self.gender,
+            "city": self.city,
+            "country": self.country
         }
 
 
