@@ -88,7 +88,7 @@ span {
   letter-spacing: 1px;
 }
 
-.member-divider{
+.member-divider {
   border-bottom: 1px solid var(--clr-primary-a50-opacity);
 }
 /*-------------- GENERAL -------------- */
@@ -274,26 +274,26 @@ span {
   filter: brightness(0.8);
 }
 /* --- ESTILOS PARA DESCUBRE--- */
-/* Estilos para Descubre */
+
 .search-input-custom {
-  background-color: var(--clr-surface-a50) !important;
+  background-color: var(--text-muted) !important;
   border-radius: 12px;
   font-size: 1.1rem;
-  color: var(--text-primary) !important;
+  color: var(--clr-surface-a0) !important;
 }
 
 .category-card {
   height: 180px;
   background-size: cover;
   background-position: center;
-  border-radius: 18px;
+  border-radius: 14px;
   display: flex;
   align-items: flex-end;
   padding: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
-  border: 3px solid transparent;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  /* border: 3px solid transparent; */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .category-card:hover {
@@ -321,7 +321,7 @@ span {
 .ticket-badge {
   background-color: var(--clr-primary-a0-opacity) !important;
   color: var(--clr-primary-a10) !important;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: bold;
 }
 
@@ -340,8 +340,6 @@ span {
   color: var(--clr-primary-a10);
   font-size: 1.2em;
 }
-
-
 
 /* --- ESTILO DE HERO SECTION --- */
 .hero-box {
@@ -363,7 +361,7 @@ span {
 /* --- ESTILOS PARA FORMULARIOS GRUPOS Y PLANES (creación) --- */
 
 .form-container-custom {
-  max-width: 700px;  
+  max-width: 700px;
   color: var(--clr-light-a0);
 }
 
@@ -392,13 +390,17 @@ span {
 
 /* --- PARA EL PLACEHOLDER --- */
 .form-input-dark::placeholder {
-  color: var(--text-muted) !important; 
-  opacity: 0.7; 
+  color: var(--text-muted) !important;
+  opacity: 0.7;
 }
 
 /* Para navegadores antiguos o específicos */
-.form-input-dark:-ms-input-placeholder { color: var(--text-muted) !important; }
-.form-input-dark::-ms-input-placeholder { color: var(--text-muted) !important; }
+.form-input-dark:-ms-input-placeholder {
+  color: var(--text-muted) !important;
+}
+.form-input-dark::-ms-input-placeholder {
+  color: var(--text-muted) !important;
+}
 
 /* --- ESTILO PARA EL SELECT --- */
 select.form-input-dark:invalid,
