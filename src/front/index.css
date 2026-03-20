@@ -460,4 +460,7 @@ input[type="time"]::-webkit-calendar-picker-indicator {
 
 
 
-/* ESTILO PARA MODALES */
+/* ESTILO PARA DETALLES DE GRUPO / ELIMINAR MIEMBRO */
+.trash-btn:hover {
+  transform: scale(1.5);
+}

@@ -41,7 +41,7 @@ export const JoinGroupModal = ({ onClose }) => {
         if (!response) {
             setError("Error al unirse al grupo")
         } else {
-            onClose(); navigate(`/groups/${group.id}`);
+            onClose(); navigate(`/app/groups/${group.id}`);
         }
         setJoining(false);
     }

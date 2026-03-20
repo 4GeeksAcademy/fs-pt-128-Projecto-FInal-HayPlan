@@ -247,6 +247,20 @@ export const addMember = async (groupId, memberId) => {
     }
     return data;
 }
+export const deleteMember = async (groupId, memberId) => {
+    const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/members/${memberId}`, {
+        method: "DELETE",
+        headers:{
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json"
+        }
+    });
+    const data = await response.json()
+    if (!response.ok) {
+        return false;
+    }
+    return data;
+}
 
 export const getVotePlan = async (groupId, planId) => {
     const response = await fetch (`${import.meta.env.VITE_BACKEND_URL}/api/groups/${groupId}/plans/${planId}/votes`, {

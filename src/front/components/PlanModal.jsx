@@ -82,9 +82,9 @@ export const PlanModal = ({ onClose, plan, user }) => {
                         ></button>
                     </div>
 
-                    <div className="modal-body px-4 d-flex justify-content-between">
+                    <div className="modal-body px-4 d-flex justify-content-between row">
                         {/* LEFT INFO */}
-                        <div>
+                        <div className="col-6 d-flex gap-3 flex-column">
                             <div className="info-badges">
                                 <div
                                     className="badge rounded-pill d-inline-flex align-items-center gap-1"
@@ -125,7 +125,7 @@ export const PlanModal = ({ onClose, plan, user }) => {
                             </div>
                             {plan.status !== "cerrado" && (
                                 <div className="progress-bar my-3">
-                                    <p className="mb-1 text-secondary text-start">PROGRESO</p>
+                                    <p className="mb-0 text-secondary text-start">PROGRESO</p>
                                     <ol className="progress-tracker progress-tracker--center"
                                         style={{
                                             "--marker-size": "20px",
@@ -162,6 +162,7 @@ export const PlanModal = ({ onClose, plan, user }) => {
                             {plan.status === "votacion" && (
                                 <div className="py-2 px-4 rounded-2" style={{ background: "rgba(255, 255, 255, 0.02)" }}>
                                     <p className="mb-1 text-secondary text-start">VOTACIÓN</p>
+                                    <div className="d-flex justify-content-around my-1">
                                     <button className="btn rounded-pill px-3 fw-bold shadow-s border-0 text-white small d-inline-flex align-items-center gap-1 me-2"
                                         style={{ background: "rgba(75,176,106,0.14)", color: "rgb(75,176,106)" }}
                                         onClick={() => votePlan(plan.group_id, plan.id, true)}
@@ -176,6 +177,7 @@ export const PlanModal = ({ onClose, plan, user }) => {
                                         <i className="fa-solid fa-x fa-2xs"></i>
                                         Rechazar
                                     </button>
+                                    </div>
                                 </div>
                             )}
 
@@ -241,74 +243,76 @@ export const PlanModal = ({ onClose, plan, user }) => {
                             }
                         </div>
                         {/* RIGHT INFO */}
-                        <div className="py-2 px-4 rounded-2" style={{ background: "rgba(255, 255, 255, 0.02)" }}>
-                            {organizer &&
-                                <div className="mb-3">
-                                    <p className="mb-1 text-secondary text-start">ACCIONES</p>
-                                    <div className="plan-buttons d-flex align-items-center gap-2">
-                                        <button className="btn rounded-pill px-2 fw-bold shadow-s border-0 text-white small d-inline-flex align-items-center gap-1"
-                                            style={{ background: "rgb(255, 122, 61)" }}
-                                            onClick={() => advanceStatus(plan.group_id, plan.id)}
-                                        >
-                                            <i className="fa-solid fa-forward fa-2xs"></i>
-                                            Avanzar estado
-                                        </button>
-                                        <button className="btn rounded-pill px-2 fw-bold shadow-s border-0 text-white small d-inline-flex align-items-center gap-1 p-2"
-                                            style={{ background: "rgb(27, 23, 22)" }} disabled={plan.status === "confirmado" || plan.status === "activo"}
-                                        >
-                                            <i className="fa-solid fa-pen fa-2xs"></i>
-                                            Editar plan
-                                        </button>
-                                    </div>
-                                </div>
-                            }
-                            <div className="plan-description p-2 rounded-2" style={{ background: "rgba(255, 255, 255, 0.03)" }}>
-                                <p className="mb-1 text-secondary text-start">DESCRIPCIÓN</p>
-                                <p className="mb-1 text-start">{plan.description}</p>
-                                <p className="mt-3 mb-1 text-secondary text-start">FECHA</p>
-                                <p className="mb-1 text-start">{planDateFormatLarge(plan.date)}</p>
-                            </div>
-                            <div className="members">
-                                <p className="mt-2 mb-1 text-secondary text-start">MIEMBROS</p>
-                                {members.map(member => {
-                                    const voto = votes?.find(vote => vote.user_id === member.id)
-                                    const badge = !voto
-                                        ? { label: "Pendiente", bg: "rgba(255,184,77,0.14)", color: "rgb(255,184,77)" }
-                                        : voto.vote === true
-                                            ? { label: "Confirmado", bg: "rgba(75,176,106,0.14)", color: "rgb(75,176,106)" }
-                                            : { label: "Declinado", bg: "rgba(255,92,77,0.14)", color: "rgb(255,92,77)" }
-                                    return (
-                                        <div key={member.id} className="member-card d-flex alig-items-center justify-content-between py-2 px-3 rounded-2 gap-5"
-                                            style={{ backgroundColor: "rgba(255, 255, 255, 0.03)" }}>
-                                            <div className="member-info d-flex align-items-center justify-content-between gap-2">
-                                                <div className="member-logo d-flex align-items-center justify-content-center rounded-circle fw-bold"
-                                                    style={{
-                                                        width: "45px",
-                                                        height: "45px",
-                                                        backgroundColor: "rgba(255, 193, 7, 0.15)",
-                                                    }}>
-                                                    {member.username.slice(0, 2).toUpperCase()}
-                                                </div>
-                                                <div className="member-name">
-                                                    <h6 className="m-0 fw-bold">{member.username.charAt(0).toUpperCase() + member.username.slice(1)}</h6>
-                                                </div>
-                                            </div>
-                                            <div className="badge rounded-pill d-inline-flex align-items-center gap-1"
-                                                style={{ backgroundColor: badge.bg, color: badge.color }}>
-                                                {badge.label}
-                                            </div>
+                        <div className="col-6">
+                            <div className="py-2 px-4 rounded-2" style={{ background: "rgba(255, 255, 255, 0.02)", minHeight:"420px"}}>
+                                {organizer &&
+                                    <div className="mb-3">
+                                        <p className="mb-1 text-secondary text-start">ACCIONES</p>
+                                        <div className="plan-buttons d-flex align-items-center gap-2">
+                                            <button className="btn rounded-pill px-2 fw-bold shadow-s border-0 text-white small d-inline-flex align-items-center gap-1"
+                                                style={{ background: "rgb(255, 122, 61)" }}
+                                                onClick={() => advanceStatus(plan.group_id, plan.id)}
+                                            >
+                                                <i className="fa-solid fa-forward fa-2xs"></i>
+                                                Avanzar estado
+                                            </button>
+                                            <button className="btn rounded-pill px-2 fw-bold shadow-s border-0 text-white small d-inline-flex align-items-center gap-1 p-2"
+                                                style={{ background: "rgb(27, 23, 22)" }} disabled={plan.status === "confirmado" || plan.status === "activo"}
+                                            >
+                                                <i className="fa-solid fa-pen fa-2xs"></i>
+                                                Editar plan
+                                            </button>
                                         </div>
-                                    )
-                                })}
+                                    </div>
+                                }
+                                <div className="mt-2 plan-description p-2 rounded-2" style={{ background: "rgba(255, 255, 255, 0.03)" }}>
+                                    <p className="mb-1 text-secondary text-start">DESCRIPCIÓN</p>
+                                    <p className="mb-1 text-start">{plan.description}</p>
+                                    <p className="mt-3 mb-1 text-secondary text-start">FECHA</p>
+                                    <p className="mb-1 text-start">{planDateFormatLarge(plan.date)}</p>
+                                </div>
+                                <div className="members">
+                                    <p className="mt-2 mb-1 text-secondary text-start">MIEMBROS</p>
+                                    {members.map(member => {
+                                        const voto = votes?.find(vote => vote.user_id === member.id)
+                                        const badge = !voto
+                                            ? { label: "Pendiente", bg: "rgba(255,184,77,0.14)", color: "rgb(255,184,77)" }
+                                            : voto.vote === true
+                                                ? { label: "Confirmado", bg: "rgba(75,176,106,0.14)", color: "rgb(75,176,106)" }
+                                                : { label: "Declinado", bg: "rgba(255,92,77,0.14)", color: "rgb(255,92,77)" }
+                                        return (
+                                            <div key={member.id} className="member-card d-flex alig-items-center justify-content-between py-2 px-3 rounded-2 gap1 mb-2"
+                                                style={{ backgroundColor: "rgba(255, 255, 255, 0.03)" }}>
+                                                <div className="member-info d-flex align-items-center justify-content-between gap-2">
+                                                    <div className="member-logo d-flex align-items-center justify-content-center rounded-circle fw-bold"
+                                                        style={{
+                                                            width: "45px",
+                                                            height: "45px",
+                                                            backgroundColor: "rgba(255, 193, 7, 0.15)",
+                                                        }}>
+                                                        {member.username.slice(0, 2).toUpperCase()}
+                                                    </div>
+                                                    <div className="member-name">
+                                                        <h6 className="m-0 fw-bold">{member.username.charAt(0).toUpperCase() + member.username.slice(1)}</h6>
+                                                    </div>
+                                                </div>
+                                                <div className="badge rounded-pill d-inline-flex align-items-center gap-1"
+                                                    style={{ backgroundColor: badge.bg, color: badge.color }}>
+                                                    {badge.label}
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+
+
                             </div>
-
-
                         </div>
-
                     </div>
-
                 </div>
+
             </div>
+
         </div >
     )
 }
