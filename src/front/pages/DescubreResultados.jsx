@@ -46,6 +46,7 @@ export const DescubreResultados = () => {
                     <div className="text-center py-5">
                         <div className="spinner-border text-light" role="status"></div>
                     </div>
+<<<<<<< Updated upstream
                 ) : store.events && store.events.length > 0 ? (                    
                     <div className="row g-4 justify-content-start"> 
                         {store.events.map((event) => (                            
@@ -60,6 +61,28 @@ export const DescubreResultados = () => {
                                 />
                             </div>
                         ))}
+=======
+                ) : store.events && store.events.length > 0 ? (
+                    <div className="row g-3 g-md-4">
+                        {store.events.map((event) => {
+                            const venueName = event._embedded?.venues?.[0]?.name || "Lugar por confirmar";
+                            const cityName = event._embedded?.venues?.[0]?.city?.name || "";
+
+                            return (
+                                <div className="col-12 col-sm-6 col-xl-4" key={event.id}>
+                                    <EventCard
+                                        name={event.name}
+                                        image={event.images?.[0]?.url || "https://via.placeholder.com/450x250?text=No+Image"}
+                                        date={event.dates?.start?.localDate}
+                                        time={event.dates?.start?.localTime}
+                                        venue={venueName}
+                                        city={cityName}  
+                                        url={event.url}
+                                    />
+                                </div>
+                            );
+                        })}
+>>>>>>> Stashed changes
                     </div>
                 ) : (
                     <div className="text-center py-5">

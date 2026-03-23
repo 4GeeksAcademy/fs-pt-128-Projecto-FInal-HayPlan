@@ -1,9 +1,15 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+<<<<<<< Updated upstream
 import re  # Para expresiones regulares
 import os  # Para leer la API KEY del .env
 import requests  # Para peticiones a Ticketmaster
+=======
+import re
+import os  
+import requests  
+>>>>>>> Stashed changes
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Group, Plan, PlanStatus, Vote
 from api.utils import generate_sitemap, APIException
@@ -14,8 +20,13 @@ from datetime import datetime, timezone
 
 api = Blueprint('api', __name__)
 
+<<<<<<< Updated upstream
 # Allow CORS requests to this API
 CORS(api)
+=======
+# Allow CORS
+CORS(api, resources={r"/api/*": {"origins": "*"}})
+>>>>>>> Stashed changes
 
 
 @api.route('/hello', methods=['POST', 'GET'])
@@ -33,12 +44,16 @@ def handle_hello():
 def signup():
     data = request.get_json()
     email = data.get('email')
-    password = data.get('password')
-    # Recibe y verifica el nombre de usuario del formulario
+    password = data.get('password')    
     username = data.get('username')
+<<<<<<< Updated upstream
 
     # Valida que tenga username
     if not email or not password or not username:
+=======
+    
+    if not email or not password or username is None:
+>>>>>>> Stashed changes
         return jsonify({"error": "Email, contraseña y nombre de usuario son requeridos"}), 400
 
     # Validación de formato de email (Regex)
@@ -52,13 +67,13 @@ def signup():
     if existing_user_email:
         return jsonify({"error": "¡Ups! Parece que ya tienes una cuenta con nosotros. Intenta iniciar sesión."}), 400
 
-    # Verifica si el username ya existe para evitar errores de duplicidad
+    # Verifica username para evitar duplicidad
     existing_username = db.session.execute(db.select(User).where(
         User.username == username)).scalar_one_or_none()
     if existing_username:
         return jsonify({"error": "¡Vaya! Parece que ese nombre ya tiene dueño. 😅 Intenta con uno diferente o añade algún toque personal."}), 400
 
-     # Si todo esta Ok, se crea el usuario incluyendo el username
+     # Si todo esta Ok, se crea el usuario
     new_user = User(email=email, username=username, is_active=True)
     new_user.set_password(password)
 
@@ -70,8 +85,7 @@ def signup():
 # Ruta para el Login (inicio de sesión)
 
 @api.route('/login', methods=['POST'])
-def login():
-    # Verifica que el email y password estén creados
+def login():    
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
@@ -85,14 +99,12 @@ def login():
 
     if user is None:
         return jsonify({"error": "Email o contraseña invalido"}), 401
-
-    # Si el usuario existe y la contraseña es correcta (Uso el método check_password)
-    if user and user.check_password(password):
-        # Creamos el token de acceso
+    
+    if user and user.check_password(password):        
         access_token = create_access_token(identity=str(user.id))
         return jsonify({"msg": "Login correcto", "token": access_token, "user_id": user.serialize()}), 200
 
-    # Si algo falla, devolvemos un error por seguridad
+    # Si algo falla, devolvemos un error.
     else:
         return jsonify({"error": "Algo no cuadra, revisa tu email o contraseña."}), 401
 
@@ -101,7 +113,11 @@ def login():
 
 @api.route('/editProfile', methods=['PUT'])
 @jwt_required()
+<<<<<<< Updated upstream
 def update_private():
+=======
+def update_profile():   
+>>>>>>> Stashed changes
     user_id = get_jwt_identity()
     user = db.session.get(User, int(user_id))
 
@@ -118,8 +134,19 @@ def update_private():
         db.select(User).where(User.username == username, User.id != user.id)
     ).scalar_one_or_none()
 
+<<<<<<< Updated upstream
     if existing:
         return jsonify({"error": "El usuario ya existe"}), 400
+=======
+    #  Campos del modelo User
+    user.first_name = data.get("first_name", user.first_name)
+    user.last_name = data.get("last_name", user.last_name)
+    user.phone = data.get("phone", user.phone)
+    user.gender = data.get("gender", user.gender)
+    user.city = data.get("city", user.city)
+    user.country = data.get("country", user.country)
+    user.profile_picture = data.get("profile_picture", user.profile_picture)
+>>>>>>> Stashed changes
 
     user.username = username
 
@@ -552,6 +579,7 @@ def get_votes(group_id, plan_id):
 def get_ticketmaster_events():
     api_key = os.getenv("TICKETMASTER_API_KEY")
 
+<<<<<<< Updated upstream
     if not api_key:
         return jsonify({"error": "API Key no configurada"}), 500
 
@@ -562,6 +590,9 @@ def get_ticketmaster_events():
     
     if city:
         url += f"&city={city}"
+=======
+    all_events = [] 
+>>>>>>> Stashed changes
 
     try:
         response = requests.get(url)
