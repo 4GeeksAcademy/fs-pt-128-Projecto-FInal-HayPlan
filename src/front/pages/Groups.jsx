@@ -17,7 +17,6 @@ export const Groups = () => {
         const response = await getUser()
         if (response) {
             setUser(response)
-            console.log(response);
         }
         else {
             localStorage.removeItem("token")
@@ -28,7 +27,6 @@ export const Groups = () => {
     const getInfo = async () => {
         const responseGroups = await getAllGroups()
         setGroups(responseGroups)
-        console.log(responseGroups);
         setLoadingPage(false)
     }
 

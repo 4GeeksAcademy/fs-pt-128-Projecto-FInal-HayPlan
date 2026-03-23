@@ -96,7 +96,7 @@ export const GroupDetails = () => {
 							<StatsRow
 								memberCount={members.length}
 								// TODO: replace with real group.created_at when backend adds it
-								createdAt={"2024-01-10"}
+								createdAt={group.created_at}
 							/>
 						</div>
 

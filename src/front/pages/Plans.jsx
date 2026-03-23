@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { getAllPlans, getUser, getGroupMembers } from "../services/backEndServices"
 import { PlansCard } from "../components/PlansCard"
 import { useNavigate } from "react-router-dom"
-
 export const Plans = () => {
 
     const navigate = useNavigate()
@@ -68,7 +67,6 @@ export const Plans = () => {
         const response = await getUser()
         if (response) {
             setUser(response)
-            console.log(response);
         }
         else {
             localStorage.removeItem("token")
@@ -91,7 +89,7 @@ export const Plans = () => {
             getInfo()
             // setLoadingPage(false)
         }
-    }, [user])
+    }, [user, allPlans])
 
     const renderPlansGrid = (plans) => {
         if (plans.length < 1) {
