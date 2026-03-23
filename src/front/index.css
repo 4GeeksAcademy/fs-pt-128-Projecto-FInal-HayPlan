@@ -454,8 +454,7 @@ span {
   padding: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
-  /* border: 3px solid transparent; */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .category-card:hover {
@@ -866,7 +865,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 .form-input-dark, 
 .form-select.form-input-dark,
-.input-group-text,
+/* .input-group-text, */
 .btn.form-input-dark {
     height: 48px !important;
     min-height: 48px !important;
