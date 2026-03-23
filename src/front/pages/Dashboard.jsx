@@ -96,7 +96,7 @@ export const Dashboard = () => {
     if (user) {
       getInfo()
     }
-  }, [user])
+  }, [user, groups, nextPlans])
 
   useEffect(() => {
     const interval = setInterval(() => {

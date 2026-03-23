@@ -11,7 +11,6 @@ export const GroupsCard = ({ group }) => {
 
     const getInfo = async (group) => {
         const responsePlans = await getGroupPlans(group.id)
-        console.log(responsePlans)
 
         const sortedPlan = responsePlans
             .filter(plan => new Date(plan.date) > new Date())
