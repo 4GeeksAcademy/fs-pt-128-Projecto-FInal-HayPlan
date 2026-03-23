@@ -121,7 +121,7 @@ h4 {
 .pill-highlight-accent4,
 .pill-highlight-accent5,
 .pill-highlight-accent6,
-.pill-highlight-accent7 {
+.pill-highlight-accent7  {
   font-family: "Syne", sans-serif !important;
   font-weight: 800;
   /* font-size: clamp(12px, 4vw, 28px) !important; */
@@ -195,6 +195,11 @@ h4 {
 
 .pill-highlight-accent7 {
   color: var(--accent7);
+  border-color: 1px solid var(--accent3) !important;
+}
+
+.pill-highlight-accent8 {
+  color: var(--clr-primary-a0);
   border-color: 1px solid var(--accent3) !important;
 }
 
