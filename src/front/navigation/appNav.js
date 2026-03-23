@@ -14,9 +14,14 @@ export const appNav = [
       },
       {
         label: "Planes",
-        icon: "bi-journal-check",
+        icon: "bi-people",
         path: "/app/plans",
       },
+      {
+        label: "Descubre",
+        icon: "bi-search",
+        path: "/app/descubre",
+      }
       // {
       //   label: "Detalle de Plan",
       //   icon: "bi-journal-check",
@@ -27,11 +32,7 @@ export const appNav = [
       //   icon: "bi-bar-chart",
       //   path: "/app/group1",
       // },
-      {
-        label: "Descubre",
-        icon: "bi-search",
-        path: "/app/descubre",
-      }
+      
     ],
   },
   {
@@ -43,16 +44,17 @@ export const appNav = [
         path: "/app/profile",
       },
       {
-        label: "Ayuda",
-        icon: "bi-info-circle",
-        path: "/app/ayuda",
-      },
-      {
         label: "Cerrar sesión",
         icon: "bi-box-arrow-right",
         path: "#",
         isLogout: true, // Esta es la "llave" que activa la alerta
-      },
+      }
+      // {
+      //   label: "Ayuda",
+      //   icon: "bi-info-circle",
+      //   path: "/app/ayuda",
+      // },
+      
     ],
   },
   {
