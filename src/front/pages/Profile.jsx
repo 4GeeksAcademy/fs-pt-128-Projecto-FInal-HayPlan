@@ -21,19 +21,20 @@ export const Profile = () => {
     };
 
     return (
-        <div className="container mt-4 mt-md-5 mb-5" style={{ maxWidth: "900px" }}>
+        <div className="container mt-4 mt-md-5 mb-5" style={{ maxWidth: "950px" }}>
 
             {/* BOTÓN VOLVER */}
             <div className="mb-2">
                 <button
-                    className="btn-descartar-custom d-inline-flex align-items-center fs-5 fw-semibold"
+                    className="btn-back-custom d-inline-flex align-items-center text-white border-0 bg-transparent p-0"
                     onClick={() => window.history.back()}
+                    style={{ textDecoration: 'none' }}
                 >
-                    <i className="fas fa-arrow-left icon-back-custom me-2 fa-lg"></i> Volver
+                    <span className="me-2">⟵</span> <small className="fs-6 fw-bold">Volver</small>
                 </button>
             </div>
 
-            {/* TÍTULO CENTRADO */}
+            {/* TÍTULO */}
             <div className="text-center mb-4 mb-md-5">
                 <h1 className="display-4 fw-bold m-0 text-white">Mi Perfil</h1>
             </div>
@@ -41,38 +42,43 @@ export const Profile = () => {
             {/* TARJETA PRINCIPAL */}
             <div className="card p-3 p-md-5 profile-card-container shadow-lg">
 
-                {/* IDENTIDAD: Centrada verticalmente */}
+                {/* IDENTIDAD*/}
                 <div className="row mb-4 mb-md-5 profile-divider pb-4 align-items-center text-center text-md-start">
 
-                    <div className="col-12 col-md-2 mb-3 mb-md-0 d-flex flex-column align-items-center">
+                    {/* Avatar y Username */}
+                    <div className="col-12 col-md-3 mb-4 mb-md-0 d-flex flex-column align-items-center">
                         <div className="rounded-circle avatar-circle-profile shadow-lg mb-3">
                             <i className={`fas ${store.user?.profile_picture || 'fa-users'}`}></i>
                         </div>
-                        <span className="badge rounded-pill username-badge w-100 text-center py-2">
-                            @{store.user?.username || "Robb"}
+                        <span className="badge rounded-pill username-badge px-3 py-2 w-100 text-center">
+                            @{store.user?.username || "usuario"}
                         </span>
                     </div>
 
-                    <div className="col-12 col-md-6 px-md-4 mt-3 mt-md-0">
-                        <label className="text-muted small text-uppercase fw-bold mb-1 d-block" style={{ letterSpacing: "1px", opacity: 0.8 }}>
+                    {/* Nombre Completo */}
+                    <div className="col-12 col-md-5 mb-4 mb-md-0 px-md-4">
+                        <label className="text-muted small text-uppercase fw-bold mb-2 d-block" style={{ letterSpacing: "1px", opacity: 0.8 }}>
                             Nombre Completo
                         </label>
-                        <p className="fs-2 fw-bold text-white mb-0">
-                            {store.user?.first_name || "Robbi"} {store.user?.last_name || "Prueba"}
+                        <p className={`fs-2 fw-bold mb-0 text-break ${!store.user?.first_name ? 'text-muted opacity-50' : 'text-white'}`}>
+                            {store.user?.first_name || store.user?.last_name 
+                                ? `${store.user?.first_name || ""} ${store.user?.last_name || ""}` 
+                                : "Actualiza tu nombre"}
                         </p>
                     </div>
 
-                    <div className="col-12 col-md-4 mt-4 mt-md-0 text-md-end">
-                        <label className="text-muted small text-uppercase fw-bold mb-1 d-block" style={{ letterSpacing: "1px", opacity: 0.8 }}>
+                    {/* Correo Electrónico */}
+                    <div className="col-12 col-md-4 text-md-end">
+                        <label className="text-muted small text-uppercase fw-bold mb-2 d-block" style={{ letterSpacing: "1px", opacity: 0.8 }}>
                             Correo Electrónico
                         </label>
-                        <p className="fs-5 text-white-50 m-0 text-break">
-                            {store.user?.email || "prueba@prueba.com"}
+                        <p className="fs-6 text-white-50 m-0 text-break">
+                            {store.user?.email || "correo@ejemplo.com"}
                         </p>
                     </div>
                 </div>
 
-                {/* DETALLES: Teléfono, Cumpleaños, Género */}
+                {/* Teléfono, Cumpleaños, Género */}
                 <div className="row g-4 g-md-5">
                     <div className="col-12 col-sm-4 text-center">
                         <div className="d-flex align-items-center justify-content-center mb-2">
@@ -115,7 +121,7 @@ export const Profile = () => {
                 {/* BOTÓN EDITAR PERFIL */}                
                 <div className="d-flex justify-content-center mt-5 pt-4 border-top border-secondary" style={{ borderColor: "rgba(255,255,255,0.05) !important" }}>
                     <button
-                        className="btn btn-edit-profile px-5 py-2 shadow-sm w-auto" // Usamos w-auto para que no se estire
+                        className="btn btn-edit-profile px-5 py-2 shadow-sm w-auto"
                         data-bs-toggle="modal"
                         data-bs-target="#editProfileModal"
                     >
@@ -129,7 +135,3 @@ export const Profile = () => {
         </div>
     );
 };
-
-
-
-

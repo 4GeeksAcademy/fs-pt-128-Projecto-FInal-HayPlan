@@ -31,12 +31,17 @@ export const Instructions = () => {
                                             <p className="small text-white-50 mb-0">
                                                 ¿No saben qué hacer? Dejen que la ruleta decida.
                                             </p>
-                                            <img
-                                                className="mt-3"
-                                                src={iconLogoColor}
-                                                alt="Hay Plan logo"
-                                                style={{ width: "60px" }}
-                                            />
+                                            <div className="d-flex justify-content-center align-items-center gap-2 mt-3">
+                                                <img
+                                                    className=""
+                                                    src={iconLogoColor}
+                                                    alt="Hay Plan logo"
+                                                    style={{ width: "60px" }}
+                                                />
+                                                <span className="small mb-0 mt-3 pill-highlight-accent8 badge rounded-pill border align-self-start px-4">
+                                                    Tenemos plan?
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +59,7 @@ export const Instructions = () => {
                                                     si voy!
                                                 </span>
                                                 <span className="small mb-0 mt-2 pill-highlight-accent6 badge rounded-pill border align-self-start px-4">
-                                                    Nah, otro dia.. 
+                                                    Nah, otro dia..
                                                 </span>
                                             </div>
                                         </div>

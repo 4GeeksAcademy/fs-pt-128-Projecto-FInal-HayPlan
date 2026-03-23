@@ -26,10 +26,10 @@ export const Hero = () => {
                     <div className="d-flex flex-column col-12 col-lg-6 text-lg-start">
                         
                         <div className="d-flex flex-column mb-3 p-4 text-center text-lg-start gap-2">
-                            <h1 className="text-start m-0"><span className="pill-highlight highlight-h4 badge rounded-pill border shake-hover fancy-pill"> Planifica </span></h1>
-                            <h2 className="ms-lg-5"><span className="highlight mb-0 d-inline-block"> con tus amigos sin perder tiempo</span></h2>
-                            <h2 className="ms-lg-5"><span className="highlight"> y conviertelos <br /> en planes que </span> </h2>
-                            <h2 className="text-end"><span className="pill-highlight-accent3 highlight-h4 btn badge rounded-pill border shake-hover"> sí pasan.</span> </h2>
+                            <h1 className="text-center m-0"><span className="pill-highlight highlight-h4 badge rounded-pill border shake-hover fancy-pill">Planifica</span></h1>
+                            <h2 className="text-center ms-lg-5"><span className="highlight mb-0 d-inline-block">con tus amigos sin perder tiempo</span></h2>
+                            <h2 className="text-center ms-lg-5"><span className="highlight"> y conviertelos <br /> en planes que </span> </h2>
+                            <h2 className="text-center"><span className="pill-highlight-accent3 highlight-h4 btn badge rounded-pill border shake-hover"> sí pasan.</span> </h2>
                         </div>
 
                         <div className="d-flex gap-4 p- justify-content-center justify-content-lg-center">
