@@ -25,7 +25,7 @@ export const DashboardBlockMedium = ({ plan, user }) => {
             <div className="card-body d-flex align-items-center gap-3 p-3">
                 {/* icono o imagen?  */}
                 <div className="d-flex align-items-center justify-content-center rounded-3">
-                    <i className="bi bi-airplane"></i>
+                    <i className="bi bi-journal-check"></i>
                 </div>
                 {/* info del plan */}
                 <div className="flex-grow-1">
