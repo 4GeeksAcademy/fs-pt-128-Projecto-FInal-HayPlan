@@ -1,3 +1,11 @@
+import plan1 from "../assets/img/placeholder/plan1.jpg"
+import plan2 from "../assets/img/placeholder/plan2.webp"
+import plan3 from "../assets/img/placeholder/plan3.jpg"
+import plan4 from "../assets/img/placeholder/plan4.jpg"
+import plan5 from "../assets/img/placeholder/plan5.jpeg"
+import plan6 from "../assets/img/placeholder/plan6.jpg"
+import plan7 from "../assets/img/placeholder/plan7.jpg"
+
 import { useEffect, useState } from "react"
 import { getGroupMembers, getGroupPlans } from "../services/backEndServices"
 import { Link } from "react-router-dom"
@@ -26,22 +34,25 @@ export const GroupsCard = ({ group }) => {
         getInfo(group)
     }, [group.id])
 
+    const groupImages = [plan1, plan2, plan3, plan4, plan5, plan6, plan7]
+    const randomImage = groupImages[group.id % groupImages.length]
+
     return (
         <div className="col-lg-4 col-md-6 p-2">
             <div className="card border-0 shadow-sm rounded-4 h-100 dashBoard-card-medium-item overflow-hidden">
 
                 {/* IMAGE */}
-                <div className="bg-dark" style={{ height: "160px" }}></div>
-                {/* <div style={{ height: "140px", overflow: "hidden" }}>
+                {/* <div className="bg-dark" style={{ height: "160px" }}></div> */}
+                <div style={{ height: "140px", overflow: "hidden" }}>
                     <img
-                        src={group.image || "https://via.placeholder.com/600x300"}
+                        src={group.image || randomImage}
                         alt={group.name}
                         className="w-100 h-100"
                         style={{
                             objectFit: "cover"
                         }}
                     />
-                </div> */}
+                </div>
                 <div className="card-body d-flex flex-column dashboard-card-red-inverted ">
                     {/* TITLE + MEMBERS */}
                     <div className=" d-flex flex-md-row flex-lg-column align-content-center justify-content-between gap-2 mb-2">
